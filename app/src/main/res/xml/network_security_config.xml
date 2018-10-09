@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Allow clear traffic for localhost testing ONLY -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost:53739</domain>
+    </domain-config>
+</network-security-config>

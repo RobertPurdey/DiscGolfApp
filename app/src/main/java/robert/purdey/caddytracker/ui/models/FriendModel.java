@@ -1,5 +1,7 @@
 package robert.purdey.caddytracker.ui.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.UUID;
 
 /**
@@ -8,26 +10,27 @@ import java.util.UUID;
 
 public class FriendModel
 {
-    public UUID idKey;
-    public String nickName;
+    public UUID IdKey;
+
+    public String NickName;
 
     public UUID getIdKey()
     {
-        return idKey;
+        return IdKey;
     }
 
     public void setIdKey(UUID idKey)
     {
-        this.idKey = idKey;
+        this.IdKey = idKey;
     }
 
     public String getNickName()
     {
-        return nickName;
+        return NickName;
     }
 
     public void setNickName(String nickName)
     {
-        this.nickName = nickName;
+        this.NickName = nickName;
     }
 }
