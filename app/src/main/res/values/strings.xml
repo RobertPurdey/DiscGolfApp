@@ -1,3 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Caddy Tracker</string>
+    <!-- Activity Labels -->
+    <string name="app_name" translatable="false">Caddy Tracker</string>
+    <string name="main_menu">Main Menu</string>
+
+    <!-- ************************************** General Labels ********************************* -->
+    <string name="save">Save</string>
+    <string name="par">Par</string>
+    <string name="course_name">Course Name</string>
+    <string name="player_name">Player Name</string>
+
+    <string name="game_name">Game Name</string>
+    <string name="course">Course</string>
+    <string name="hole">Hole</string>
+    <string name="holes_colon">Holes:</string>
+
+    <string name="par_colon">Par:</string>
+    <string name="course_colon">Course:</string>
+    <string name="players_colon">Players:</string>
+    <string name="hole_colon">Hole:</string>
+
+    <string name="previous">Prev</string>
+    <string name="next">Next</string>
+    <string name="player">Player</string>
+    <string name="strokes">Stroke(s)</string>
+
+    <string name="finish">Finish</string>
+    <string name="score_game">Score Game</string>
+
+    <!-- ************************************** Main Menu Activity Labels ********************** -->
+    <!-- New Game button label -->
+    <string name="new_game">New Game</string>
+    <!-- Resume Game button label -->
+    <string name="resume_game">Resume Game</string>
+    <!-- Statistics button label -->
+    <string name="statistics">Statistics</string>
+    <!-- Manage Players button label -->
+    <string name="manage_friends">Manage Friends</string>
+    <!-- Manage Courses button label -->
+    <string name="manage_courses">Manage Courses</string>
+    <!-- Help button label -->
+    <string name="help_app">Help</string>
+
+    <!-- ************************************** Help Activity Labels *************************** -->
+    <!-- Step 1 -->
+    <string name="help_1">1. Add player(s)</string>
+    <!-- Step 2 -->
+    <string name="help_2">2. Add a course</string>
+    <!-- Step 3 -->
+    <string name="help_3">3. Start a new game</string>
+    <!-- Step 4 -->
+    <string name="help_4">4. Score the game</string>
+
+    <!-- ************************************** New Game Activity Labels *********************** -->
+    <!-- Start Game button label -->
+    <string name="start_game">Start Game</string>
+
+    <!-- ************************************** Add Player Activity Labels ****************** -->
+    <!-- Add Player button label -->
+    <string name="add_player">Add Player</string>
+
+    <!-- ************************************** Add Course Activity Labels ****************** -->
+    <!-- Add Course button label -->
+    <string name="add_course">Add Course</string>
+    <!-- Ask user to select number of holes -->
+    <string name="num_of_holes"># Of Holes</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
