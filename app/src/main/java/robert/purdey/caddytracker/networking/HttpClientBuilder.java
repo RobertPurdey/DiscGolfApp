@@ -30,7 +30,7 @@ public class HttpClientBuilder implements IHttpClientBuilder
 
         return okHttpClientBuilder.build();
     }
-    
+
     private Request buildRequest(Request request, HttpClientArg arg)
     {
         final Request.Builder newRequest = request.newBuilder();
