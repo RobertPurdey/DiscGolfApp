@@ -4,7 +4,7 @@ package robert.purdey.caddytracker.networking.contracts;
 import okhttp3.OkHttpClient;
 import robert.purdey.caddytracker.networking.arguments.HttpClientArg;
 
-public interface IHttpClientBuilder
+public interface IHttpClientConfig
 {
-    OkHttpClient build(HttpClientArg arg);
+    OkHttpClient configure(HttpClientArg arg);
 }

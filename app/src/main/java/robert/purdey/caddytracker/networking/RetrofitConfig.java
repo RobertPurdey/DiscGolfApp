@@ -3,12 +3,12 @@ package robert.purdey.caddytracker.networking;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import robert.purdey.caddytracker.networking.contracts.IRetrofitBuilder;
+import robert.purdey.caddytracker.networking.contracts.IRetrofitConfig;
 
-public class RetrofitBuilder implements IRetrofitBuilder
+public class RetrofitConfig implements IRetrofitConfig
 {
     @Override
-    public Retrofit build(OkHttpClient client, String baseUrl)
+    public Retrofit configure(OkHttpClient client, String baseUrl)
     {
         validateBaseUrl(baseUrl);
 

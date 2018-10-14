@@ -3,7 +3,7 @@ package robert.purdey.caddytracker.networking.contracts;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
-public interface IRetrofitBuilder
+public interface IRetrofitConfig
 {
-    Retrofit build(OkHttpClient client, String baseUrl);
+    Retrofit configure(OkHttpClient client, String baseUrl);
 }

@@ -5,15 +5,15 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import robert.purdey.caddytracker.networking.arguments.HttpClientArg;
-import robert.purdey.caddytracker.networking.contracts.IHttpClientBuilder;
+import robert.purdey.caddytracker.networking.contracts.IHttpClientConfig;
 
 /**
  * Builds an OkHttpClient capable of being consumed by a Retrofit call.
  */
-public class HttpClientBuilder implements IHttpClientBuilder
+public class HttpClientConfig implements IHttpClientConfig
 {
     @Override
-    public OkHttpClient build(HttpClientArg arg)
+    public OkHttpClient configure(HttpClientArg arg)
     {
         validateArgument(arg);
 

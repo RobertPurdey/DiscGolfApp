@@ -4,27 +4,19 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import robert.purdey.caddytracker.networking.ApiCallConfig;
 import robert.purdey.caddytracker.networking.ApiCallBuilder;
-import robert.purdey.caddytracker.networking.ApiCallManager;
-import robert.purdey.caddytracker.networking.HttpClientBuilder;
-import robert.purdey.caddytracker.networking.RetrofitBuilder;
+import robert.purdey.caddytracker.networking.HttpClientConfig;
+import robert.purdey.caddytracker.networking.RetrofitConfig;
 import robert.purdey.caddytracker.networking.arguments.HttpClientArg;
 import robert.purdey.caddytracker.networking.contracts.IApiCall;
-import robert.purdey.caddytracker.networking.contracts.IApiCallManager;
-import robert.purdey.caddytracker.services.ApiCall;
+import robert.purdey.caddytracker.networking.contracts.IApiCallBuilder;
 import robert.purdey.caddytracker.ui.models.FriendModel;
 
 /**
@@ -49,10 +41,10 @@ public class FriendsViewModel extends ViewModel
 
     private void loadFriends()
     {
-        IApiCallManager apiManager = new ApiCallManager(
-            new ApiCallBuilder(),
-            new RetrofitBuilder(),
-            new HttpClientBuilder()
+        IApiCallBuilder apiManager = new ApiCallBuilder(
+            new ApiCallConfig(),
+            new RetrofitConfig(),
+            new HttpClientConfig()
         );
         HashMap<String, String> clientHeaders = new HashMap<String, String>();
         clientHeaders.put(
