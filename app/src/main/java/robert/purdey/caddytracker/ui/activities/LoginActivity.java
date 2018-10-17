@@ -3,13 +3,12 @@ package robert.purdey.caddytracker.ui.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-
 import robert.purdey.caddytracker.R;
-import robert.purdey.caddytracker.utilities.Strings;
+import robert.purdey.caddytracker.ui.models.TokenModel;
 
 public class LoginActivity extends AppCompatActivity
 {
+    private TokenModel receivedLoginToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

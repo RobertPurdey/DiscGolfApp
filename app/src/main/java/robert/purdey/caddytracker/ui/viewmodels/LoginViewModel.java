@@ -1,5 +1,7 @@
 package robert.purdey.caddytracker.ui.viewmodels;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +22,7 @@ import robert.purdey.caddytracker.ui.models.TokenModel;
 public class LoginViewModel extends ViewModel
 {
     private boolean isSuccessfulLogin = false;
+    public MutableLiveData<TokenModel> receivedToken;
 
     public void login(String username, String password)
     {
@@ -51,7 +54,8 @@ public class LoginViewModel extends ViewModel
             {
                 if ( response.isSuccessful() )
                 {
-                    isSuccessfulLogin = true;
+                    receivedToken.setValue(response.body());
+                    isSuccessfulLogin  = true;
                     //todo: store login session
                 }
                 else
