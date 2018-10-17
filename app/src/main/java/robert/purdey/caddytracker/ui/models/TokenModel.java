@@ -2,10 +2,6 @@ package robert.purdey.caddytracker.ui.models;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by r_pur on 10/16/2018.
- */
-
 public class TokenModel
 {
     @SerializedName("access_token")

@@ -1,11 +1,8 @@
 package robert.purdey.caddytracker.ui.viewmodels;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import java.util.HashMap;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,9 +19,20 @@ import robert.purdey.caddytracker.ui.models.TokenModel;
 public class LoginViewModel extends ViewModel
 {
     private boolean isSuccessfulLogin = false;
+
+    public MutableLiveData<String> username;
+    public MutableLiveData<String> password;
+
     public MutableLiveData<TokenModel> receivedToken;
 
-    public void login(String username, String password)
+    public LoginViewModel()
+    {
+        username = new MutableLiveData<>();
+        password = new MutableLiveData<>();
+    }
+
+
+    public void login()
     {
         IRetrofitBuilder retrofitBuilder = new RetrofitBuilder(
             new RetrofitConfig(),
@@ -42,7 +50,7 @@ public class LoginViewModel extends ViewModel
             IApiCall.BASE_URL,
             clientHeaders);
 
-        LoginModel loginAttempt = new LoginModel(username, password);
+        LoginModel loginAttempt = new LoginModel(username.getValue(), password.getValue());
 
         Retrofit retrofit            = retrofitBuilder.build(clientArg);
         IApiCall call                = retrofit.create(IApiCall.class);
@@ -71,5 +79,25 @@ public class LoginViewModel extends ViewModel
                 System.out.println("Failed to login");
             }
         });
+    }
+
+    public MutableLiveData<String> getUsername()
+    {
+        return username;
+    }
+
+    public void setUsername(MutableLiveData<String> username)
+    {
+        this.username = username;
+    }
+
+    public MutableLiveData<String> getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(MutableLiveData<String> password)
+    {
+        this.password = password;
     }
 }
