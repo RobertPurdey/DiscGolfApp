@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/background_gray"
+    tools:context=".ui.activities.LoginActivity">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- Username text input -->
+        <EditText
+            android:id="@+id/etxt_username"
+            android:inputType="text"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/white"
+            android:hint="@string/username"/>
+
+        <!-- Password text input -->
+        <EditText
+            android:id="@+id/etxt_password"
+            android:inputType="textPassword"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/etxt_username"
+            android:layout_margin="5dp"
+            android:background="@android:color/white"
+            android:hint="@string/password"/>
+
+        <!-- Login button -->
+        <Button
+            android:id="@+id/new_game"
+            android:textColor="@color/white"
+            android:background="@color/button_green"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/etxt_password"
+            android:layout_margin="5dp"
+            android:text="@string/login"
+            android:onClick="onLoginUser"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
