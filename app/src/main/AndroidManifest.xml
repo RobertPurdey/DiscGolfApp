@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="robert.purdey.caddytracker">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,20 +13,23 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <!-- Main Menu -->
+        <!-- Login -->
         <activity
-            android:name=".ui.activities.MainMenuActivity"
+            android:name=".ui.activities.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <!-- Main Menu -->
+        <activity android:name=".ui.activities.MainMenuActivity" />
+
         <!-- Manage Friends -->
         <activity android:name=".ui.activities.ManageFriendsActivity" />
-
     </application>
 
 </manifest>

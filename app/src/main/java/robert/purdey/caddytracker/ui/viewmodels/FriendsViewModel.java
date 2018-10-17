@@ -10,13 +10,13 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import robert.purdey.caddytracker.networking.ApiCallConfig;
-import robert.purdey.caddytracker.networking.ApiCallBuilder;
+import retrofit2.Retrofit;
+import robert.purdey.caddytracker.networking.RetrofitBuilder;
 import robert.purdey.caddytracker.networking.HttpClientConfig;
 import robert.purdey.caddytracker.networking.RetrofitConfig;
 import robert.purdey.caddytracker.networking.arguments.HttpClientArg;
 import robert.purdey.caddytracker.networking.contracts.IApiCall;
-import robert.purdey.caddytracker.networking.contracts.IApiCallBuilder;
+import robert.purdey.caddytracker.networking.contracts.IRetrofitBuilder;
 import robert.purdey.caddytracker.ui.models.FriendModel;
 
 /**
@@ -41,8 +41,7 @@ public class FriendsViewModel extends ViewModel
 
     private void loadFriends()
     {
-        IApiCallBuilder apiManager = new ApiCallBuilder(
-            new ApiCallConfig(),
+        IRetrofitBuilder retrofitBuilder = new RetrofitBuilder(
             new RetrofitConfig(),
             new HttpClientConfig()
         );
@@ -55,10 +54,11 @@ public class FriendsViewModel extends ViewModel
         HttpClientArg clientArg = new HttpClientArg(
             10,
             10,
-            "",
+            IApiCall.BASE_URL,
             clientHeaders);
 
-        IApiCall call                    = apiManager.build(clientArg);
+        Retrofit retrofit                = retrofitBuilder.build(clientArg);
+        IApiCall call                    = retrofit.create(IApiCall.class);
         Call<List<FriendModel>> caller   = call.getFriends();
 
         caller.enqueue(new Callback<List<FriendModel>>() {

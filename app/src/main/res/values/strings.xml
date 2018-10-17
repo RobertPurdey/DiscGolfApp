@@ -28,6 +28,11 @@
     <string name="finish">Finish</string>
     <string name="score_game">Score Game</string>
 
+    <!-- ************************************** Login Activity Labels ********************** -->
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+
     <!-- ************************************** Main Menu Activity Labels ********************** -->
     <!-- New Game button label -->
     <string name="new_game">New Game</string>

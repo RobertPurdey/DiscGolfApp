@@ -34,8 +34,19 @@ public class HttpClientArg
         return connectionTimeout;
     }
 
+    public String getBaseUrl()
+    {
+        return baseUrl;
+    }
+
+    public void setBaseUrl(String baseUrl)
+    {
+        this.baseUrl = baseUrl;
+    }
+
     public Map<String, String> getHeaders()
     {
         return headers;
     }
+
 }
