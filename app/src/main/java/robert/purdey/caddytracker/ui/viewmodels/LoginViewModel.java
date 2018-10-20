@@ -18,17 +18,25 @@ import robert.purdey.caddytracker.ui.models.TokenModel;
 
 public class LoginViewModel extends ViewModel
 {
-    private boolean isSuccessfulLogin = false;
-
     public MutableLiveData<String> username;
     public MutableLiveData<String> password;
-
     public MutableLiveData<TokenModel> receivedToken;
+
+    private LoginRequestListener loginListener;
+
+    public interface LoginRequestListener
+    {
+        public void onLoginSuccessful();
+        public void onLoginFailed();
+        public void onCallFailed();
+    }
 
     public LoginViewModel()
     {
-        username = new MutableLiveData<>();
-        password = new MutableLiveData<>();
+        username       = new MutableLiveData<>();
+        password       = new MutableLiveData<>();
+        receivedToken  = new MutableLiveData<>();
+        loginListener  = null;
     }
 
 
@@ -38,7 +46,7 @@ public class LoginViewModel extends ViewModel
             new RetrofitConfig(),
             new HttpClientConfig()
         );
-        HashMap<String, String> clientHeaders = new HashMap<String, String>();
+        HashMap<String, String> clientHeaders = new HashMap<>();
         clientHeaders.put(
             "Content-Type",
             "application/x-www-form-urlencoded"
@@ -48,13 +56,14 @@ public class LoginViewModel extends ViewModel
             10,
             10,
             IApiCall.BASE_URL,
-            clientHeaders);
-
-        LoginModel loginAttempt = new LoginModel(username.getValue(), password.getValue());
+            new HashMap<>());
 
         Retrofit retrofit            = retrofitBuilder.build(clientArg);
         IApiCall call                = retrofit.create(IApiCall.class);
-        Call<TokenModel> caller      = call.login(loginAttempt);
+        LoginModel loginAttempt      = new LoginModel(username.getValue(), password.getValue());
+
+
+        Call<TokenModel> caller      = call.login(loginAttempt.getRequestFields());
 
         caller.enqueue(new Callback<TokenModel>() {
             @Override
@@ -63,12 +72,13 @@ public class LoginViewModel extends ViewModel
                 if ( response.isSuccessful() )
                 {
                     receivedToken.setValue(response.body());
-                    isSuccessfulLogin  = true;
+                    loginListener.onLoginSuccessful();
+
                     //todo: store login session
                 }
                 else
                 {
-                    isSuccessfulLogin = false;
+                    loginListener.onLoginFailed();
                 }
 
             }
@@ -76,28 +86,14 @@ public class LoginViewModel extends ViewModel
             @Override
             public void onFailure(Call<TokenModel> call, Throwable t)
             {
+                loginListener.onCallFailed();
                 System.out.println("Failed to login");
             }
         });
     }
 
-    public MutableLiveData<String> getUsername()
+    public void setLoginListener(LoginRequestListener loginListener)
     {
-        return username;
-    }
-
-    public void setUsername(MutableLiveData<String> username)
-    {
-        this.username = username;
-    }
-
-    public MutableLiveData<String> getPassword()
-    {
-        return password;
-    }
-
-    public void setPassword(MutableLiveData<String> password)
-    {
-        this.password = password;
+        this.loginListener = loginListener;
     }
 }

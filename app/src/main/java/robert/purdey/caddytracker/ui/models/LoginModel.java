@@ -1,13 +1,18 @@
 package robert.purdey.caddytracker.ui.models;
 
 
+import android.arch.lifecycle.MutableLiveData;
+
 import com.google.gson.annotations.SerializedName;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginModel
 {
-    public String username;
+    private String username;
 
-    public String password;
+    private String password;
 
     @SerializedName("grant_type")
     private String grantType;
@@ -19,28 +24,14 @@ public class LoginModel
         this.grantType  = "password";
     }
 
-    public String getUsername()
+    public Map<String, String> getRequestFields()
     {
-        return username;
-    }
+        HashMap<String, String> fields = new HashMap<>();
 
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
+        fields.put("username", username);
+        fields.put("password", password);
+        fields.put("grant_type", grantType);
 
-    public String getPassword()
-    {
-        return password;
-    }
-
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
-
-    public String getGrantType()
-    {
-        return grantType;
+        return fields;
     }
 }
