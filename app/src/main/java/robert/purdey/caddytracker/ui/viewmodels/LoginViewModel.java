@@ -80,6 +80,7 @@ public class LoginViewModel extends ViewModel
                 {
                     loginListener.onLoginFailed();
                 }
+                
             }
 
             @Override
