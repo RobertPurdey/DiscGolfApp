@@ -10,6 +10,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import robert.purdey.caddytracker.ui.models.FriendModel;
+import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
 import robert.purdey.caddytracker.ui.models.LoginModel;
 import robert.purdey.caddytracker.ui.models.TokenModel;
 
@@ -24,4 +25,7 @@ public interface IApiCall
 
     @GET("api/appusers/friends")
     Call<List<FriendModel>> getFriends();
+
+    @GET("api/frolfgroups/")
+    Call<List<FrolfGroupModel>> getFrolfGroups();
 }

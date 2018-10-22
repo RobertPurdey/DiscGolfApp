@@ -40,9 +40,9 @@ public class MainMenuActivity extends AppCompatActivity
      *
      * @param view - view calling the method
      */
-    public void onClickManageCourses(View view)
+    public void onClickManageFrolfGroups(View view)
     {
-        //ActivityStarter.startManageCoursesActivity(this);
+        ActivityStarter.startManageFrolfGroupsActivity(this);
     }
 
     /**

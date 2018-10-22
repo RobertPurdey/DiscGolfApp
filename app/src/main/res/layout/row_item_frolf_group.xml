@@ -1,0 +1,21 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <!-- Group ID -->
+    <TextView
+        android:id="@+id/txtv_group_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <!-- Name -->
+    <TextView
+        android:id="@+id/txtv_group_name"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="Name"
+        android:textSize="30dp"
+        android:gravity="center_vertical"/>
+</RelativeLayout>

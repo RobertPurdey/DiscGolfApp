@@ -32,7 +32,6 @@ public class FriendsViewModel extends ViewModel
         if (friends == null)
         {
             friends = new MutableLiveData<>();
-
             loadFriends();
         }
 

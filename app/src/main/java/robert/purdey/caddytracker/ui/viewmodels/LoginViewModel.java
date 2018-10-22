@@ -26,9 +26,9 @@ public class LoginViewModel extends ViewModel
 
     public interface LoginRequestListener
     {
-        public void onLoginSuccessful();
-        public void onLoginFailed();
-        public void onCallFailed();
+        void onLoginSuccessful();
+        void onLoginFailed();
+        void onCallFailed();
     }
 
     public LoginViewModel()

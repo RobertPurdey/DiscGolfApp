@@ -16,7 +16,7 @@ public class ManageFriendsActivity extends AppCompatActivity
 
         if (savedInstanceState == null)
         {
-            // Setup Player List Fragment
+            // Setup friend List Fragment
             FriendListFragment friendListFrag = new FriendListFragment();
 
             getSupportFragmentManager()
