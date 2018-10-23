@@ -46,16 +46,6 @@ public class MainMenuActivity extends AppCompatActivity
     }
 
     /**
-     * Start Manage Players activity
-     *
-     * @param view - view calling the method
-     */
-    public void onClickManageFriends(View view)
-    {
-        ActivityStarter.startManageFriendsActivity(this);
-    }
-
-    /**
      * Start Help activity
      *
      * @param view - view calling the method

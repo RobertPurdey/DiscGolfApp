@@ -58,18 +58,6 @@
         android:layout_marginBottom="20dp"
         android:onClick="onClickManageFrolfGroups"/>
 
-    <!-- Manage Players button -->
-    <Button
-        android:id="@+id/manage_players"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:background="@color/button_green"
-        android:layout_below="@+id/manage_groups"
-        android:text="@string/manage_friends"
-        android:layout_marginBottom="20dp"
-        android:onClick="onClickManageFriends"/>
-
     <!-- Help button -->
     <Button
         android:id="@+id/help"
@@ -77,7 +65,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:background="@color/button_green"
-        android:layout_below="@+id/manage_players"
+        android:layout_below="@+id/manage_groups"
         android:text="@string/help_app"
         android:layout_marginBottom="20dp"
         android:onClick="onClickHelp"/>

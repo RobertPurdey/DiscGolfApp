@@ -29,7 +29,6 @@
         <activity android:name=".ui.activities.MainMenuActivity" />
 
         <!-- Manage Friends -->
-        <activity android:name=".ui.activities.ManageFriendsActivity" />
         <activity android:name=".ui.activities.ManageFrolfGroupsActivity"></activity>
     </application>
 

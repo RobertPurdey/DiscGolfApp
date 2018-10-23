@@ -1,4 +1,4 @@
-package robert.purdey.caddytracker.networking.contracts;
+package robert.purdey.caddytracker.networking.contracts.configs;
 
 
 import okhttp3.OkHttpClient;

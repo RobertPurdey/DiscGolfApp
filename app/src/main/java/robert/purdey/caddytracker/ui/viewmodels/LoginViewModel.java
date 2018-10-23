@@ -6,13 +6,12 @@ import java.util.HashMap;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 import robert.purdey.caddytracker.networking.HttpClientConfig;
-import robert.purdey.caddytracker.networking.RetrofitBuilder;
 import robert.purdey.caddytracker.networking.RetrofitConfig;
 import robert.purdey.caddytracker.networking.arguments.HttpClientArg;
-import robert.purdey.caddytracker.networking.contracts.IApiCall;
-import robert.purdey.caddytracker.networking.contracts.IRetrofitBuilder;
+import robert.purdey.caddytracker.networking.contracts.calls.IApiCall;
+import robert.purdey.caddytracker.networking.contracts.calls.IAppUserCall;
+import robert.purdey.caddytracker.networking.services.ApiCallService;
 import robert.purdey.caddytracker.ui.models.LoginModel;
 import robert.purdey.caddytracker.ui.models.TokenModel;
 
@@ -23,6 +22,7 @@ public class LoginViewModel extends ViewModel
     public MutableLiveData<TokenModel> receivedToken;
 
     private LoginRequestListener loginListener;
+    private IAppUserCall         call;
 
     public interface LoginRequestListener
     {
@@ -37,19 +37,11 @@ public class LoginViewModel extends ViewModel
         password       = new MutableLiveData<>();
         receivedToken  = new MutableLiveData<>();
         loginListener  = null;
-    }
 
-
-    public void login()
-    {
-        IRetrofitBuilder retrofitBuilder = new RetrofitBuilder(
+        // todo: inject the following when possible
+        ApiCallService apiCallService = new ApiCallService(
             new RetrofitConfig(),
             new HttpClientConfig()
-        );
-        HashMap<String, String> clientHeaders = new HashMap<>();
-        clientHeaders.put(
-            "Content-Type",
-            "application/x-www-form-urlencoded"
         );
 
         HttpClientArg clientArg = new HttpClientArg(
@@ -58,12 +50,14 @@ public class LoginViewModel extends ViewModel
             IApiCall.BASE_URL,
             new HashMap<>());
 
-        Retrofit retrofit            = retrofitBuilder.build(clientArg);
-        IApiCall call                = retrofit.create(IApiCall.class);
-        LoginModel loginAttempt      = new LoginModel(username.getValue(), password.getValue());
+        call = apiCallService.getApiCall(clientArg, IAppUserCall.class);
+    }
 
 
-        Call<TokenModel> caller      = call.login(loginAttempt.getRequestFields());
+    public void login()
+    {
+        LoginModel loginAttempt   = new LoginModel(username.getValue(), password.getValue());
+        Call<TokenModel> caller   = call.login(loginAttempt.getRequestFields());
 
         caller.enqueue(new Callback<TokenModel>() {
             @Override

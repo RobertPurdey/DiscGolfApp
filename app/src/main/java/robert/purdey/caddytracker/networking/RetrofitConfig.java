@@ -3,7 +3,7 @@ package robert.purdey.caddytracker.networking;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import robert.purdey.caddytracker.networking.contracts.IRetrofitConfig;
+import robert.purdey.caddytracker.networking.contracts.configs.IRetrofitConfig;
 
 public class RetrofitConfig implements IRetrofitConfig
 {

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import robert.purdey.caddytracker.ui.activities.MainMenuActivity;
-import robert.purdey.caddytracker.ui.activities.ManageFriendsActivity;
 import robert.purdey.caddytracker.ui.activities.ManageFrolfGroupsActivity;
 
 /**
@@ -52,16 +51,6 @@ public class ActivityStarter
     public static void startManageCoursesActivity(Context context)
     {
         //startActivity(context, ManageCoursesActivity.class);
-    }
-
-    /**
-     * Starts Manage Players Activity
-     *
-     * @param context
-     */
-    public static void startManageFriendsActivity(Context context)
-    {
-        startActivity(context, ManageFriendsActivity.class);
     }
 
     /**

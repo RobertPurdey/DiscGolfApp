@@ -10,16 +10,42 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import robert.purdey.caddytracker.networking.HttpClientConfig;
-import robert.purdey.caddytracker.networking.RetrofitBuilder;
 import robert.purdey.caddytracker.networking.RetrofitConfig;
 import robert.purdey.caddytracker.networking.arguments.HttpClientArg;
-import robert.purdey.caddytracker.networking.contracts.IApiCall;
-import robert.purdey.caddytracker.networking.contracts.IRetrofitBuilder;
+import robert.purdey.caddytracker.networking.contracts.calls.IApiCall;
+import robert.purdey.caddytracker.networking.contracts.calls.IAppUserCall;
+import robert.purdey.caddytracker.networking.contracts.calls.IFrolfGroupCall;
+import robert.purdey.caddytracker.networking.services.ApiCallService;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
 
 public class FrolfGroupViewModel extends ViewModel
 {
     private MutableLiveData<List<FrolfGroupModel>> frolfGroups;
+    private IFrolfGroupCall call;
+
+    public FrolfGroupViewModel()
+    {
+        // todo: inject the following when possible
+        ApiCallService apiCallService = new ApiCallService(
+            new RetrofitConfig(),
+            new HttpClientConfig()
+        );
+
+        // todo: this needs to come from account manager
+        HashMap<String, String> clientHeaders = new HashMap<String, String>();
+        clientHeaders.put(
+            "Authorization",
+            "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicm9iIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJmZjhiNTNkNy1iNGZmLTQ5MjMtOTMxMS01N2RmM2M0YzMzNzUiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhcHB1c2VyIiwibmJmIjoxNTQwMTcxODI5LCJleHAiOjE1NDAxNzM2Mjl9.pHNcFzVeGLdb3hfHFWRCDXX-l5Bs5SW8RIZF6R2Nvlg"
+        );
+
+        HttpClientArg clientArg = new HttpClientArg(
+            10,
+            10,
+            IApiCall.BASE_URL,
+            clientHeaders);
+
+        call = apiCallService.getApiCall(clientArg, IFrolfGroupCall.class);
+    }
 
     public LiveData<List<FrolfGroupModel>> getFrolfGroups()
     {
@@ -35,26 +61,7 @@ public class FrolfGroupViewModel extends ViewModel
 
     private void loadFrolfGroups()
     {
-        // Todo: retro fit should be used in a repository class (view model shouldnt know how to make an API call)
-        IRetrofitBuilder retrofitBuilder = new RetrofitBuilder(
-            new RetrofitConfig(),
-            new HttpClientConfig()
-        );
-        HashMap<String, String> clientHeaders = new HashMap<String, String>();
-        clientHeaders.put(
-            "Authorization",
-            "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicm9iIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJmZjhiNTNkNy1iNGZmLTQ5MjMtOTMxMS01N2RmM2M0YzMzNzUiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhcHB1c2VyIiwibmJmIjoxNTQwMTcxODI5LCJleHAiOjE1NDAxNzM2Mjl9.pHNcFzVeGLdb3hfHFWRCDXX-l5Bs5SW8RIZF6R2Nvlg"
-        );
-
-        HttpClientArg clientArg = new HttpClientArg(
-            10,
-            10,
-            IApiCall.BASE_URL,
-            clientHeaders);
-
-        Retrofit retrofit                   = retrofitBuilder.build(clientArg);
-        IApiCall call                       = retrofit.create(IApiCall.class);
-        Call<List<FrolfGroupModel>> caller  = call.getFrolfGroups();
+        Call<List<FrolfGroupModel>> caller = call.getFrolfGroups();
 
         caller.enqueue(new Callback<List<FrolfGroupModel>>() {
             @Override

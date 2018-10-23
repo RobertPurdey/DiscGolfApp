@@ -14,11 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import java.util.List;
 import robert.purdey.caddytracker.R;
-import robert.purdey.caddytracker.ui.adapters.FriendListAdapter;
 import robert.purdey.caddytracker.ui.adapters.FrolfGroupListAdapter;
-import robert.purdey.caddytracker.ui.models.FriendModel;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
-import robert.purdey.caddytracker.ui.viewmodels.FriendsViewModel;
 import robert.purdey.caddytracker.ui.viewmodels.FrolfGroupViewModel;
 
 

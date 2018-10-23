@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import robert.purdey.caddytracker.networking.arguments.HttpClientArg;
-import robert.purdey.caddytracker.networking.contracts.IHttpClientConfig;
+import robert.purdey.caddytracker.networking.contracts.configs.IHttpClientConfig;
 
 /**
  * Builds an OkHttpClient capable of being consumed by a Retrofit call.
