@@ -49,4 +49,8 @@ public class HttpClientArg
         return headers;
     }
 
+    public void setHeaders(Map<String, String> headers)
+    {
+        this.headers = headers;
+    }
 }

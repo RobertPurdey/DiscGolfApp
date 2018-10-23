@@ -15,13 +15,15 @@ import robert.purdey.caddytracker.networking.arguments.HttpClientArg;
 import robert.purdey.caddytracker.networking.contracts.calls.IApiCall;
 import robert.purdey.caddytracker.networking.contracts.calls.IAppUserCall;
 import robert.purdey.caddytracker.networking.contracts.calls.IFrolfGroupCall;
+import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupController;
+import robert.purdey.caddytracker.networking.controllers.FrolfGroupController;
 import robert.purdey.caddytracker.networking.services.ApiCallService;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
 
 public class FrolfGroupViewModel extends ViewModel
 {
     private MutableLiveData<List<FrolfGroupModel>> frolfGroups;
-    private IFrolfGroupCall call;
+    private IFrolfGroupController frolfGroupController;
 
     public FrolfGroupViewModel()
     {
@@ -31,20 +33,7 @@ public class FrolfGroupViewModel extends ViewModel
             new HttpClientConfig()
         );
 
-        // todo: this needs to come from account manager
-        HashMap<String, String> clientHeaders = new HashMap<String, String>();
-        clientHeaders.put(
-            "Authorization",
-            "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicm9iIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJmZjhiNTNkNy1iNGZmLTQ5MjMtOTMxMS01N2RmM2M0YzMzNzUiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhcHB1c2VyIiwibmJmIjoxNTQwMTcxODI5LCJleHAiOjE1NDAxNzM2Mjl9.pHNcFzVeGLdb3hfHFWRCDXX-l5Bs5SW8RIZF6R2Nvlg"
-        );
-
-        HttpClientArg clientArg = new HttpClientArg(
-            10,
-            10,
-            IApiCall.BASE_URL,
-            clientHeaders);
-
-        call = apiCallService.getApiCall(clientArg, IFrolfGroupCall.class);
+        frolfGroupController = new FrolfGroupController(apiCallService);
     }
 
     public LiveData<List<FrolfGroupModel>> getFrolfGroups()
@@ -61,24 +50,6 @@ public class FrolfGroupViewModel extends ViewModel
 
     private void loadFrolfGroups()
     {
-        Call<List<FrolfGroupModel>> caller = call.getFrolfGroups();
-
-        caller.enqueue(new Callback<List<FrolfGroupModel>>() {
-            @Override
-            public void onResponse(Call<List<FrolfGroupModel>> call, Response<List<FrolfGroupModel>> response)
-            {
-                if ( response.isSuccessful() )
-                {
-                    frolfGroups.setValue(response.body());
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<FrolfGroupModel>> call, Throwable t)
-            {
-                System.out.println("Failed to retrieve friends because you are a loser and have none!");
-            }
-        });
+        frolfGroups = frolfGroupController.getFrolfGroups();
     }
 }

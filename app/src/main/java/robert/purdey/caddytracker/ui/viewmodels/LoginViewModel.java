@@ -11,6 +11,9 @@ import robert.purdey.caddytracker.networking.RetrofitConfig;
 import robert.purdey.caddytracker.networking.arguments.HttpClientArg;
 import robert.purdey.caddytracker.networking.contracts.calls.IApiCall;
 import robert.purdey.caddytracker.networking.contracts.calls.IAppUserCall;
+import robert.purdey.caddytracker.networking.contracts.controllers.IAppUserController;
+import robert.purdey.caddytracker.networking.controllers.AppUserController;
+import robert.purdey.caddytracker.networking.controllers.FrolfGroupController;
 import robert.purdey.caddytracker.networking.services.ApiCallService;
 import robert.purdey.caddytracker.ui.models.LoginModel;
 import robert.purdey.caddytracker.ui.models.TokenModel;
@@ -21,8 +24,8 @@ public class LoginViewModel extends ViewModel
     public MutableLiveData<String> password;
     public MutableLiveData<TokenModel> receivedToken;
 
+    private IAppUserController appUserController;
     private LoginRequestListener loginListener;
-    private IAppUserCall         call;
 
     public interface LoginRequestListener
     {
@@ -44,45 +47,17 @@ public class LoginViewModel extends ViewModel
             new HttpClientConfig()
         );
 
-        HttpClientArg clientArg = new HttpClientArg(
-            10,
-            10,
-            IApiCall.BASE_URL,
-            new HashMap<>());
-
-        call = apiCallService.getApiCall(clientArg, IAppUserCall.class);
+        appUserController = new AppUserController(apiCallService);
     }
 
 
     public void login()
     {
-        LoginModel loginAttempt   = new LoginModel(username.getValue(), password.getValue());
-        Call<TokenModel> caller   = call.login(loginAttempt.getRequestFields());
+        LoginModel loginAttempt = new LoginModel(username.getValue(), password.getValue());
 
-        caller.enqueue(new Callback<TokenModel>() {
-            @Override
-            public void onResponse(Call<TokenModel> call, Response<TokenModel> response)
-            {
-                if ( response.isSuccessful() )
-                {
-                    receivedToken.setValue(response.body());
-                    loginListener.onLoginSuccessful();
-
-                    //todo: store login session
-                }
-                else
-                {
-                    loginListener.onLoginFailed();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TokenModel> call, Throwable t)
-            {
-                loginListener.onCallFailed();
-                System.out.println("Failed to login");
-            }
-        });
+        receivedToken = appUserController.login(
+            loginListener,
+            loginAttempt.getRequestFields());
     }
 
     public void setLoginListener(LoginRequestListener loginListener)

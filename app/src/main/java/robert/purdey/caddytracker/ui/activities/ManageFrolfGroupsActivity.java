@@ -6,7 +6,6 @@ import robert.purdey.caddytracker.R;
 
 public class ManageFrolfGroupsActivity extends AppCompatActivity
 {
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
