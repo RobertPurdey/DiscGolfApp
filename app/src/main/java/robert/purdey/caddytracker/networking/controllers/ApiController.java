@@ -46,7 +46,7 @@ public abstract class ApiController<TApiCall> implements IApiController<TApiCall
         // todo: this needs to come from account manager
         clientHeaders.put(
             "Authorization",
-            "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicm9iIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJmZjhiNTNkNy1iNGZmLTQ5MjMtOTMxMS01N2RmM2M0YzMzNzUiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhcHB1c2VyIiwibmJmIjoxNTQwMjgyNDgzLCJleHAiOjE1NDAyODQyODN9.WM0pOQ7eJRc_vMp6pvXNeuTrsHC4VkfC1LaqPO9dIUU"
+            "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicm9iIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJmZjhiNTNkNy1iNGZmLTQ5MjMtOTMxMS01N2RmM2M0YzMzNzUiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhcHB1c2VyIiwibmJmIjoxNTQwODc4ODQ3LCJleHAiOjE1NDA4ODA2NDd9.eKKCcEpGFAvv13-aGBYLzNMMm8lih0UlWqwhKJ4bylc"
         );
 
         clientHeaders.putAll(provideHeaders());

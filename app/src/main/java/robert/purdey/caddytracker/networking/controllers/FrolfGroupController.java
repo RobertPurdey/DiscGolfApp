@@ -44,7 +44,7 @@ public class FrolfGroupController
                 Call<List<FrolfGroupModel>> call,
                 Throwable t)
             {
-                System.out.println("Failed to retrieve friends because you are a loser and have none!");
+                System.out.println("Failed to retrieve groups because you are a loser and have none!");
             }
         });
 
