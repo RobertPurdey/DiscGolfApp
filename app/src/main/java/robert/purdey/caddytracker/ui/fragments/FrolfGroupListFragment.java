@@ -33,10 +33,10 @@ public class FrolfGroupListFragment extends Fragment
 
         Context activityContext                    = getActivity();
         RecyclerView recyclerView                  = rootView.findViewById(R.id.frolfGroupRecycleView);
-        final FrolfGroupListAdapter friendAdapter  = new FrolfGroupListAdapter(activityContext);
+        final FrolfGroupListAdapter groupAdapter   = new FrolfGroupListAdapter(activityContext);
         LinearLayoutManager layoutManger           = new LinearLayoutManager(activityContext);
 
-        recyclerView.setAdapter(friendAdapter);
+        recyclerView.setAdapter(groupAdapter);
         recyclerView.setLayoutManager(layoutManger);
 
         DividerItemDecoration dividerDecorator = new DividerItemDecoration(
@@ -51,7 +51,7 @@ public class FrolfGroupListFragment extends Fragment
             @Override
             public void onChanged(@Nullable List<FrolfGroupModel> frolfGroupModels)
             {
-                friendAdapter.setFrolfGroups(frolfGroupModels);
+                groupAdapter.setFrolfGroups(frolfGroupModels);
             }
         });
 

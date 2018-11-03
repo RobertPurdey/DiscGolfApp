@@ -45,7 +45,6 @@ public class LoginActivity extends AppCompatActivity
     public void onLoginUser(View view)
     {
         loginViewModel.login();
-        // todo: login user API call
     }
 
     private void createLoginViewModel(Context context)

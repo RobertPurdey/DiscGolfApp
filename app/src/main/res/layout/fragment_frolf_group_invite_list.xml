@@ -2,15 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="robert.purdey.caddytracker.ui.fragments.FrolfGroupListFragment">
+    tools:context="robert.purdey.caddytracker.ui.fragments.FrolfGroupInviteListFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/frolfGroupRecycleView"
+        android:id="@+id/frolfGroupInviteRecycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="16dp"
         android:background="@color/white"
-        tools:listitem="@layout/row_item_frolf_group"
+        tools:listitem="@layout/row_item_frolf_group_invite"
     />
 
 </FrameLayout>

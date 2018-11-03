@@ -1,0 +1,30 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <!-- Group invite ID -->
+    <TextView
+        android:id="@+id/txtv_frolf_group_invite_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <!-- Group Name -->
+    <TextView
+        android:id="@+id/txtv_invite_group_name"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="Name"
+        android:textSize="30dp"
+        android:gravity="center_vertical"/>
+
+    <!-- Inviter name -->
+    <TextView
+        android:id="@+id/txtv_inviter_name"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="Player Name"
+        android:textSize="30dp"
+        android:gravity="center_vertical"/>
+</RelativeLayout>

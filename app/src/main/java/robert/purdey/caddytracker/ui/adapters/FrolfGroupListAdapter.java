@@ -47,18 +47,16 @@ public class FrolfGroupListAdapter extends RecyclerView.Adapter<FrolfGroupListAd
         {
             // Covers the case of data not being ready yet.
             holder.txtvFrolfGroupId.setText("");
-            holder.txtvFrolfGroupName.setText("Retrieving friend data...");
+            holder.txtvFrolfGroupName.setText("Retrieving group data...");
         }
     }
 
-    public void setFrolfGroups(List<FrolfGroupModel> friends)
+    public void setFrolfGroups(List<FrolfGroupModel> groups)
     {
-        mFrolfGroups = friends;
+        mFrolfGroups = groups;
         notifyDataSetChanged();
     }
 
-    // getItemCount() is called many times, and when it is first called,
-    // mFriends has not been updated (means initially, it's null, and we can't return null).
     @Override
     public int getItemCount()
     {
@@ -68,7 +66,6 @@ public class FrolfGroupListAdapter extends RecyclerView.Adapter<FrolfGroupListAd
             return 0;
     }
 
-    // todo: move this to its own public class ?
     class FrolfGroupViewHolder extends RecyclerView.ViewHolder
     {
         private final TextView txtvFrolfGroupId;
