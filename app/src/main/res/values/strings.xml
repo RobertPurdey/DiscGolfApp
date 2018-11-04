@@ -29,6 +29,9 @@
     <string name="manage_friends">Manage Friends</string>
     <string name="manage_courses">Manage Courses</string>
     <string name="manage_groups">Manage Groups</string>
+    <string name="groups">Groups</string>
+    <string name="invites">Invites</string>
+    <string name="invited_by">Invited by:</string>
     <string name="help_app">Help</string>
     <string name="help_1">1. Add player(s)</string>
     <string name="help_2">2. Add a course</string>

@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.List;
+import java.util.UUID;
+
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.models.FrolfGroupInviteModel;
 
@@ -25,7 +27,7 @@ public class FrolfGroupInviteListAdapter extends RecyclerView.Adapter<FrolfGroup
     public FrolfGroupInviteListAdapter.FrolfGroupInviteViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View itemView = mInflater.inflate(
-            R.layout.row_item_frolf_group,
+            R.layout.row_item_frolf_group_invite,
             parent,
             false);
 
@@ -41,14 +43,14 @@ public class FrolfGroupInviteListAdapter extends RecyclerView.Adapter<FrolfGroup
 
             holder.txtvFrolfGroupInviteId.setText(current.getIdKey().toString());
             holder.txtvGroupName.setText(current.getGroupName());
-            holder.txtvInviterName.setText(current.getInviterName());
+            holder.txtvInviterHandle.setText(current.getInviterHandle());
         }
         else
         {
             // Covers the case of data not being ready yet.
             holder.txtvFrolfGroupInviteId.setText("");
             holder.txtvGroupName.setText("Retrieving group name...");
-            holder.txtvInviterName.setText("Retrieving inviter name...");
+            holder.txtvInviterHandle.setText("Retrieving inviter handle...");
         }
     }
 
@@ -73,7 +75,7 @@ public class FrolfGroupInviteListAdapter extends RecyclerView.Adapter<FrolfGroup
     {
         private final TextView txtvFrolfGroupInviteId;
         private final TextView txtvGroupName;
-        private final TextView txtvInviterName;
+        private final TextView txtvInviterHandle;
 
         private FrolfGroupInviteViewHolder(View itemView)
         {
@@ -81,7 +83,7 @@ public class FrolfGroupInviteListAdapter extends RecyclerView.Adapter<FrolfGroup
 
             txtvFrolfGroupInviteId   = itemView.findViewById(R.id.txtv_frolf_group_invite_id);
             txtvGroupName            = itemView.findViewById(R.id.txtv_invite_group_name);
-            txtvInviterName          = itemView.findViewById(R.id.txtv_inviter_name);
+            txtvInviterHandle        = itemView.findViewById(R.id.txtv_inviter_handle);
         }
     }
 }

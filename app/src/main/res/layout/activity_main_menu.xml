@@ -46,7 +46,7 @@
         android:text="@string/statistics"
         android:onClick="onClickStats" />
 
-    <!-- Manage Courses navigation button -->
+    <!-- Manage Groups navigation button -->
     <Button
         android:id="@+id/manage_groups"
         android:textColor="@color/white"
@@ -54,9 +54,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/statistics"
-        android:text="@string/manage_groups"
+        android:text="@string/groups"
         android:layout_marginBottom="20dp"
         android:onClick="onClickManageFrolfGroups"/>
+
+    <!-- Manage Invites navigation button -->
+    <Button
+        android:id="@+id/manage_invites"
+        android:textColor="@color/white"
+        android:background="@color/button_green"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/manage_groups"
+        android:text="@string/invites"
+        android:layout_marginBottom="20dp"
+        android:onClick="onClickManageInvites"/>
 
     <!-- Help button -->
     <Button
@@ -65,7 +77,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:background="@color/button_green"
-        android:layout_below="@+id/manage_groups"
+        android:layout_below="@+id/manage_invites"
         android:text="@string/help_app"
         android:layout_marginBottom="20dp"
         android:onClick="onClickHelp"/>

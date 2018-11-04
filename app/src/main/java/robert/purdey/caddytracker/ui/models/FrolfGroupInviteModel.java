@@ -6,7 +6,7 @@ public class FrolfGroupInviteModel
 {
     public UUID IdKey;
 
-    public String InviterName;
+    public String InviterHandle;
 
     public String GroupName;
 
@@ -20,14 +20,14 @@ public class FrolfGroupInviteModel
         IdKey = idKey;
     }
 
-    public String getInviterName()
+    public String getInviterHandle()
     {
-        return InviterName;
+        return InviterHandle;
     }
 
-    public void setInviterName(String inviterName)
+    public void setInviterHandle(String inviterHandle)
     {
-        InviterName = inviterName;
+        InviterHandle = inviterHandle;
     }
 
     public String getGroupName()

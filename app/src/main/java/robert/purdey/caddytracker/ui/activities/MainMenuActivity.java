@@ -36,13 +36,23 @@ public class MainMenuActivity extends AppCompatActivity
     }
 
     /**
-     * Start Manage Courses activity
+     * Start Manage Frolf Groups activity
      *
      * @param view - view calling the method
      */
     public void onClickManageFrolfGroups(View view)
     {
         ActivityStarter.startManageFrolfGroupsActivity(this);
+    }
+
+    /**
+     * Start Manage Invites activity
+     *
+     * @param view - view calling the method
+     */
+    public void onClickManageInvites(View view)
+    {
+        ActivityStarter.startManageInvitesActivity(this);
     }
 
     /**

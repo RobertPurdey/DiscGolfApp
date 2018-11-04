@@ -28,8 +28,11 @@
         <!-- Main Menu -->
         <activity android:name=".ui.activities.MainMenuActivity" />
 
-        <!-- Manage Friends -->
-        <activity android:name=".ui.activities.ManageFrolfGroupsActivity"></activity>
+        <!-- Manage Groups -->
+        <activity android:name=".ui.activities.ManageFrolfGroupsActivity" />
+
+        <!-- Manage Invites -->
+        <activity android:name=".ui.activities.ManageInvitesActivity" />
     </application>
 
 </manifest>

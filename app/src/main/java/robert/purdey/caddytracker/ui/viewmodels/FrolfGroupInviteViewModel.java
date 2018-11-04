@@ -4,6 +4,9 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import java.util.List;
+
+import robert.purdey.caddytracker.domain.frolfgroups.FrolfGroupInviteFilterModel;
+import robert.purdey.caddytracker.domain.frolfgroups.InviteState;
 import robert.purdey.caddytracker.networking.HttpClientConfig;
 import robert.purdey.caddytracker.networking.RetrofitConfig;
 import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupInviteController;
@@ -15,6 +18,7 @@ public class FrolfGroupInviteViewModel extends ViewModel
 {
     private MutableLiveData<List<FrolfGroupInviteModel>> frolfGroupInvites;
     private IFrolfGroupInviteController frolfGroupInviteController;
+    private FrolfGroupInviteFilterModel filterModel;
 
     public FrolfGroupInviteViewModel()
     {
@@ -25,6 +29,7 @@ public class FrolfGroupInviteViewModel extends ViewModel
         );
 
         frolfGroupInviteController = new FrolfGroupInviteController(apiCallService);
+        filterModel                = new FrolfGroupInviteFilterModel(InviteState.Pending);
     }
 
     public LiveData<List<FrolfGroupInviteModel>> getFrolfGroupInvites()
@@ -33,14 +38,14 @@ public class FrolfGroupInviteViewModel extends ViewModel
         if (frolfGroupInvites == null)
         {
             frolfGroupInvites = new MutableLiveData<>();
-            loadFrolfGroups();
+            loadFrolfGroupInvites();
         }
 
         return frolfGroupInvites;
     }
 
-    private void loadFrolfGroups()
+    private void loadFrolfGroupInvites()
     {
-        frolfGroupInvites = frolfGroupInviteController.getFrolfGroupInvites();
+        frolfGroupInvites = frolfGroupInviteController.getWithFilter(filterModel);
     }
 }

@@ -49,9 +49,9 @@ public class FrolfGroupInviteListFragment extends Fragment
 
         frolfGroupInviteViewModel.getFrolfGroupInvites().observe(this, new Observer<List<FrolfGroupInviteModel>>() {
             @Override
-            public void onChanged(@Nullable List<FrolfGroupInviteModel> frolfGroupModels)
+            public void onChanged(@Nullable List<FrolfGroupInviteModel> frolfGroupInviteModels)
             {
-                groupInviteAdapter.setFrolfGroupInvites(frolfGroupModels);
+                groupInviteAdapter.setFrolfGroupInvites(frolfGroupInviteModels);
             }
         });
 

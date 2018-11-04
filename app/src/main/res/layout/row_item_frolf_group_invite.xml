@@ -14,17 +14,29 @@
     <TextView
         android:id="@+id/txtv_invite_group_name"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="25dp"
         android:text="Name"
-        android:textSize="30dp"
+        android:textSize="20dp"
+        android:gravity="center_vertical"/>
+
+    <!-- Inviter label -->
+    <TextView
+        android:id="@+id/txtv_inviter_label"
+        android:layout_width="75dp"
+        android:layout_height="18dp"
+        android:text="@string/invited_by"
+        android:textSize="15dp"
+        android:layout_below="@+id/txtv_invite_group_name"
         android:gravity="center_vertical"/>
 
     <!-- Inviter name -->
     <TextView
-        android:id="@+id/txtv_inviter_name"
+        android:id="@+id/txtv_inviter_handle"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="18dp"
         android:text="Player Name"
-        android:textSize="30dp"
+        android:textSize="15dp"
+        android:layout_below="@+id/txtv_invite_group_name"
+        android:layout_toRightOf="@+id/txtv_inviter_label"
         android:gravity="center_vertical"/>
 </RelativeLayout>
