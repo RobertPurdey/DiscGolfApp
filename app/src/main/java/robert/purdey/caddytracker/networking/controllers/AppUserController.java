@@ -3,7 +3,6 @@ package robert.purdey.caddytracker.networking.controllers;
 import android.arch.lifecycle.MutableLiveData;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -13,8 +12,8 @@ import robert.purdey.caddytracker.networking.arguments.HttpClientArg;
 import robert.purdey.caddytracker.networking.contracts.calls.IAppUserCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IAppUserController;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
+import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.TokenModel;
-import robert.purdey.caddytracker.ui.viewmodels.LoginViewModel;
 
 
 public class AppUserController
@@ -29,7 +28,7 @@ public class AppUserController
 
     // todo: return proper token
     public MutableLiveData<TokenModel> login(
-        LoginViewModel.LoginRequestListener listener,
+        IApiResponseListener listener,
         Map<String, String> tokenFieldMap)
     {
         final MutableLiveData<TokenModel> data = new MutableLiveData<>();
@@ -46,20 +45,20 @@ public class AppUserController
                 if ( response.isSuccessful() )
                 {
                     data.setValue(response.body());
-                    listener.onLoginSuccessful();
+                    listener.onResponseSuccessful();
 
                     //todo: store login session
                 }
                 else
                 {
-                    listener.onLoginFailed();
+                    listener.onResponseFailed();
                 }
             }
 
             @Override
             public void onFailure(Call<TokenModel> call, Throwable t)
             {
-                listener.onCallFailed();
+                listener.onCallFailure();
             }
         });
 

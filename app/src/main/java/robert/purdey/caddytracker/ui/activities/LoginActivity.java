@@ -10,6 +10,7 @@ import android.widget.Toast;
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.databinding.ActivityLoginBinding;
 import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
+import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.TokenModel;
 import robert.purdey.caddytracker.ui.viewmodels.LoginViewModel;
 
@@ -28,10 +29,10 @@ public class LoginActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
+        createLoginViewModel();
 
-        createLoginViewModel(this);
+        ActivityLoginBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
-        ActivityLoginBinding binding  = DataBindingUtil.setContentView(this, R.layout.activity_login);
         binding.setLoginViewModel(loginViewModel);
         binding.setLifecycleOwner(this);
     }
@@ -43,32 +44,34 @@ public class LoginActivity extends AppCompatActivity
      */
     public void onLoginUser(View view)
     {
-        loginViewModel.login();
-    }
-
-    private void createLoginViewModel(Context context)
-    {
-        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
-
-        loginViewModel.setLoginListener(new LoginViewModel.LoginRequestListener()
+        loginViewModel.login(new IApiResponseListener()
         {
             @Override
-            public void onLoginSuccessful()
+            public void onResponseSuccessful()
             {
-                ActivityStarter.startMainMenuActivity(context);
+                ActivityStarter.startMainMenuActivity(LoginActivity.this);
             }
 
             @Override
-            public void onLoginFailed()
+            public void onResponseFailed()
             {
-                Toast.makeText(context, "Failed to login. The username and/or password may be incorrect.", Toast.LENGTH_LONG);
+                Toast.makeText(
+                    LoginActivity.this,
+                    "Failed to login. The username and/or password may be incorrect.", Toast.LENGTH_LONG);
             }
 
             @Override
-            public void onCallFailed()
+            public void onCallFailure()
             {
-                Toast.makeText(context, "Failed to login. The username and/or password may be incorrect.", Toast.LENGTH_LONG);
+                Toast.makeText(
+                    LoginActivity.this,
+                    "Failed to login. The username and/or password may be incorrect.", Toast.LENGTH_LONG);
             }
         });
+    }
+
+    private void createLoginViewModel()
+    {
+        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
     }
 }

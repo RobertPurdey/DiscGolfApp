@@ -2,6 +2,8 @@ package robert.purdey.caddytracker.networking.controllers;
 
 import android.arch.lifecycle.MutableLiveData;
 import java.util.List;
+import java.util.UUID;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -9,6 +11,7 @@ import robert.purdey.caddytracker.domain.frolfgroups.FrolfGroupInviteFilterModel
 import robert.purdey.caddytracker.networking.contracts.calls.IFrolfGroupInviteCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupInviteController;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
+import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.FrolfGroupInviteModel;
 
 public class FrolfGroupInviteController
@@ -79,5 +82,37 @@ public class FrolfGroupInviteController
         });
 
         return data;
+    }
+
+    // todo: should use a result model to return details about call?
+    @Override
+    public void accept(UUID inviteId, IApiResponseListener responseListener)
+    {
+        Call<Void> caller = getApiCall().accept(inviteId);
+
+        caller.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(
+                Call<Void> call,
+                Response<Void> response)
+            {
+                if ( response.isSuccessful() )
+                {
+                    responseListener.onResponseSuccessful();
+                }
+                else
+                {
+                    responseListener.onResponseFailed();
+                }
+            }
+
+            @Override
+            public void onFailure(
+                Call<Void> call,
+                Throwable t)
+            {
+                responseListener.onCallFailure();
+            }
+        });
     }
 }

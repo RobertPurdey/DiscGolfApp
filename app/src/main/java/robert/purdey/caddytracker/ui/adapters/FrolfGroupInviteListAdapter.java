@@ -7,20 +7,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.List;
-import java.util.UUID;
 
 import robert.purdey.caddytracker.R;
+import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
 import robert.purdey.caddytracker.ui.models.FrolfGroupInviteModel;
 
 public class FrolfGroupInviteListAdapter extends RecyclerView.Adapter<FrolfGroupInviteListAdapter.FrolfGroupInviteViewHolder>
 {
 
     private final LayoutInflater mInflater;
-    private List<FrolfGroupInviteModel> mFrolfGroupInvites; // Cached copy of frolfGroupInvites
+    // Cached copy of frolfGroupInvites
+    private List<FrolfGroupInviteModel> mFrolfGroupInvites;
+    private IItemClickListener clickListener;
 
-    public FrolfGroupInviteListAdapter(Context context)
+    public FrolfGroupInviteListAdapter(Context context, IItemClickListener clickListener)
     {
-        mInflater = LayoutInflater.from(context);
+        mInflater          = LayoutInflater.from(context);
+        this.clickListener = clickListener;
     }
 
     @Override
@@ -65,13 +68,12 @@ public class FrolfGroupInviteListAdapter extends RecyclerView.Adapter<FrolfGroup
     @Override
     public int getItemCount()
     {
-        if (mFrolfGroupInvites != null)
-            return mFrolfGroupInvites.size();
-        else
-            return 0;
+        return mFrolfGroupInvites != null
+            ? mFrolfGroupInvites.size()
+            : 0;
     }
 
-    class FrolfGroupInviteViewHolder extends RecyclerView.ViewHolder
+    class FrolfGroupInviteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         private final TextView txtvFrolfGroupInviteId;
         private final TextView txtvGroupName;
@@ -84,6 +86,19 @@ public class FrolfGroupInviteListAdapter extends RecyclerView.Adapter<FrolfGroup
             txtvFrolfGroupInviteId   = itemView.findViewById(R.id.txtv_frolf_group_invite_id);
             txtvGroupName            = itemView.findViewById(R.id.txtv_invite_group_name);
             txtvInviterHandle        = itemView.findViewById(R.id.txtv_inviter_handle);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view)
+        {
+            if (clickListener != null)
+            {
+                FrolfGroupInviteModel current = mFrolfGroupInvites.get(getAdapterPosition());
+
+                clickListener.onClick(view, current.getIdKey());
+            }
         }
     }
 }
