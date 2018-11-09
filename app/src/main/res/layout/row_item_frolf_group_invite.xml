@@ -32,11 +32,39 @@
     <!-- Inviter name -->
     <TextView
         android:id="@+id/txtv_inviter_handle"
-        android:layout_width="match_parent"
+        android:layout_width="75dp"
         android:layout_height="18dp"
         android:text="Player Name"
         android:textSize="15dp"
         android:layout_below="@+id/txtv_invite_group_name"
         android:layout_toRightOf="@+id/txtv_inviter_label"
         android:gravity="center_vertical"/>
+
+    <!-- Accept button -->
+    <Button
+        android:id="@+id/bttn_accept_invite"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/white"
+        android:background="@color/button_green2"
+        android:text="A"
+        android:textSize="15dp"
+        android:textAlignment="center"
+        android:layout_toLeftOf="@+id/bttn_decline_invite"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="35dp"/>
+
+    <!-- Decline button -->
+    <Button
+        android:id="@+id/bttn_decline_invite"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/white"
+        android:background="@color/button_red"
+        android:text="D"
+        android:textSize="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="20dp"/>
 </RelativeLayout>
