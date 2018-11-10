@@ -14,11 +14,11 @@ import android.view.ViewGroup;
 import java.util.UUID;
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.adapters.FrolfGroupInviteListAdapter;
-import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
+import robert.purdey.caddytracker.ui.listeners.IInviteActionClickListener;
 import robert.purdey.caddytracker.ui.viewmodels.FrolfGroupInviteViewModel;
 
 
-public class FrolfGroupInviteListFragment extends Fragment implements IItemClickListener
+public class FrolfGroupInviteListFragment extends Fragment implements IInviteActionClickListener
 {
     private FrolfGroupInviteViewModel frolfGroupInviteViewModel;
     private FrolfGroupInviteListAdapter groupInviteAdapter;
@@ -53,9 +53,15 @@ public class FrolfGroupInviteListFragment extends Fragment implements IItemClick
     }
 
     @Override
-    public void onClick(View view, UUID inviteId)
+    public void onClickAccept(UUID inviteId)
     {
         frolfGroupInviteViewModel.acceptGroupInvite(inviteId, this::GetInvites);
+    }
+
+    @Override
+    public void onClickDecline(UUID inviteId)
+    {
+        frolfGroupInviteViewModel.declineGroupInvite(inviteId, this::GetInvites);
     }
 
     public void GetInvites()

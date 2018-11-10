@@ -115,4 +115,36 @@ public class FrolfGroupInviteController
             }
         });
     }
+
+    // todo: should use a result model to return details about call?
+    @Override
+    public void remove(UUID inviteId, IApiResponseListener responseListener)
+    {
+        Call<Void> caller = getApiCall().remove(inviteId);
+
+        caller.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(
+                Call<Void> call,
+                Response<Void> response)
+            {
+                if ( response.isSuccessful() )
+                {
+                    responseListener.onResponseSuccessful();
+                }
+                else
+                {
+                    responseListener.onResponseFailed();
+                }
+            }
+
+            @Override
+            public void onFailure(
+                Call<Void> call,
+                Throwable t)
+            {
+                responseListener.onCallFailure();
+            }
+        });
+    }
 }

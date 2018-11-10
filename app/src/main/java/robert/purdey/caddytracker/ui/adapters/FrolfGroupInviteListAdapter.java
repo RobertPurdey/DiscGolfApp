@@ -5,10 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import java.util.List;
 import robert.purdey.caddytracker.R;
-import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
+import robert.purdey.caddytracker.ui.listeners.IInviteActionClickListener;
 import robert.purdey.caddytracker.ui.models.FrolfGroupInviteModel;
 
 public class FrolfGroupInviteListAdapter extends RecyclerView.Adapter<FrolfGroupInviteListAdapter.FrolfGroupInviteViewHolder>
@@ -17,9 +18,9 @@ public class FrolfGroupInviteListAdapter extends RecyclerView.Adapter<FrolfGroup
     private final LayoutInflater mInflater;
     // Cached copy of frolfGroupInvites
     private List<FrolfGroupInviteModel> mFrolfGroupInvites;
-    private IItemClickListener clickListener;
+    private IInviteActionClickListener clickListener;
 
-    public FrolfGroupInviteListAdapter(Context context, IItemClickListener clickListener)
+    public FrolfGroupInviteListAdapter(Context context, IInviteActionClickListener clickListener)
     {
         mInflater          = LayoutInflater.from(context);
         this.clickListener = clickListener;
@@ -72,11 +73,16 @@ public class FrolfGroupInviteListAdapter extends RecyclerView.Adapter<FrolfGroup
             : 0;
     }
 
-    class FrolfGroupInviteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    class FrolfGroupInviteViewHolder extends RecyclerView.ViewHolder
     {
         private final TextView txtvFrolfGroupInviteId;
         private final TextView txtvGroupName;
         private final TextView txtvInviterHandle;
+        private final Button bttnAccept;
+        private final Button bttnDecline;
+
+        // todo: use this once block is implemented
+        //private final Button bttnBlock;
 
         private FrolfGroupInviteViewHolder(View itemView)
         {
@@ -85,19 +91,40 @@ public class FrolfGroupInviteListAdapter extends RecyclerView.Adapter<FrolfGroup
             txtvFrolfGroupInviteId   = itemView.findViewById(R.id.txtv_frolf_group_invite_id);
             txtvGroupName            = itemView.findViewById(R.id.txtv_invite_group_name);
             txtvInviterHandle        = itemView.findViewById(R.id.txtv_inviter_handle);
+            bttnAccept               = itemView.findViewById(R.id.bttn_accept_invite);
+            bttnDecline              = itemView.findViewById(R.id.bttn_decline_invite);
 
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view)
-        {
-            if (clickListener != null)
+            // Only set buttons if a listener was provided
+            if ( clickListener != null )
             {
-                FrolfGroupInviteModel current = mFrolfGroupInvites.get(getAdapterPosition());
-
-                clickListener.onClick(view, current.getIdKey());
+                setAcceptOnClick();
+                setDeclineOnClick();
             }
+
         }
+
+        private void setAcceptOnClick()
+        {
+            bttnAccept.setOnClickListener(view -> clickListener.onClickAccept(
+                GetCurrentInvite().getIdKey() ));
+        }
+
+        private void setDeclineOnClick()
+        {
+            bttnDecline.setOnClickListener(view -> clickListener.onClickDecline(
+                GetCurrentInvite().getIdKey() ));
+        }
+
+        private FrolfGroupInviteModel GetCurrentInvite()
+        {
+            return mFrolfGroupInvites.get( getAdapterPosition() );
+        }
+
+
+        // todo: block invite - implement when ready
+        //private void setBlockOnClick()
+        //{
+        //
+        //}
     }
 }

@@ -71,6 +71,33 @@ public class FrolfGroupInviteViewModel extends ViewModel
         });
     }
 
+    public void declineGroupInvite(UUID inviteId, IRefreshListener listener)
+    {
+        frolfGroupInviteController.remove(inviteId, new IApiResponseListener()
+        {
+            @Override
+            public void onResponseSuccessful()
+            {
+                resetInviteData();
+                listener.onRefresh();
+            }
+
+            @Override
+            public void onResponseFailed()
+            {
+                // todo: implement this?
+                // perhaps a toast message
+            }
+
+            @Override
+            public void onCallFailure()
+            {
+                // todo: implement this?
+                // perhaps a toast message
+            }
+        });
+    }
+
     private void loadFrolfGroupInvites()
     {
         frolfGroupInvites = frolfGroupInviteController.getWithFilter(filterModel);
@@ -80,11 +107,5 @@ public class FrolfGroupInviteViewModel extends ViewModel
     {
         frolfGroupInvites = null;
         getFrolfGroupInvites();
-    }
-
-
-    private void declineGroupInvite()
-    {
-
     }
 }

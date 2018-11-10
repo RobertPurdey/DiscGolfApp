@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -24,4 +25,7 @@ public interface IFrolfGroupInviteCall
 
     @POST("api/frolfgroupinvites/{id}/accept")
     Call<Void> accept(@Path("id") UUID inviteId);
+
+    @DELETE("api/frolfgroupinvites/{id}")
+    Call<Void> remove(@Path("id") UUID inviteId);
 }
