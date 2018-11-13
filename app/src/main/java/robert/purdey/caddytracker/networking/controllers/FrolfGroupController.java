@@ -25,7 +25,7 @@ public class FrolfGroupController
     public MutableLiveData<List<FrolfGroupModel>> getFrolfGroups()
     {
         final MutableLiveData<List<FrolfGroupModel>> data  = new MutableLiveData<>();
-        Call<List<FrolfGroupModel>> caller                 = getApiCall().getFrolfGroups();
+        Call<List<FrolfGroupModel>> caller = getApiCall().getFrolfGroups(getAuthorizationHeader());
 
         caller.enqueue(new Callback<List<FrolfGroupModel>>() {
             @Override

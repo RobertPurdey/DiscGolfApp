@@ -28,7 +28,7 @@ public class FrolfGroupInviteController
     public MutableLiveData<List<FrolfGroupInviteModel>> getAll()
     {
         final MutableLiveData<List<FrolfGroupInviteModel>> data  = new MutableLiveData<>();
-        Call<List<FrolfGroupInviteModel>> caller                 = getApiCall().getAll();
+        Call<List<FrolfGroupInviteModel>> caller = getApiCall().getAll(getAuthorizationHeader());
 
         caller.enqueue(new Callback<List<FrolfGroupInviteModel>>() {
             @Override
@@ -58,7 +58,7 @@ public class FrolfGroupInviteController
     public MutableLiveData<List<FrolfGroupInviteModel>> getWithFilter(FrolfGroupInviteFilterModel filter)
     {
         final MutableLiveData<List<FrolfGroupInviteModel>> data  = new MutableLiveData<>();
-        Call<List<FrolfGroupInviteModel>> caller                 = getApiCall().getWithFilter(filter);
+        Call<List<FrolfGroupInviteModel>> caller = getApiCall().getWithFilter(getAuthorizationHeader(), filter);
 
         caller.enqueue(new Callback<List<FrolfGroupInviteModel>>() {
             @Override
@@ -88,7 +88,7 @@ public class FrolfGroupInviteController
     @Override
     public void accept(UUID inviteId, IApiResponseListener responseListener)
     {
-        Call<Void> caller = getApiCall().accept(inviteId);
+        Call<Void> caller = getApiCall().accept(getAuthorizationHeader(), inviteId);
 
         caller.enqueue(new Callback<Void>() {
             @Override
@@ -120,7 +120,7 @@ public class FrolfGroupInviteController
     @Override
     public void remove(UUID inviteId, IApiResponseListener responseListener)
     {
-        Call<Void> caller = getApiCall().remove(inviteId);
+        Call<Void> caller = getApiCall().remove(getAuthorizationHeader(), inviteId);
 
         caller.enqueue(new Callback<Void>() {
             @Override

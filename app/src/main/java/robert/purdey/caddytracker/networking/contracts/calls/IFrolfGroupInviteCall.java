@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import robert.purdey.caddytracker.domain.frolfgroups.FrolfGroupInviteFilterModel;
@@ -18,14 +19,21 @@ public interface IFrolfGroupInviteCall
     String BASE_URL = "http://192.168.1.65:53739/";
 
     @GET("api/frolfgroupinvites/")
-    Call<List<FrolfGroupInviteModel>> getAll();
+    Call<List<FrolfGroupInviteModel>> getAll(
+        @Header("Authorization") String auth);
 
     @POST("api/frolfgroupinvites/filter")
-    Call<List<FrolfGroupInviteModel>> getWithFilter(@Body FrolfGroupInviteFilterModel filter);
+    Call<List<FrolfGroupInviteModel>> getWithFilter(
+        @Header("Authorization") String auth,
+        @Body FrolfGroupInviteFilterModel filter);
 
     @POST("api/frolfgroupinvites/{id}/accept")
-    Call<Void> accept(@Path("id") UUID inviteId);
+    Call<Void> accept(
+        @Header("Authorization") String auth,
+        @Path("id") UUID inviteId);
 
     @DELETE("api/frolfgroupinvites/{id}")
-    Call<Void> remove(@Path("id") UUID inviteId);
+    Call<Void> remove(
+        @Header("Authorization") String auth,
+        @Path("id") UUID inviteId);
 }

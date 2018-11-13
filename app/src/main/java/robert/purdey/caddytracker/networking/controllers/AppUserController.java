@@ -32,11 +32,7 @@ public class AppUserController
         Map<String, String> tokenFieldMap)
     {
         final MutableLiveData<TokenModel> data = new MutableLiveData<>();
-        HttpClientArg arg                      = getHttpClientArg();
-
-        arg.setHeaders( new HashMap<>() );
-
-        Call<TokenModel> tokenCall = GetCustomArgApiCall(arg).login(tokenFieldMap);
+        Call<TokenModel> tokenCall = getApiCall().login(tokenFieldMap);
 
         tokenCall.enqueue(new Callback<TokenModel>() {
             @Override

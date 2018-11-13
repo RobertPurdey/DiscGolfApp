@@ -1,8 +1,9 @@
 package robert.purdey.caddytracker.networking.controllers;
 
 import java.util.HashMap;
-
+import okhttp3.Authenticator;
 import robert.purdey.caddytracker.networking.arguments.HttpClientArg;
+import robert.purdey.caddytracker.networking.authentication.TokenRefresher;
 import robert.purdey.caddytracker.networking.contracts.calls.IApiCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IApiController;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
@@ -25,46 +26,39 @@ public abstract class ApiController<TApiCall> implements IApiController<TApiCall
         this.apiCall         = apiCallService.getApiCall(httpClientArg, apiCallClass);
     }
 
-    protected TApiCall GetCustomArgApiCall(HttpClientArg arg)
-    {
-        return apiCallService.getApiCall(arg, apiCallClass);
-    }
-
-    /**
-     * Provides additional headers for the API call.
-     *
-     * @return - Headers to supply the API call.
-     */
-    protected HashMap<String, String> provideHeaders()
-    {
-        return new HashMap<>();
-    }
-
     private HttpClientArg createHttpClientArg()
     {
-        HashMap<String, String> clientHeaders = new HashMap<>();
-        // todo: this needs to come from account manager
-        clientHeaders.put(
-            "Authorization",
-            "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoia2F0aWUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY5OTY4MDIzLTU4M2MtNDk2Mi1hZTk0LWRjYTMyMjc1NTA2OSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFwcHVzZXIiLCJuYmYiOjE1NDE4ODUxNjYsImV4cCI6MTU0MTg4Njk2Nn0.3BVw7pGaAxNqJ3GixGHV9jvhUig125YeGVk3VmBSVtc"
-        );
-
-        clientHeaders.putAll(provideHeaders());
-
         return new HttpClientArg(
             10,
             10,
             IApiCall.BASE_URL,
-            clientHeaders);
+            CreateAuthenticator() );
     }
 
-    public TApiCall getApiCall()
+    protected String getAuthorizationHeader()
+    {
+        // token = get token from pref
+        return "Bearer " + getToken();
+    }
+
+    protected String getToken()
+    {
+        // token = get token from pref
+        return null;
+    }
+
+    protected TApiCall getApiCall()
     {
         return apiCall;
     }
 
-    public HttpClientArg getHttpClientArg()
+    protected HttpClientArg getHttpClientArg()
     {
         return httpClientArg;
+    }
+
+    private Authenticator CreateAuthenticator()
+    {
+        return new TokenRefresher(apiCallService);
     }
 }

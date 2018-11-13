@@ -1,6 +1,7 @@
 package robert.purdey.caddytracker.networking.arguments;
 
 import java.util.Map;
+import okhttp3.Authenticator;
 
 /**
  * Information required to build an Http Client.
@@ -10,18 +11,18 @@ public class HttpClientArg
     private int readTimeout;
     private int connectionTimeout;
     private String baseUrl;
-    private Map <String, String> headers;
+    private Authenticator apiAuthenticator;
 
     public HttpClientArg(
         int readTimeout,
         int connectionTimeout,
         String baseUrl,
-        Map<String, String> headers)
+        Authenticator apiAuthenticator)
     {
         this.readTimeout         = readTimeout;
         this.connectionTimeout   = connectionTimeout;
         this.baseUrl             = baseUrl;
-        this.headers             = headers;
+        this.apiAuthenticator    = apiAuthenticator;
     }
 
     public int getReadTimeout()
@@ -44,13 +45,13 @@ public class HttpClientArg
         this.baseUrl = baseUrl;
     }
 
-    public Map<String, String> getHeaders()
+    public Authenticator getApiAuthenticator()
     {
-        return headers;
+        return apiAuthenticator;
     }
 
-    public void setHeaders(Map<String, String> headers)
+    public void setApiAuthenticator(Authenticator apiAuthenticator)
     {
-        this.headers = headers;
+        this.apiAuthenticator = apiAuthenticator;
     }
 }

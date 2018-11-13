@@ -2,6 +2,7 @@ package robert.purdey.caddytracker.ui.activities;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ public class LoginActivity extends AppCompatActivity
 
     public LoginActivity()
     {
+
     }
 
     @Override

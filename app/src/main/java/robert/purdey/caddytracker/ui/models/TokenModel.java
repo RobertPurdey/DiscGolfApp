@@ -7,6 +7,9 @@ public class TokenModel
     @SerializedName("access_token")
     public String accessToken;
 
+    @SerializedName("refresh_token")
+    public String refreshToken;
+
     @SerializedName("token_type")
     public String tokenType;
 
@@ -21,6 +24,16 @@ public class TokenModel
     public void setAccessToken(String accessToken)
     {
         this.accessToken = accessToken;
+    }
+
+    public String getRefreshToken()
+    {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken)
+    {
+        this.refreshToken = refreshToken;
     }
 
     public String getTokenType()

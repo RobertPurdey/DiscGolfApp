@@ -4,29 +4,25 @@ import com.google.gson.annotations.SerializedName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginModel
+public class RefreshTokenModel
 {
-    private String username;
-
-    private String password;
+    private String refreshToken;
 
     @SerializedName("grant_type")
     private String grantType;
 
-    public LoginModel(String username, String password)
+    public RefreshTokenModel(String refreshToken)
     {
-        this.username   = username;
-        this.password   = password;
-        this.grantType  = "password";
+        this.refreshToken  = refreshToken;
+        this.grantType     = "refresh_token";
     }
 
     public Map<String, String> getRequestFields()
     {
         HashMap<String, String> fields = new HashMap<>();
 
-        fields.put("username", username);
-        fields.put("password", password);
         fields.put("grant_type", grantType);
+        fields.put("refresh_token", refreshToken);
 
         return fields;
     }

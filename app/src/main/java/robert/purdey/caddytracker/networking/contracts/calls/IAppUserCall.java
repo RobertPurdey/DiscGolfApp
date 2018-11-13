@@ -14,5 +14,11 @@ public interface IAppUserCall
 
     @FormUrlEncoded
     @POST("oauth2/token")
-    Call<TokenModel> login(@FieldMap Map<String, String> loginAttempt);
+    Call<TokenModel> login(
+        @FieldMap Map<String, String> loginAttempt);
+
+    @FormUrlEncoded
+    @POST("oauth2/token")
+    Call<TokenModel> refreshToken(
+        @FieldMap Map<String, String> refreshTokenAttempt);
 }
