@@ -1,12 +1,12 @@
 package robert.purdey.caddytracker.networking.controllers;
 
-import java.util.HashMap;
 import okhttp3.Authenticator;
 import robert.purdey.caddytracker.networking.arguments.HttpClientArg;
 import robert.purdey.caddytracker.networking.authentication.TokenRefresher;
 import robert.purdey.caddytracker.networking.contracts.calls.IApiCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IApiController;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
+import robert.purdey.caddytracker.ui.FrolfApp;
 
 
 public abstract class ApiController<TApiCall> implements IApiController<TApiCall>
@@ -37,14 +37,12 @@ public abstract class ApiController<TApiCall> implements IApiController<TApiCall
 
     protected String getAuthorizationHeader()
     {
-        // token = get token from pref
         return "Bearer " + getToken();
     }
 
     protected String getToken()
     {
-        // token = get token from pref
-        return null;
+        return FrolfApp.getUserSession().getToken();
     }
 
     protected TApiCall getApiCall()

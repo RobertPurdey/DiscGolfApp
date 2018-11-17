@@ -1,17 +1,15 @@
 package robert.purdey.caddytracker.networking.controllers;
 
 import android.arch.lifecycle.MutableLiveData;
-
-import java.util.HashMap;
 import java.util.Map;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import robert.purdey.caddytracker.networking.arguments.HttpClientArg;
+import robert.purdey.caddytracker.domain.storage.UserSessionManager;
 import robert.purdey.caddytracker.networking.contracts.calls.IAppUserCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IAppUserController;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
+import robert.purdey.caddytracker.ui.FrolfApp;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.TokenModel;
 
@@ -40,10 +38,14 @@ public class AppUserController
             {
                 if ( response.isSuccessful() )
                 {
+                    // todo: should token be stored a different way?
+                    UserSessionManager userSession = FrolfApp.getUserSession();
+
+                    userSession.storeToken(response.body().accessToken);
+                    userSession.storeRefreshToken(response.body().refreshToken);
+
                     data.setValue(response.body());
                     listener.onResponseSuccessful();
-
-                    //todo: store login session
                 }
                 else
                 {

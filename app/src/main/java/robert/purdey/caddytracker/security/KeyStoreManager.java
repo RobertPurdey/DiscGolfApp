@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import com.yakivmospan.scytale.Store;
 import javax.crypto.SecretKey;
 import robert.purdey.caddytracker.security.contracts.IKeyStoreManager;
-import robert.purdey.caddytracker.utilities.Strings;
 
 /**
  This class uses Scytale https://github.com/yakivmospan/scytale to access the android
@@ -80,11 +79,6 @@ public class KeyStoreManager implements IKeyStoreManager
     @Override
     public void removeKey(@NonNull String alias)
     {
-        if ( Strings.isNullOrEmpty(alias) )
-        {
-            throw new IllegalArgumentException("alias cannot be null or empty");
-        }
-
         appKeyStore.deleteKey(alias);
     }
 }
