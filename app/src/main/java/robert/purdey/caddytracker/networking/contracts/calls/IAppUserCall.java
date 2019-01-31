@@ -9,9 +9,6 @@ import robert.purdey.caddytracker.ui.models.TokenModel;
 
 public interface IAppUserCall
 {
-    //todo: use configuration file or centralize this somewhere else since api call interfaces cant extend?
-    String BASE_URL = "http://192.168.1.65:53739/";
-
     @FormUrlEncoded
     @POST("oauth2/token")
     Call<TokenModel> login(

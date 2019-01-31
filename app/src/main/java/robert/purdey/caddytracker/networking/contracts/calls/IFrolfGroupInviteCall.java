@@ -15,9 +15,6 @@ import robert.purdey.caddytracker.ui.models.FrolfGroupInviteModel;
 
 public interface IFrolfGroupInviteCall
 {
-    //todo: use configuration file?
-    String BASE_URL = "http://192.168.1.65:53739/";
-
     @GET("api/frolfgroupinvites/")
     Call<List<FrolfGroupInviteModel>> getAll(
         @Header("Authorization") String auth);

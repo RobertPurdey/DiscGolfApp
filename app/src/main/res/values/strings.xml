@@ -42,7 +42,9 @@
     <string name="add_course">Add Course</string>
     <string name="add_group">Add Group</string>
     <string name="num_of_holes"># Of Holes</string>
+    <string name="name">Name</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_frolf_group_record">FrolfGroupRecordActivity</string>
 </resources>

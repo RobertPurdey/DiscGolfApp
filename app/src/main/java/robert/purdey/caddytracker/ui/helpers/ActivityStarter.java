@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import robert.purdey.caddytracker.ui.activities.FrolfGroupRecordActivity;
 import robert.purdey.caddytracker.ui.activities.MainMenuActivity;
 import robert.purdey.caddytracker.ui.activities.ManageFrolfGroupsActivity;
 import robert.purdey.caddytracker.ui.activities.ManageInvitesActivity;
@@ -82,6 +83,16 @@ public class ActivityStarter
     public static void startManageFrolfGroupsActivity(Context context)
     {
         startActivity(context, ManageFrolfGroupsActivity.class);
+    }
+
+    /**
+     * Starts Frolf Group Record Activity
+     *
+     * @param context
+     */
+    public static void startFrolfGroupRecordActivity(Context context)
+    {
+        startActivity(context, FrolfGroupRecordActivity.class);
     }
 
     /**
