@@ -22,13 +22,14 @@
 
     <!-- Add Frolf Group navigation button -->
     <Button
-        android:id="@+id/bttn_add_frolf_group"
+        android:id="@+id/bttn_new_frolf_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/add_group"
+        android:text="@string/new_group"
         android:background="@color/button_green"
         android:textColor="@color/white"
+        android:onClick="onClickNewGroup"
     />
 
 </RelativeLayout>

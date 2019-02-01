@@ -15,6 +15,7 @@ import robert.purdey.caddytracker.ui.viewmodels.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity
 {
+    // todo: what to do with this??
     private TokenModel receivedLoginTokenModel;
     private LoginViewModel loginViewModel;
 

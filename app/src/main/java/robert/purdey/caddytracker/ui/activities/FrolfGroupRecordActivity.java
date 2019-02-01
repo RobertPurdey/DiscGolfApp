@@ -17,6 +17,7 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
 
     }
 
+    // todo: takes a model upon opening if its a new model (no id) its create, otherwise its an update (fetch data)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
