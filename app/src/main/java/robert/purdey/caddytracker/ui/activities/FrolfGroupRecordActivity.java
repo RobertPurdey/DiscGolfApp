@@ -4,6 +4,8 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.databinding.ActivityFrolfGroupRecordBinding;
 import robert.purdey.caddytracker.ui.viewmodels.FrolfGroupRecordViewModel;
@@ -29,6 +31,12 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
 
         binding.setFrolfGroupRecordViewModel(frolfGroupRecordViewModel);
         binding.setLifecycleOwner(this);
+    }
+
+    public void onCreateFrolfGroup(View view)
+    {
+        // todo: use IApiResponseListener
+        frolfGroupRecordViewModel.insert();
     }
 
     private void createFrolfGroupRecordViewModel()

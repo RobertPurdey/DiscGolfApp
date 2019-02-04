@@ -44,6 +44,17 @@
 
         </LinearLayout>
 
+        <!-- Create frolf group button -->
+        <Button
+            android:id="@+id/bttn_create_frolf_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="@string/create"
+            android:background="@color/button_green"
+            android:textColor="@color/white"
+            android:onClick="onCreateFrolfGroup"
+            />
     </RelativeLayout>
 
 </layout>
