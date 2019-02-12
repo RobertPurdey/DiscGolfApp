@@ -12,14 +12,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import java.util.List;
+import java.util.UUID;
+
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.adapters.FrolfGroupListAdapter;
+import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
+import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
 import robert.purdey.caddytracker.ui.viewmodels.FrolfGroupViewModel;
 
 
-public class FrolfGroupListFragment extends Fragment
+public class FrolfGroupListFragment extends Fragment implements IItemClickListener
 {
     private FrolfGroupViewModel frolfGroupViewModel;
 
@@ -33,7 +39,7 @@ public class FrolfGroupListFragment extends Fragment
 
         Context activityContext                    = getActivity();
         RecyclerView recyclerView                  = rootView.findViewById(R.id.frolfGroupRecycleView);
-        final FrolfGroupListAdapter groupAdapter   = new FrolfGroupListAdapter(activityContext);
+        final FrolfGroupListAdapter groupAdapter   = new FrolfGroupListAdapter(activityContext, this);
         LinearLayoutManager layoutManger           = new LinearLayoutManager(activityContext);
 
         recyclerView.setAdapter(groupAdapter);
@@ -47,14 +53,17 @@ public class FrolfGroupListFragment extends Fragment
 
         frolfGroupViewModel = ViewModelProviders.of(this).get(FrolfGroupViewModel.class);
 
-        frolfGroupViewModel.getFrolfGroups().observe(this, new Observer<List<FrolfGroupModel>>() {
-            @Override
-            public void onChanged(@Nullable List<FrolfGroupModel> frolfGroupModels)
-            {
-                groupAdapter.setFrolfGroups(frolfGroupModels);
-            }
-        });
+        frolfGroupViewModel.getFrolfGroups().observe(this, frolfGroupModels ->
+            groupAdapter.setFrolfGroups(frolfGroupModels)
+        );
 
         return rootView;
     }
+
+    @Override
+    public void onClick(View v, UUID id)
+    {
+        ActivityStarter.startFrolfGroupRecordActivity(getActivity(), id);
+    }
+
 }

@@ -12,6 +12,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import robert.purdey.caddytracker.domain.frolfgroups.FrolfGroupInviteFilterModel;
 import robert.purdey.caddytracker.ui.models.FrolfGroupInviteModel;
+import robert.purdey.caddytracker.ui.models.InviteCreationModel;
 
 public interface IFrolfGroupInviteCall
 {
@@ -33,4 +34,9 @@ public interface IFrolfGroupInviteCall
     Call<Void> remove(
         @Header("Authorization") String auth,
         @Path("id") UUID inviteId);
+
+    @POST("api/frolfgroupinvites/send")
+    Call<Void> send(
+        @Header("Authorization") String auth,
+        @Body InviteCreationModel creationModel);
 }

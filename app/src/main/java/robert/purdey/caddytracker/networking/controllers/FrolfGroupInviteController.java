@@ -13,6 +13,7 @@ import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupIn
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.FrolfGroupInviteModel;
+import robert.purdey.caddytracker.ui.models.InviteCreationModel;
 
 public class FrolfGroupInviteController
     extends ApiController<IFrolfGroupInviteCall>
@@ -144,6 +145,37 @@ public class FrolfGroupInviteController
                 Throwable t)
             {
                 responseListener.onCallFailure();
+            }
+        });
+    }
+
+    @Override
+    public void send(InviteCreationModel creationModel)
+    {
+        Call<Void> caller = getApiCall().send(getAuthorizationHeader(), creationModel);
+
+        caller.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(
+                Call<Void> call,
+                Response<Void> response)
+            {
+                if ( response.isSuccessful() )
+                {
+                    // todo: what do i do???
+                }
+                else
+                {
+                    // todo: what do i do???
+                }
+            }
+
+            @Override
+            public void onFailure(
+                Call<Void> call,
+                Throwable t)
+            {
+                // todo: what do i do???
             }
         });
     }

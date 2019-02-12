@@ -12,6 +12,7 @@ import robert.purdey.caddytracker.ui.viewmodels.FrolfGroupRecordViewModel;
 
 public class FrolfGroupRecordActivity extends AppCompatActivity
 {
+    public static final String RECORD_ID = "RECORD_ID";
     private FrolfGroupRecordViewModel frolfGroupRecordViewModel;
 
     public FrolfGroupRecordActivity()

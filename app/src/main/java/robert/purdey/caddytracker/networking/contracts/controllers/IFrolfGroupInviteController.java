@@ -7,6 +7,7 @@ import java.util.UUID;
 import robert.purdey.caddytracker.domain.frolfgroups.FrolfGroupInviteFilterModel;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.FrolfGroupInviteModel;
+import robert.purdey.caddytracker.ui.models.InviteCreationModel;
 
 public interface IFrolfGroupInviteController
 {
@@ -14,4 +15,5 @@ public interface IFrolfGroupInviteController
     MutableLiveData<List<FrolfGroupInviteModel>> getWithFilter(FrolfGroupInviteFilterModel filter);
     void accept(UUID inviteId, IApiResponseListener responseListener);
     void remove(UUID inviteId, IApiResponseListener responseListener);
+    void send(InviteCreationModel creationModel);
 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.List;
 import robert.purdey.caddytracker.R;
+import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
 
 
@@ -15,11 +16,13 @@ public class FrolfGroupListAdapter extends RecyclerView.Adapter<FrolfGroupListAd
 {
 
     private final LayoutInflater mInflater;
+    private final IItemClickListener clickListener;
     private List<FrolfGroupModel> mFrolfGroups; // Cached copy of frolfGroups
 
-    public FrolfGroupListAdapter(Context context)
+    public FrolfGroupListAdapter(Context context, IItemClickListener listener)
     {
-        mInflater = LayoutInflater.from(context);
+        mInflater     = LayoutInflater.from(context);
+        clickListener = listener;
     }
 
     @Override
@@ -42,6 +45,9 @@ public class FrolfGroupListAdapter extends RecyclerView.Adapter<FrolfGroupListAd
 
             holder.txtvFrolfGroupId.setText(current.getIdKey().toString());
             holder.txtvFrolfGroupName.setText(current.getName());
+            holder.itemView.setOnClickListener(
+                view -> clickListener.onClick(view, current.getIdKey())
+            );
         }
         else
         {

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import java.util.UUID;
+
 import robert.purdey.caddytracker.ui.activities.FrolfGroupRecordActivity;
 import robert.purdey.caddytracker.ui.activities.MainMenuActivity;
 import robert.purdey.caddytracker.ui.activities.ManageFrolfGroupsActivity;
@@ -90,8 +92,11 @@ public class ActivityStarter
      *
      * @param context
      */
-    public static void startFrolfGroupRecordActivity(Context context)
+    public static void startFrolfGroupRecordActivity(Context context, UUID recordId)
     {
+        Intent intent = new Intent(context, FrolfGroupRecordActivity.class);
+        intent.putExtra(FrolfGroupRecordActivity.RECORD_ID, recordId);
+
         startActivity(context, FrolfGroupRecordActivity.class);
     }
 

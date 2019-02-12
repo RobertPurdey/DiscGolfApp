@@ -24,6 +24,6 @@ public class ManageFrolfGroupsActivity extends AppCompatActivity
     public void onClickNewGroup(View view)
     {
         // todo: pass create mode when ready
-        ActivityStarter.startFrolfGroupRecordActivity(this);
+        ActivityStarter.startFrolfGroupRecordActivity(this, null);
     }
 }
