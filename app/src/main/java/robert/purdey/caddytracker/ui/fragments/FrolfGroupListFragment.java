@@ -63,6 +63,7 @@ public class FrolfGroupListFragment extends Fragment implements IItemClickListen
     @Override
     public void onClick(View v, UUID id)
     {
+        // todo: let the using activity set this!!
         ActivityStarter.startFrolfGroupRecordActivity(getActivity(), id);
     }
 

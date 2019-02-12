@@ -95,9 +95,15 @@ public class ActivityStarter
     public static void startFrolfGroupRecordActivity(Context context, UUID recordId)
     {
         Intent intent = new Intent(context, FrolfGroupRecordActivity.class);
-        intent.putExtra(FrolfGroupRecordActivity.RECORD_ID, recordId);
+        String id     = "";
 
-        startActivity(context, FrolfGroupRecordActivity.class);
+        if ( recordId != null )
+        {
+            id = recordId.toString();
+        }
+
+        intent.putExtra(FrolfGroupRecordActivity.RECORD_ID, id);
+        context.startActivity(intent);
     }
 
     /**

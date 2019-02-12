@@ -57,6 +57,12 @@ public class FrolfGroupRecordViewModel extends ViewModel
         return frolfGroup;
     }
 
+    public void setFrolfGroupRecord(FrolfGroupModel model)
+    {
+        groupId.setValue( model.getIdKey().toString() );
+        groupName.setValue( model.getName() );
+    }
+
     public LiveData<FrolfGroupModel> update()
     {
         FrolfGroupModel model = new FrolfGroupModel();
@@ -71,8 +77,5 @@ public class FrolfGroupRecordViewModel extends ViewModel
     private void loadFrolfGroup(UUID id)
     {
         frolfGroup = frolfGroupController.getFrolfGroup(id);
-
-        groupId.setValue( frolfGroup.getValue().getIdKey().toString() );
-        groupName.setValue( frolfGroup.getValue().getName() );
     }
 }
