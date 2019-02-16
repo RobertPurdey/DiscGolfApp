@@ -9,22 +9,29 @@ import java.util.UUID;
 import robert.purdey.caddytracker.networking.HttpClientConfig;
 import robert.purdey.caddytracker.networking.RetrofitConfig;
 import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupController;
+import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupInviteController;
 import robert.purdey.caddytracker.networking.controllers.FrolfGroupController;
+import robert.purdey.caddytracker.networking.controllers.FrolfGroupInviteController;
 import robert.purdey.caddytracker.networking.services.ApiCallService;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
+import robert.purdey.caddytracker.ui.models.InviteCreationModel;
 
 public class FrolfGroupRecordViewModel extends ViewModel
 {
     public MutableLiveData<String> groupId;
     public MutableLiveData<String> groupName;
 
+    public MutableLiveData<String> friendCode;
+
     private MutableLiveData<FrolfGroupModel> frolfGroup;
     private IFrolfGroupController frolfGroupController;
+    private IFrolfGroupInviteController frolfGroupInviteController;
 
     public FrolfGroupRecordViewModel()
     {
-        groupId   = new MutableLiveData<>();
-        groupName = new MutableLiveData<>();
+        groupId    = new MutableLiveData<>();
+        groupName  = new MutableLiveData<>();
+        friendCode = new MutableLiveData<>();
 
         // todo: inject the following when possible
         ApiCallService apiCallService = new ApiCallService(
@@ -32,7 +39,8 @@ public class FrolfGroupRecordViewModel extends ViewModel
             new HttpClientConfig()
         );
 
-        frolfGroupController = new FrolfGroupController(apiCallService);
+        frolfGroupController       = new FrolfGroupController(apiCallService);
+        frolfGroupInviteController = new FrolfGroupInviteController(apiCallService);
     }
 
     public LiveData<FrolfGroupModel> getFrolfGroup(UUID id)
@@ -45,6 +53,16 @@ public class FrolfGroupRecordViewModel extends ViewModel
         //}
 
         return frolfGroup;
+    }
+
+    public void sendGroupInvite()
+    {
+        InviteCreationModel creationModel = new InviteCreationModel();
+
+        creationModel.setGroupId( UUID.fromString( groupId.getValue() ) );
+        creationModel.setFriendCode( friendCode.getValue() );
+
+        frolfGroupInviteController.send(creationModel);
     }
 
     public LiveData<FrolfGroupModel> insert()

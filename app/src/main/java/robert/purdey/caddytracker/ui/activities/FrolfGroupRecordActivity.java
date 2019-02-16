@@ -57,6 +57,12 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
         frolfGroupRecordViewModel.insert();
     }
 
+    public void onSendInvite(View view)
+    {
+        // todo: use IApiResponseListener
+        frolfGroupRecordViewModel.sendGroupInvite();
+    }
+
     private void createFrolfGroupRecordViewModel()
     {
         frolfGroupRecordViewModel = ViewModelProviders.of(this).get(FrolfGroupRecordViewModel.class);
