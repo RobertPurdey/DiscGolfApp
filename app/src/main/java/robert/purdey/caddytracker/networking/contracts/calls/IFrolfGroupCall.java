@@ -10,6 +10,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
+import robert.purdey.caddytracker.ui.models.PlayerModel;
 
 public interface IFrolfGroupCall
 {
@@ -19,6 +20,11 @@ public interface IFrolfGroupCall
 
     @GET("api/frolfgroups/{id}/")
     Call<FrolfGroupModel> getById(
+        @Header("Authorization") String auth,
+        @Path("id") UUID id);
+
+    @GET("api/frolfgroups/groupmembers/{id}/")
+    Call<List<PlayerModel>> getGroupMembers(
         @Header("Authorization") String auth,
         @Path("id") UUID id);
 

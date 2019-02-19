@@ -67,6 +67,15 @@
 
         </LinearLayout>
 
+        <!-- Member list fragment -->
+        <fragment
+            android:name="robert.purdey.caddytracker.ui.fragments.FrolfGroupMemberListFragment"
+            android:id="@+id/frag_frolf_group_member_list"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            />
+
         <!-- Create frolf group button -->
         <Button
             android:id="@+id/bttn_create_frolf_group"

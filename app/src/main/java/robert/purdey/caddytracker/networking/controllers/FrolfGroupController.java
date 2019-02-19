@@ -12,6 +12,7 @@ import robert.purdey.caddytracker.networking.contracts.calls.IFrolfGroupCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupController;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
+import robert.purdey.caddytracker.ui.models.PlayerModel;
 
 public class FrolfGroupController
     extends ApiController<IFrolfGroupCall>
@@ -133,6 +134,35 @@ public class FrolfGroupController
                 Throwable t)
             {
                 System.out.println("Failed to retrieve groups because you are a loser and have none!");
+            }
+        });
+
+        return data;
+    }
+
+    public MutableLiveData<List<PlayerModel>> getGroupMembers(UUID groupId)
+    {
+        final MutableLiveData<List<PlayerModel>> data = new MutableLiveData<>();
+        Call<List<PlayerModel>> caller = getApiCall().getGroupMembers(getAuthorizationHeader(), groupId);
+
+        caller.enqueue(new Callback<List<PlayerModel>>() {
+            @Override
+            public void onResponse(
+                Call<List<PlayerModel>> call,
+                Response<List<PlayerModel>> response)
+            {
+                if ( response.isSuccessful() )
+                {
+                    data.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(
+                Call<List<PlayerModel>> call,
+                Throwable t)
+            {
+                System.out.println("Failed to retrieve group members because you are a loser and nobody wants to be in your group.");
             }
         });
 

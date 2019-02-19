@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.databinding.ActivityFrolfGroupRecordBinding;
+import robert.purdey.caddytracker.ui.fragments.FrolfGroupMemberListFragment;
 import robert.purdey.caddytracker.ui.viewmodels.FrolfGroupRecordViewModel;
 
 public class FrolfGroupRecordActivity extends AppCompatActivity
@@ -45,10 +46,19 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
         // get record data when set
         if ( !recordId.equals("") ) {
             UUID rId = UUID.fromString(recordId);
-            frolfGroupRecordViewModel.getFrolfGroup(rId).observe(this, frolfGroupModel ->
-                frolfGroupRecordViewModel.setFrolfGroupRecord(frolfGroupModel)
-            );
+            frolfGroupRecordViewModel.getFrolfGroup(rId).observe(this, frolfGroupModel -> {
+                frolfGroupRecordViewModel.setFrolfGroupRecord(frolfGroupModel);
+                LoadMembers(frolfGroupModel.getIdKey());
+            });
         }
+    }
+
+    private void LoadMembers(UUID groupId)
+    {
+        FrolfGroupMemberListFragment fragment =
+            (FrolfGroupMemberListFragment) getSupportFragmentManager().findFragmentById(R.id.frag_frolf_group_member_list);
+
+        fragment.Load(groupId);
     }
 
     public void onCreateFrolfGroup(View view)
