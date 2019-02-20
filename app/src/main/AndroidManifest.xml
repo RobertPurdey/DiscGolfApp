@@ -33,6 +33,7 @@
         <activity android:name=".ui.activities.ManageFrolfGroupsActivity"
             android:parentActivityName=".ui.activities.MainMenuActivity" />
 
+        <!-- Create/Edit Group -->
         <activity android:name=".ui.activities.FrolfGroupRecordActivity"
             android:parentActivityName=".ui.activities.ManageFrolfGroupsActivity" />
 

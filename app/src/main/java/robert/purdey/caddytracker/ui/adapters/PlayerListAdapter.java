@@ -10,8 +10,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import robert.purdey.caddytracker.R;
-import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
-import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
 import robert.purdey.caddytracker.ui.models.PlayerModel;
 
 /**

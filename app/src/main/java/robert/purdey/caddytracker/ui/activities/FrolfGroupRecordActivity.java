@@ -29,7 +29,6 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_frolf_group_record);
 
         createFrolfGroupRecordViewModel();
 
@@ -64,6 +63,7 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
     public void onCreateFrolfGroup(View view)
     {
         // todo: use IApiResponseListener
+        // todo: call load members in listener success
         frolfGroupRecordViewModel.insert();
     }
 
