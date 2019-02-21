@@ -62,9 +62,13 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
 
     public void onCreateFrolfGroup(View view)
     {
-        // todo: use IApiResponseListener
-        // todo: call load members in listener success
-        frolfGroupRecordViewModel.insert();
+        if ( frolfGroupRecordViewModel.groupId.getValue() == null )
+        {
+            frolfGroupRecordViewModel.insert().observe(this, frolfGroupModel -> {
+                frolfGroupRecordViewModel.setFrolfGroupRecord(frolfGroupModel);
+                LoadMembers(frolfGroupModel.getIdKey());
+            });
+        }
     }
 
     public void onSendInvite(View view)

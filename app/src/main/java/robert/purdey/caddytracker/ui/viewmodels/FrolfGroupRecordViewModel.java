@@ -87,7 +87,7 @@ public class FrolfGroupRecordViewModel extends ViewModel
         model.setIdKey( UUID.fromString( groupId.getValue() ) );
         model.setName( groupName.getValue() );
 
-        frolfGroup = frolfGroupController.insert(model);
+        //frolfGroup = frolfGroupController.insert(model);
 
         return frolfGroup;
     }
