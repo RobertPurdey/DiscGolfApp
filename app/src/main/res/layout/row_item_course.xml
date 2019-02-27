@@ -1,0 +1,43 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <!-- Course Id -->
+    <TextView
+        android:id="@+id/txtv_row_course_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <!-- Course Name -->
+    <TextView
+        android:id="@+id/txtv_row_course_name"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:text=""
+        android:textSize="20dp"
+        android:gravity="center_vertical"/>
+
+    <!-- Course Par -->
+    <TextView
+    android:id="@+id/txtv_row_course_par"
+    android:layout_width="75dp"
+    android:layout_height="18dp"
+    android:text=""
+    android:textSize="20dp"
+    android:layout_below="@+id/txtv_row_course_name"
+    android:gravity="center_vertical"/>
+
+    <!-- Hole count -->
+    <TextView
+    android:id="@+id/txtv_row_hole_count"
+    android:layout_width="20dp"
+    android:layout_height="18dp"
+    android:text=""
+    android:textSize="15dp"
+    android:layout_below="@+id/txtv_row_course_name"
+    android:layout_toRightOf="@+id/txtv_row_course_par"
+    android:gravity="center_vertical"/>
+
+</RelativeLayout>
