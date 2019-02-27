@@ -29,17 +29,25 @@
         <!-- Main Menu -->
         <activity android:name=".ui.activities.MainMenuActivity" />
 
-        <!-- Manage Groups -->
-        <activity android:name=".ui.activities.ManageFrolfGroupsActivity"
-            android:parentActivityName=".ui.activities.MainMenuActivity" />
+            <!-- Manage Groups -->
+            <activity
+                android:name=".ui.activities.NewGameActivity"
+                android:parentActivityName=".ui.activities.MainMenuActivity" />
 
-        <!-- Create/Edit Group -->
-        <activity android:name=".ui.activities.FrolfGroupRecordActivity"
-            android:parentActivityName=".ui.activities.ManageFrolfGroupsActivity" />
+            <!-- Manage Groups -->
+            <activity
+                android:name=".ui.activities.ManageFrolfGroupsActivity"
+                android:parentActivityName=".ui.activities.MainMenuActivity" />
 
-        <!-- Manage Invites -->
-        <activity android:name=".ui.activities.ManageInvitesActivity"
-            android:parentActivityName=".ui.activities.MainMenuActivity"/>
+            <!-- Create/Edit Group -->
+            <activity
+                android:name=".ui.activities.FrolfGroupRecordActivity"
+                android:parentActivityName=".ui.activities.ManageFrolfGroupsActivity" />
+
+            <!-- Manage Invites -->
+            <activity
+                android:name=".ui.activities.ManageInvitesActivity"
+                android:parentActivityName=".ui.activities.MainMenuActivity" />
 
     </application>
 
