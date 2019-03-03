@@ -16,13 +16,15 @@ import java.util.UUID;
 
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.adapters.PlayerListAdapter;
+import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
 import robert.purdey.caddytracker.ui.viewmodels.FrolfGroupMembersViewModel;
 
 
-public class FrolfGroupMemberListFragment  extends Fragment //todo: implement this click => implements IItemClickListener
+public class FrolfGroupMemberListFragment  extends Fragment implements IItemClickListener
 {
     private PlayerListAdapter playerAdapter;
     private FrolfGroupMembersViewModel frolfGroupMembersViewModel;
+    private IItemClickListener memberClickListener;
 
     public FrolfGroupMemberListFragment()
     {
@@ -39,7 +41,7 @@ public class FrolfGroupMemberListFragment  extends Fragment //todo: implement th
 
         Context activityContext                    = getActivity();
         RecyclerView recyclerView                  = rootView.findViewById(R.id.frolfGroupMembersRecycleView);
-        playerAdapter                              = new PlayerListAdapter(activityContext);//todo: click list imp, this);
+        playerAdapter                              = new PlayerListAdapter(activityContext, this);
         LinearLayoutManager layoutManger           = new LinearLayoutManager(activityContext);
 
         recyclerView.setAdapter(playerAdapter);
@@ -61,5 +63,18 @@ public class FrolfGroupMemberListFragment  extends Fragment //todo: implement th
         frolfGroupMembersViewModel.getFrolfGroupMembers(groupId).observe(this, playerModels ->
             playerAdapter.setPlayers(playerModels)
         );
+    }
+
+    @Override
+    public void onClick(View v, UUID id)
+    {
+        if ( memberClickListener != null ) {
+            memberClickListener.onClick(v, id);
+        }
+    }
+
+    public void SetMemberlickListener(IItemClickListener listener)
+    {
+        memberClickListener = listener;
     }
 }

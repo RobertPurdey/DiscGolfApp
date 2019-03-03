@@ -49,9 +49,13 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
             holder.txtvCoursePar.setText( Integer.toString(current.getPar()) );
             holder.txtvHoleCount.setText( Integer.toString(current.getHoleCount()) );
             // todo: imp this
-            //holder.itemView.setOnClickListener(
-            //    view -> clickListener.onClick(view, current.getIdKey())
-            //);
+
+            if (clickListener != null)
+            {
+                holder.itemView.setOnClickListener(
+                    view -> clickListener.onClick(view, current.getIdKey())
+                );
+            }
         }
         else
         {

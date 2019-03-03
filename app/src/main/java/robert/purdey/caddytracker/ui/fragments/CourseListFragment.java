@@ -15,13 +15,14 @@ import java.util.UUID;
 
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.adapters.CourseListAdapter;
-import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
 import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
 import robert.purdey.caddytracker.ui.viewmodels.CourseListViewModel;
 
 public class CourseListFragment extends Fragment implements IItemClickListener
 {
     private CourseListViewModel courseListViewModel;
+    private IItemClickListener courseClickLisetner;
+
 
     @Override
     public View onCreateView(
@@ -57,8 +58,14 @@ public class CourseListFragment extends Fragment implements IItemClickListener
     @Override
     public void onClick(View v, UUID id)
     {
-        // todo: let the using activity set this!!
-        ActivityStarter.startFrolfGroupRecordActivity(getActivity(), id);
+        if ( courseClickLisetner != null ) {
+            courseClickLisetner.onClick(v, id);
+        }
+    }
+
+    public void SetCourseClickListener(IItemClickListener listener)
+    {
+        courseClickLisetner = listener;
     }
 
 }

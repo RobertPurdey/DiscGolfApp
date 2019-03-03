@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import robert.purdey.caddytracker.R;
+import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
 import robert.purdey.caddytracker.ui.models.PlayerModel;
 
 /**
@@ -20,13 +21,13 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
 {
 
     private final LayoutInflater mInflater;
-    //private final IItemClickListener clickListener;
-    private List<PlayerModel> mPlayers; // Cached copy of frolfGroups
+    private final IItemClickListener clickListener;
+    private List<PlayerModel> mPlayers;
 
-    public PlayerListAdapter(Context context)// todo: imp this =>, IItemClickListener listener)
+    public PlayerListAdapter(Context context, IItemClickListener listener)
     {
         mInflater     = LayoutInflater.from(context);
-        //clickListener = listener;
+        clickListener = listener;
     }
 
     @Override
@@ -49,9 +50,13 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
 
             holder.txtvPlayerId.setText(current.getIdKey().toString());
             holder.txtvPlayerHandle.setText(current.getHandle());
-            //todo: click listener: holder.itemView.setOnClickListener(
-            //    view -> clickListener.onClick(view, current.getIdKey())
-            //);
+
+            if (clickListener != null)
+            {
+                holder.itemView.setOnClickListener(
+                    view -> clickListener.onClick(view, current.getIdKey())
+                );
+            }
         }
         else
         {

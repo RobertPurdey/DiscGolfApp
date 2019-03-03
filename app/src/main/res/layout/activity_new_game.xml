@@ -32,6 +32,22 @@
             android:layout_weight="2"
             android:layout_width="match_parent"
             android:layout_height="400dp" />
+
+        <!-- Choose group -->
+        <fragment
+            android:name="robert.purdey.caddytracker.ui.fragments.FrolfGroupListFragment"
+            android:id="@+id/create_new_game_choose_group"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="400dp" />
+
+        <!-- Choose players -->
+        <fragment
+            android:name="robert.purdey.caddytracker.ui.fragments.FrolfGroupListFragment"
+            android:id="@+id/create_new_game_choose_players"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="400dp" />
     </FrameLayout>
     <Button
         android:id="@+id/bttn_create_new_game"
