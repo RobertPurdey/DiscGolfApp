@@ -30,7 +30,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
     public CourseListAdapter.CourseViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View itemView = mInflater.inflate(
-            R.layout.row_item_frolf_group,
+            R.layout.row_item_course,
             parent,
             false);
 
@@ -46,8 +46,8 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
 
             holder.txtvCourseId.setText(current.getIdKey().toString());
             holder.txtvCourseName.setText(current.getName());
-            holder.txtvCoursePar.setText(current.getPar());
-            holder.txtvHoleCount.setText(current.getHoleCount());
+            holder.txtvCoursePar.setText( Integer.toString(current.getPar()) );
+            holder.txtvHoleCount.setText( Integer.toString(current.getHoleCount()) );
             // todo: imp this
             //holder.itemView.setOnClickListener(
             //    view -> clickListener.onClick(view, current.getIdKey())

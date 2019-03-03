@@ -3,41 +3,63 @@
     android:layout_width="match_parent"
     android:layout_height="50dp">
 
-    <!-- Course Id -->
+    <!-- Course id -->
     <TextView
         android:id="@+id/txtv_row_course_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"/>
 
-    <!-- Course Name -->
+    <!-- Course name -->
     <TextView
         android:id="@+id/txtv_row_course_name"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:text=""
-        android:textSize="20dp"
+        android:textSize="16dp"
         android:gravity="center_vertical"/>
 
-    <!-- Course Par -->
+    <!-- Par label -->
+    <TextView
+        android:id="@+id/txtv_row_course_par_label"
+        android:layout_width="30dp"
+        android:layout_height="18dp"
+        android:layout_below="@+id/txtv_row_course_name"
+        android:text="@string/par_lbl"
+        android:textSize="14dp"
+        android:gravity="center_vertical"/>
+
+    <!-- Course par -->
     <TextView
     android:id="@+id/txtv_row_course_par"
-    android:layout_width="75dp"
+    android:layout_width="35dp"
     android:layout_height="18dp"
     android:text=""
-    android:textSize="20dp"
+    android:textSize="14dp"
     android:layout_below="@+id/txtv_row_course_name"
+    android:layout_toRightOf="@+id/txtv_row_course_par_label"
     android:gravity="center_vertical"/>
+
+    <!-- Hole count label -->
+    <TextView
+        android:id="@+id/txtv_row_course_hole_count_label"
+        android:layout_width="45dp"
+        android:layout_height="18dp"
+        android:layout_below="@+id/txtv_row_course_name"
+        android:layout_toRightOf="@+id/txtv_row_course_par"
+        android:text="@string/holes_lbl"
+        android:textSize="14dp"
+        android:gravity="center_vertical"/>
 
     <!-- Hole count -->
     <TextView
     android:id="@+id/txtv_row_hole_count"
-    android:layout_width="20dp"
+    android:layout_width="30dp"
     android:layout_height="18dp"
     android:text=""
-    android:textSize="15dp"
+    android:textSize="14dp"
     android:layout_below="@+id/txtv_row_course_name"
-    android:layout_toRightOf="@+id/txtv_row_course_par"
+    android:layout_toRightOf="@+id/txtv_row_course_hole_count_label"
     android:gravity="center_vertical"/>
 
 </RelativeLayout>

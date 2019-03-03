@@ -22,7 +22,7 @@ public class MainMenuActivity extends AppCompatActivity
      */
     public void onClickNewGame(View view)
     {
-        //ActivityStarter.startNewGameActivity(this);
+        ActivityStarter.startNewGameActivity(this);
     }
 
     /**

@@ -38,6 +38,8 @@
     <string name="help_2">2. Add a course</string>
     <string name="help_3">3. Start a new game</string>
     <string name="help_4">4. Score the game</string>
+    <string name="holes_lbl">Holes:</string>
+    <string name="par_lbl">Par:</string>
     <string name="start_game">Start Game</string>
     <string name="add_player">Add Player</string>
     <string name="add_course">Add Course</string>

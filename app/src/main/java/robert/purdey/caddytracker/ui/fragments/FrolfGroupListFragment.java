@@ -23,6 +23,7 @@ import robert.purdey.caddytracker.ui.viewmodels.FrolfGroupViewModel;
 public class FrolfGroupListFragment extends Fragment implements IItemClickListener
 {
     private FrolfGroupViewModel frolfGroupViewModel;
+    private IItemClickListener groupClickedListener;
 
     @Override
     public View onCreateView(
@@ -58,8 +59,14 @@ public class FrolfGroupListFragment extends Fragment implements IItemClickListen
     @Override
     public void onClick(View v, UUID id)
     {
-        // todo: let the using activity set this!!
-        ActivityStarter.startFrolfGroupRecordActivity(getActivity(), id);
+        if ( groupClickedListener != null ) {
+            groupClickedListener.onClick(v, id);
+        }
+    }
+
+    public void SetGroupClickListener(IItemClickListener listener)
+    {
+        groupClickedListener = listener;
     }
 
 }

@@ -10,6 +10,7 @@ import robert.purdey.caddytracker.ui.activities.FrolfGroupRecordActivity;
 import robert.purdey.caddytracker.ui.activities.MainMenuActivity;
 import robert.purdey.caddytracker.ui.activities.ManageFrolfGroupsActivity;
 import robert.purdey.caddytracker.ui.activities.ManageInvitesActivity;
+import robert.purdey.caddytracker.ui.activities.NewGameActivity;
 
 /**
  *
@@ -34,7 +35,7 @@ public class ActivityStarter
      */
     public static void startNewGameActivity(Context context)
     {
-        //startActivity(context, NewGameActivity.class);
+        startActivity(context, NewGameActivity.class);
     }
 
     /**

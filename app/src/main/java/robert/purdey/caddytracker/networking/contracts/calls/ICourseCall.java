@@ -9,7 +9,7 @@ import robert.purdey.caddytracker.ui.models.CourseModel;
 
 public interface ICourseCall
 {
-    @GET("api/frolfgroupinvites/")
+    @GET("api/courses/")
     Call<List<CourseModel>> getAll(
         @Header("Authorization") String auth);
 }
