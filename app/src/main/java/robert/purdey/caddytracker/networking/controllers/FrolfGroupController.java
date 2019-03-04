@@ -12,6 +12,7 @@ import robert.purdey.caddytracker.networking.contracts.calls.IFrolfGroupCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupController;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
+import robert.purdey.caddytracker.ui.models.GameCreationModel;
 import robert.purdey.caddytracker.ui.models.PlayerModel;
 
 public class FrolfGroupController
@@ -167,5 +168,31 @@ public class FrolfGroupController
         });
 
         return data;
+    }
+
+    public void createGame(GameCreationModel model)
+    {
+        Call<Void> caller = getApiCall().createGame(getAuthorizationHeader(), model);
+
+        caller.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(
+                Call<Void> call,
+                Response<Void> response)
+            {
+                if ( response.isSuccessful() )
+                {
+                    // todo: success callback
+                }
+            }
+
+            @Override
+            public void onFailure(
+                Call<Void> call,
+                Throwable t)
+            {
+                System.out.println("Failed to retrieve group members because you are a loser and nobody wants to be in your group.");
+            }
+        });
     }
 }

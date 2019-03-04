@@ -1,5 +1,7 @@
 package robert.purdey.caddytracker.ui.activities;
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.DataBindingUtil;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,18 +11,28 @@ import android.widget.Button;
 import java.util.UUID;
 
 import robert.purdey.caddytracker.R;
+import robert.purdey.caddytracker.databinding.ActivityNewGameBinding;
 import robert.purdey.caddytracker.ui.fragments.CourseListFragment;
 import robert.purdey.caddytracker.ui.fragments.FrolfGroupListFragment;
 import robert.purdey.caddytracker.ui.fragments.FrolfGroupMemberListFragment;
+import robert.purdey.caddytracker.ui.viewmodels.NewGameViewModel;
 
 public class NewGameActivity extends AppCompatActivity
 {
+    private NewGameViewModel newGameViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
+
+        newGameViewModel = ViewModelProviders.of(this).get(NewGameViewModel.class);
+
+        //ActivityNewGameBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_new_game);
+
+        //binding.setNewGameViewModel(newGameViewModel);
+        //binding.setLifecycleOwner(this);
 
         if ( savedInstanceState == null )
         {
@@ -30,7 +42,7 @@ public class NewGameActivity extends AppCompatActivity
 
             chooseCourseFrag.SetCourseClickListener( (view, id) -> onCourseSelected(id)     );
             chooseGroupFrag.SetGroupClickListener(   (view, id) -> onFrolfGroupSelected(id) );
-            chooseMembersFrag.SetMemberlickListener( (view, id) -> onFrolfGroupSelected(id) );
+            chooseMembersFrag.SetMemberlickListener( (view, id) -> onMemberSelected(id)     );
 
             FragmentManager fm = getSupportFragmentManager();
 
@@ -62,13 +74,15 @@ public class NewGameActivity extends AppCompatActivity
      */
     public void addGame(View view)
     {
-
+        newGameViewModel.CreateGame();
     }
 
     private void onCourseSelected(UUID id)
     {
         if (id != null)
         {
+            newGameViewModel.setCourse(id);
+
             getSupportFragmentManager().beginTransaction()
                 .hide( this.getCourseListFragment() )
                 .hide( this.getMembersListFragment() )
@@ -81,6 +95,7 @@ public class NewGameActivity extends AppCompatActivity
     {
         if (id != null)
         {
+            newGameViewModel.setGroup(id);
             this.getMembersListFragment().Load(id);
 
             getSupportFragmentManager().beginTransaction()
@@ -88,6 +103,9 @@ public class NewGameActivity extends AppCompatActivity
                 .hide( this.getGroupListFragment()   )
                 .show( this.getMembersListFragment() )
                 .commit();
+
+            Button startNewGame = (Button) findViewById(R.id.bttn_create_new_game);
+            startNewGame.setClickable(true);
         }
     }
 
@@ -95,7 +113,7 @@ public class NewGameActivity extends AppCompatActivity
     {
         if (id != null)
         {
-            // todo: add id to list
+            newGameViewModel.managePlayer(id);
         }
     }
 

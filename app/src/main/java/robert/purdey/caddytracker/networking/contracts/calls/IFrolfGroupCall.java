@@ -10,6 +10,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
+import robert.purdey.caddytracker.ui.models.GameCreationModel;
 import robert.purdey.caddytracker.ui.models.PlayerModel;
 
 public interface IFrolfGroupCall
@@ -37,4 +38,9 @@ public interface IFrolfGroupCall
     Call<FrolfGroupModel> update(
         @Header("Authorization") String auth,
         @Body FrolfGroupModel groupModel);
+
+    @POST("api/frolfgroups/creategame/")
+    Call<Void> createGame(
+        @Header("Authorization") String auth,
+        @Body GameCreationModel creationModel);
 }

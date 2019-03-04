@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
+import robert.purdey.caddytracker.ui.models.GameCreationModel;
 import robert.purdey.caddytracker.ui.models.PlayerModel;
 
 public interface IFrolfGroupController
@@ -14,4 +15,5 @@ public interface IFrolfGroupController
     MutableLiveData<List<PlayerModel>> getGroupMembers(UUID groupId);
     MutableLiveData<FrolfGroupModel> insert(FrolfGroupModel model);
     MutableLiveData<FrolfGroupModel> update(FrolfGroupModel model);
+    void createGame(GameCreationModel model);
 }
