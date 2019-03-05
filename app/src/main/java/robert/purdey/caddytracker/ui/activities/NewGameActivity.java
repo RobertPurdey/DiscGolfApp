@@ -25,14 +25,12 @@ public class NewGameActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_game);
 
-        newGameViewModel = ViewModelProviders.of(this).get(NewGameViewModel.class);
+        newGameViewModel               = ViewModelProviders.of(this).get(NewGameViewModel.class);
+        ActivityNewGameBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_new_game);
 
-        //ActivityNewGameBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_new_game);
-
-        //binding.setNewGameViewModel(newGameViewModel);
-        //binding.setLifecycleOwner(this);
+        binding.setNewGameViewModel(newGameViewModel);
+        binding.setLifecycleOwner(this);
 
         if ( savedInstanceState == null )
         {
