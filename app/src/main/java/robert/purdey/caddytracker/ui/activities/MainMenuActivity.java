@@ -32,7 +32,7 @@ public class MainMenuActivity extends AppCompatActivity
      */
     public void onClickResumeGame(View view)
     {
-        //ActivityStarter.startResumeGameActivity(this);
+        ActivityStarter.startResumeGameActivity(this);
     }
 
     /**

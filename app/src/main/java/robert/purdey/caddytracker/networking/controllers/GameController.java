@@ -1,0 +1,54 @@
+package robert.purdey.caddytracker.networking.controllers;
+
+import android.arch.lifecycle.MutableLiveData;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import robert.purdey.caddytracker.networking.contracts.calls.IGameCall;
+import robert.purdey.caddytracker.networking.contracts.controllers.IGameController;
+import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
+import robert.purdey.caddytracker.ui.models.GameModel;
+
+
+public class GameController extends ApiController<IGameCall>
+    implements IGameController
+{
+    public GameController(
+        IApiCallService apiCallService)
+    {
+        super(apiCallService, IGameCall.class);
+    }
+
+    @Override
+    public MutableLiveData<List<GameModel>> getAll()
+    {
+        final MutableLiveData<List<GameModel>> data = new MutableLiveData<>();
+        Call<List<GameModel>> caller = getApiCall().getAll(getAuthorizationHeader());
+
+        caller.enqueue(new Callback<List<GameModel>>() {
+            @Override
+            public void onResponse(
+                Call<List<GameModel>> call,
+                Response<List<GameModel>> response)
+            {
+                if ( response.isSuccessful() )
+                {
+                    data.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(
+                Call<List<GameModel>> call,
+                Throwable t)
+            {
+                System.out.println("Failed to retrieve group invites because you are a loser and have none!");
+            }
+        });
+
+        return data;
+    }
+}

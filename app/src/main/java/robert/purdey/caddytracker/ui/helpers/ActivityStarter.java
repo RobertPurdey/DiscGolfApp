@@ -11,6 +11,7 @@ import robert.purdey.caddytracker.ui.activities.MainMenuActivity;
 import robert.purdey.caddytracker.ui.activities.ManageFrolfGroupsActivity;
 import robert.purdey.caddytracker.ui.activities.ManageInvitesActivity;
 import robert.purdey.caddytracker.ui.activities.NewGameActivity;
+import robert.purdey.caddytracker.ui.activities.ResumeGameActivity;
 
 /**
  *
@@ -45,7 +46,7 @@ public class ActivityStarter
      */
     public static void startResumeGameActivity(Context context)
     {
-        //startActivity(context, ResumeGameActivity.class);
+        startActivity(context, ResumeGameActivity.class);
     }
 
     /**
@@ -123,7 +124,7 @@ public class ActivityStarter
      * @param context
      * @param gameId - id of game to score
      */
-    public static void startScoreGameActivity(Context context, long gameId)
+    public static void startScoreGameActivity(Context context, UUID gameId)
     {
         //Intent intent = new Intent(context, ScoreGameActivity.class);
         //intent.putExtra(ScoreGameActivity.GAME_PKEY_TAG, gameId);
