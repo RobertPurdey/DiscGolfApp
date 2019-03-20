@@ -1,0 +1,59 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <!-- Hole score ID -->
+    <TextView
+        android:id="@+id/txtv_row_game_hole_score_hole_score_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <!-- Player name -->
+    <TextView
+        android:id="@+id/txtv_row_game_hole_score_player_name"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:text="Name"
+        android:textSize="20dp"
+        android:gravity="center_vertical"/>
+
+    <!-- Hole score -->
+    <TextView
+        android:id="@+id/txtv_row_game_hole_score_score"
+        android:layout_width="10dp"
+        android:layout_height="18dp"
+        android:text="0"
+        android:textSize="15dp"
+        android:layout_toRightOf="@+id/txtv_row_game_hole_score_player_name"
+        android:gravity="center_vertical"/>
+
+    <!-- Increase button -->
+    <Button
+        android:id="@+id/bttn_row_game_hole_score_increase"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/white"
+        android:background="@color/button_green"
+        android:text="+"
+        android:textSize="15dp"
+        android:textAlignment="center"
+        android:layout_toLeftOf="@+id/bttn_row_game_hole_score_decrease"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="35dp"/>
+
+    <!-- Decrease button -->
+    <Button
+        android:id="@+id/bttn_row_game_hole_score_decrease"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/white"
+        android:background="@color/button_green"
+        android:text="-"
+        android:textSize="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="20dp"/>
+</RelativeLayout>

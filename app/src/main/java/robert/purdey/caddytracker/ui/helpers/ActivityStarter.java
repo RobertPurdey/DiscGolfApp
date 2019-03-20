@@ -12,6 +12,7 @@ import robert.purdey.caddytracker.ui.activities.ManageFrolfGroupsActivity;
 import robert.purdey.caddytracker.ui.activities.ManageInvitesActivity;
 import robert.purdey.caddytracker.ui.activities.NewGameActivity;
 import robert.purdey.caddytracker.ui.activities.ResumeGameActivity;
+import robert.purdey.caddytracker.ui.activities.ScoreGameActivity;
 
 /**
  *
@@ -126,10 +127,18 @@ public class ActivityStarter
      */
     public static void startScoreGameActivity(Context context, UUID gameId)
     {
-        //Intent intent = new Intent(context, ScoreGameActivity.class);
-        //intent.putExtra(ScoreGameActivity.GAME_PKEY_TAG, gameId);
+        // todo: throw error here if no game id? you cant score without finding a game
 
-        //context.startActivity(intent);
+        Intent intent = new Intent(context, ScoreGameActivity.class);
+        String id     = "";
+
+        if ( gameId != null )
+        {
+            id = gameId.toString();
+        }
+
+        intent.putExtra(ScoreGameActivity.RECORD_ID, id);
+        context.startActivity(intent);
     }
 
     /**

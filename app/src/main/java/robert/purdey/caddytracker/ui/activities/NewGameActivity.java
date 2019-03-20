@@ -40,7 +40,7 @@ public class NewGameActivity extends AppCompatActivity
 
             chooseCourseFrag.SetCourseClickListener( (view, id) -> onCourseSelected(id)     );
             chooseGroupFrag.SetGroupClickListener(   (view, id) -> onFrolfGroupSelected(id) );
-            chooseMembersFrag.SetMemberlickListener( (view, id) -> onMemberSelected(id)     );
+            chooseMembersFrag.SetMemberClickListener( (view, id) -> onMemberSelected(id)     );
 
             FragmentManager fm = getSupportFragmentManager();
 

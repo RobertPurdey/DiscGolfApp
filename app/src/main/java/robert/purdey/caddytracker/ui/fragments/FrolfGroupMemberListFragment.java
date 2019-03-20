@@ -73,7 +73,7 @@ public class FrolfGroupMemberListFragment  extends Fragment implements IItemClic
         }
     }
 
-    public void SetMemberlickListener(IItemClickListener listener)
+    public void SetMemberClickListener(IItemClickListener listener)
     {
         memberClickListener = listener;
     }

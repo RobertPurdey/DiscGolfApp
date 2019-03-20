@@ -73,7 +73,7 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
 
     public void onSendInvite(View view)
     {
-        // todo: use IApiResponseListener
+        // todo: use IApiResponseListener to inform when its sent
         frolfGroupRecordViewModel.sendGroupInvite();
     }
 

@@ -27,8 +27,7 @@
         </activity>
 
         <!-- Main Menu -->
-        <activity
-            android:name=".ui.activities.MainMenuActivity" />
+        <activity android:name=".ui.activities.MainMenuActivity" />
 
         <!-- Create New Game -->
         <activity
@@ -38,23 +37,23 @@
         <!-- Resume Game -->
         <activity
             android:name=".ui.activities.ResumeGameActivity"
-            android:parentActivityName=".ui.activities.MainMenuActivity"></activity>
+            android:parentActivityName=".ui.activities.MainMenuActivity" />
 
         <!-- Manage Groups -->
         <activity
             android:name=".ui.activities.ManageFrolfGroupsActivity"
             android:parentActivityName=".ui.activities.MainMenuActivity" />
 
-            <!-- Create/Edit Group -->
-            <activity
-                android:name=".ui.activities.FrolfGroupRecordActivity"
-                android:parentActivityName=".ui.activities.ManageFrolfGroupsActivity" />
+        <!-- Create/Edit Group -->
+        <activity
+            android:name=".ui.activities.FrolfGroupRecordActivity"
+            android:parentActivityName=".ui.activities.ManageFrolfGroupsActivity" />
 
         <!-- Manage Invites -->
         <activity
             android:name=".ui.activities.ManageInvitesActivity"
             android:parentActivityName=".ui.activities.MainMenuActivity" />
-
+        <activity android:name=".ui.activities.ScoreGameActivity"></activity>
     </application>
 
 </manifest>
