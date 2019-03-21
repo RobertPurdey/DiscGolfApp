@@ -79,9 +79,6 @@ public class GameHoleScoresAdapter extends RecyclerView.Adapter<GameHoleScoresAd
         private final Button bttnIncrease;
         private final Button bttnDecrease;
 
-        // todo: use this once block is implemented
-        //private final Button bttnBlock;
-
         private GameHoleScoresViewHolder(View itemView)
         {
             super(itemView);
@@ -91,6 +88,37 @@ public class GameHoleScoresAdapter extends RecyclerView.Adapter<GameHoleScoresAd
             txtvScore                = itemView.findViewById(R.id.txtv_row_game_hole_score_score);
             bttnIncrease             = itemView.findViewById(R.id.bttn_row_game_hole_score_increase);
             bttnDecrease             = itemView.findViewById(R.id.bttn_row_game_hole_score_decrease);
+
+            setIncreaseOnClick();
+            setDecreaseOnClick();
+        }
+
+        private void setIncreaseOnClick()
+        {
+            bttnIncrease.setOnClickListener(view -> ModifyHoleScore(true) );
+        }
+
+        private void setDecreaseOnClick()
+        {
+            bttnDecrease.setOnClickListener(view -> ModifyHoleScore(false) );
+        }
+
+        private HoleScoreModel GetCurrentHoleScore()
+        {
+            return mGameHoleScores.get( getAdapterPosition() );
+        }
+
+        private void ModifyHoleScore(boolean isIncrease)
+        {
+            HoleScoreModel model = GetCurrentHoleScore();
+            int currentScore     = model.getScore();
+
+            int newScore = isIncrease
+                ? currentScore + 1
+                : currentScore - 1;
+
+            model.setScore(newScore);
+            notifyDataSetChanged();
         }
     }
 }
