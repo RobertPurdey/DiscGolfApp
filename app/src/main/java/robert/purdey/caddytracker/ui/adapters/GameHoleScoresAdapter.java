@@ -118,6 +118,9 @@ public class GameHoleScoresAdapter extends RecyclerView.Adapter<GameHoleScoresAd
                 : currentScore - 1;
 
             model.setScore(newScore);
+
+            bttnDecrease.setEnabled(newScore > 1);
+
             notifyDataSetChanged();
         }
     }
