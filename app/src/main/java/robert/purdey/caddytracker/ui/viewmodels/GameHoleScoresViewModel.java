@@ -9,15 +9,20 @@ import java.util.UUID;
 import robert.purdey.caddytracker.domain.holescores.HoleScoreFilterModel;
 import robert.purdey.caddytracker.networking.HttpClientConfig;
 import robert.purdey.caddytracker.networking.RetrofitConfig;
+import robert.purdey.caddytracker.networking.contracts.controllers.IGameController;
 import robert.purdey.caddytracker.networking.contracts.controllers.IHoleScoreController;
+import robert.purdey.caddytracker.networking.controllers.GameController;
 import robert.purdey.caddytracker.networking.controllers.HoleScoreController;
 import robert.purdey.caddytracker.networking.services.ApiCallService;
+import robert.purdey.caddytracker.ui.models.GameHoleUpdateModel;
 import robert.purdey.caddytracker.ui.models.HoleScoreModel;
 
 public class GameHoleScoresViewModel extends ViewModel
 {
+    public MutableLiveData<UUID> GameId;
     private MutableLiveData<List<HoleScoreModel>> HoleScores;
     private IHoleScoreController HoleScoreController;
+    private IGameController GameController;
 
     public GameHoleScoresViewModel()
     {
@@ -27,7 +32,9 @@ public class GameHoleScoresViewModel extends ViewModel
             new HttpClientConfig()
         );
 
+        GameId              = new MutableLiveData<>();
         HoleScoreController = new HoleScoreController(apiCallService);
+        GameController      = new GameController(apiCallService);
     }
 
     public LiveData<List<HoleScoreModel>> getHoleScores(UUID gameId, int holeNumber)
@@ -39,6 +46,15 @@ public class GameHoleScoresViewModel extends ViewModel
         }
 
         return HoleScores;
+    }
+
+    public void SaveHoleScores(UUID gameId, List<HoleScoreModel> holeScores)
+    {
+        GameHoleUpdateModel updateModel = new GameHoleUpdateModel();
+        updateModel.setGameId(gameId);
+        updateModel.setHoleScoreUpdates(holeScores);
+
+        GameController.updateGameHoles(updateModel);
     }
 
     private void loadHoleScores(UUID gameId, int holeNumber)

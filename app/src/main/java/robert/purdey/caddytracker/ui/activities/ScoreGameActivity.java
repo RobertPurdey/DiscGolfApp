@@ -5,6 +5,8 @@ import robert.purdey.caddytracker.ui.fragments.GameHoleScoresFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+
 import java.util.UUID;
 
 public class ScoreGameActivity extends AppCompatActivity
@@ -40,9 +42,25 @@ public class ScoreGameActivity extends AppCompatActivity
 
     private void LoadHoleScores(UUID gameId, int holeNumber)
     {
-        GameHoleScoresFragment fragment =
-            (GameHoleScoresFragment) getSupportFragmentManager().findFragmentById(R.id.frag_mng_game_hole_scores_fragment);
+        GameHoleScoresFragment fragment = getGameHoleScoreFrag();
 
         fragment.Load(gameId, holeNumber);
+    }
+
+    public void onNextHoleClick(View view)
+    {
+        GameHoleScoresFragment fragment = getGameHoleScoreFrag();
+        fragment.SaveHoleScores();
+    }
+
+    public void onPrevHoleClick(View view)
+    {
+
+    }
+
+    private GameHoleScoresFragment getGameHoleScoreFrag()
+    {
+        return (GameHoleScoresFragment)
+            getSupportFragmentManager().findFragmentById(R.id.frag_mng_game_hole_scores_fragment);
     }
 }

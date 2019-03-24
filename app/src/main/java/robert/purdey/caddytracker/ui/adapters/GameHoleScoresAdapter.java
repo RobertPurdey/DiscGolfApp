@@ -61,6 +61,11 @@ public class GameHoleScoresAdapter extends RecyclerView.Adapter<GameHoleScoresAd
         notifyDataSetChanged();
     }
 
+    public List<HoleScoreModel> getGameHoleScores()
+    {
+        return mGameHoleScores;
+    }
+
     // getItemCount() is called many times, and when it is first called,
     // mFriends has not been updated (means initially, it's null, and we can't return null).
     @Override

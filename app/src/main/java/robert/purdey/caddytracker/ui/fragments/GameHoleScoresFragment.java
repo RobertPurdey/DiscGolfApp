@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
 import java.util.UUID;
 
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.adapters.GameHoleScoresAdapter;
+import robert.purdey.caddytracker.ui.models.HoleScoreModel;
 import robert.purdey.caddytracker.ui.viewmodels.GameHoleScoresViewModel;
 
 
@@ -52,8 +54,23 @@ public class GameHoleScoresFragment extends Fragment
 
     public void Load(UUID gameId, int holeNumber)
     {
+        gameHoleScoresViewModel.GameId.setValue(gameId);
+
         gameHoleScoresViewModel.getHoleScores(gameId, holeNumber).observe(this, holeScoreModels ->
             gameHoleScoreAdapter.setGameHoleScores(holeScoreModels)
         );
+    }
+
+    public List<HoleScoreModel> GetHoleScores()
+    {
+        return gameHoleScoreAdapter.getGameHoleScores();
+    }
+
+    // todo: provide callback for what to do after save (next / prev can be handled like this)
+    public void SaveHoleScores()
+    {
+        gameHoleScoresViewModel.SaveHoleScores(
+            gameHoleScoresViewModel.GameId.getValue(),
+            GetHoleScores());
     }
 }
