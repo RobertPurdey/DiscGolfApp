@@ -16,6 +16,7 @@
     <string name="players_colon">Players:</string>
     <string name="hole_colon">Hole:</string>
     <string name="previous">Prev</string>
+    <string name="prev">Prev</string>
     <string name="next">Next</string>
     <string name="player">Player</string>
     <string name="strokes">Stroke(s)</string>

@@ -56,21 +56,13 @@ public class GameHoleScoresFragment extends Fragment
     {
         gameHoleScoresViewModel.GameId.setValue(gameId);
 
-        gameHoleScoresViewModel.getHoleScores(gameId, holeNumber).observe(this, holeScoreModels ->
+        gameHoleScoresViewModel.getHoleScores(gameId, holeNumber, true).observe(this, holeScoreModels ->
             gameHoleScoreAdapter.setGameHoleScores(holeScoreModels)
         );
     }
 
-    public List<HoleScoreModel> GetHoleScores()
+    public List<HoleScoreModel> getHoleScores()
     {
         return gameHoleScoreAdapter.getGameHoleScores();
-    }
-
-    // todo: provide callback for what to do after save (next / prev can be handled like this)
-    public void SaveHoleScores()
-    {
-        gameHoleScoresViewModel.SaveHoleScores(
-            gameHoleScoresViewModel.GameId.getValue(),
-            GetHoleScores());
     }
 }

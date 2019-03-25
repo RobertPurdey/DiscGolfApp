@@ -22,7 +22,6 @@ public class GameHoleScoresViewModel extends ViewModel
     public MutableLiveData<UUID> GameId;
     private MutableLiveData<List<HoleScoreModel>> HoleScores;
     private IHoleScoreController HoleScoreController;
-    private IGameController GameController;
 
     public GameHoleScoresViewModel()
     {
@@ -34,27 +33,17 @@ public class GameHoleScoresViewModel extends ViewModel
 
         GameId              = new MutableLiveData<>();
         HoleScoreController = new HoleScoreController(apiCallService);
-        GameController      = new GameController(apiCallService);
     }
 
-    public LiveData<List<HoleScoreModel>> getHoleScores(UUID gameId, int holeNumber)
+    public LiveData<List<HoleScoreModel>> getHoleScores(UUID gameId, int holeNumber, boolean isReset)
     {
-        if (HoleScores == null)
+        if (HoleScores == null || isReset)
         {
             HoleScores = new MutableLiveData<>();
             loadHoleScores(gameId, holeNumber);
         }
 
         return HoleScores;
-    }
-
-    public void SaveHoleScores(UUID gameId, List<HoleScoreModel> holeScores)
-    {
-        GameHoleUpdateModel updateModel = new GameHoleUpdateModel();
-        updateModel.setGameId(gameId);
-        updateModel.setHoleScoreUpdates(holeScores);
-
-        GameController.updateGameHoles(updateModel);
     }
 
     private void loadHoleScores(UUID gameId, int holeNumber)
