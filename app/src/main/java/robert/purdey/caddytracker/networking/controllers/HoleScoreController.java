@@ -2,6 +2,7 @@ package robert.purdey.caddytracker.networking.controllers;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,6 +39,7 @@ public class HoleScoreController
                 if ( response.isSuccessful() )
                 {
                     data.setValue(response.body());
+                    data.getValue().sort(Comparator.comparing(HoleScoreModel::getPlayerHandle));
                 }
             }
 

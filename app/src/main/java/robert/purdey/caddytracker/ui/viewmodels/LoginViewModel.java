@@ -42,4 +42,9 @@ public class LoginViewModel extends ViewModel
             loginListener,
             loginAttempt.getRequestFields());
     }
+
+    public void storeCurrentUserInfo(IApiResponseListener listener)
+    {
+        appUserController.getCurrentUserInfo(listener);
+    }
 }

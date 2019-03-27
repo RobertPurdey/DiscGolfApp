@@ -3,6 +3,7 @@ package robert.purdey.caddytracker.networking.contracts.controllers;
 import android.arch.lifecycle.MutableLiveData;
 import java.util.Map;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
+import robert.purdey.caddytracker.ui.models.AppUserModel;
 import robert.purdey.caddytracker.ui.models.TokenModel;
 
 public interface IAppUserController
@@ -11,4 +12,7 @@ public interface IAppUserController
     MutableLiveData<TokenModel> login(
         IApiResponseListener listener,
         Map<String, String> tokenFieldMap);
+
+    MutableLiveData<AppUserModel> getCurrentUserInfo(
+        IApiResponseListener listener);
 }

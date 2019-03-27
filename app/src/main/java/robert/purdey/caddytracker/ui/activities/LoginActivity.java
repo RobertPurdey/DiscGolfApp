@@ -50,7 +50,27 @@ public class LoginActivity extends AppCompatActivity
             @Override
             public void onResponseSuccessful()
             {
-                ActivityStarter.startMainMenuActivity(LoginActivity.this);
+                // todo: Load user profile before continuing
+                loginViewModel.storeCurrentUserInfo(new IApiResponseListener()
+                {
+                    @Override
+                    public void onResponseSuccessful()
+                    {
+                        ActivityStarter.startMainMenuActivity(LoginActivity.this);
+                    }
+
+                    @Override
+                    public void onResponseFailed()
+                    {
+                        // wont happen
+                    }
+
+                    @Override
+                    public void onCallFailure()
+                    {
+                        // wont happen
+                    }
+                });
             }
 
             @Override

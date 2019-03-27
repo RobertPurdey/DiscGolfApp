@@ -1,6 +1,9 @@
 package robert.purdey.caddytracker.domain.storage;
 
 import android.support.annotation.NonNull;
+
+import java.util.UUID;
+
 import robert.purdey.caddytracker.domain.storage.contracts.ISharedPreferenceManager;
 import robert.purdey.caddytracker.domain.storage.contracts.IUserSessionManager;
 import robert.purdey.caddytracker.utilities.Strings;
@@ -12,6 +15,7 @@ public class UserSessionManager implements IUserSessionManager
 
     private static final String TOKEN_KEY = "com.purdey.caddytracker.token";
     private static final String REFRESH_TOKEN_KEY = "com.purdey.caddytracker.refreshToken";
+    private static final String CURRENT_USER_ID_KEY = "com.purdey.caddytracker.current.user.id";
 
     private UserSessionManager()
     {
@@ -57,6 +61,18 @@ public class UserSessionManager implements IUserSessionManager
     public void storeRefreshToken(@NonNull String token)
     {
         sharedPref.saveData(REFRESH_TOKEN_KEY, token);
+    }
+
+    @Override
+    public UUID getCurrentUserId()
+    {
+        return UUID.fromString(sharedPref.getData(CURRENT_USER_ID_KEY));
+    }
+
+    @Override
+    public void storeCurrentUserId(@NonNull UUID id)
+    {
+        sharedPref.saveData(CURRENT_USER_ID_KEY, id.toString());
     }
 
     @Override

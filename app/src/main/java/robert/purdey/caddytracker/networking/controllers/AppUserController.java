@@ -11,6 +11,7 @@ import robert.purdey.caddytracker.networking.contracts.controllers.IAppUserContr
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
 import robert.purdey.caddytracker.ui.FrolfApp;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
+import robert.purdey.caddytracker.ui.models.AppUserModel;
 import robert.purdey.caddytracker.ui.models.TokenModel;
 
 
@@ -55,6 +56,43 @@ public class AppUserController
 
             @Override
             public void onFailure(Call<TokenModel> call, Throwable t)
+            {
+                listener.onCallFailure();
+            }
+        });
+
+        return data;
+    }
+
+    // todo: return proper token
+    public MutableLiveData<AppUserModel> getCurrentUserInfo(
+        IApiResponseListener listener)
+    {
+        final MutableLiveData<AppUserModel> data = new MutableLiveData<>();
+        Call<AppUserModel> userCall = getApiCall().getCurrentUserInfo(getAuthorizationHeader());
+
+        userCall.enqueue(new Callback<AppUserModel>() {
+            @Override
+            public void onResponse(Call<AppUserModel> call, Response<AppUserModel> response)
+            {
+                if ( response.isSuccessful() )
+                {
+                    // todo: should token be stored a different way?
+                    UserSessionManager userSession = FrolfApp.getUserSession();
+
+                    userSession.storeCurrentUserId(response.body().getIdKey());
+
+                    data.setValue(response.body());
+                    listener.onResponseSuccessful();
+                }
+                else
+                {
+                    listener.onResponseFailed();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AppUserModel> call, Throwable t)
             {
                 listener.onCallFailure();
             }

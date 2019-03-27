@@ -11,6 +11,7 @@ import retrofit2.Response;
 import robert.purdey.caddytracker.networking.contracts.calls.IGameCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IGameController;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
+import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.GameHoleUpdateModel;
 import robert.purdey.caddytracker.ui.models.GameModel;
 
@@ -84,7 +85,7 @@ public class GameController extends ApiController<IGameCall>
         return data;
     }
 
-    public void updateGameHoles(GameHoleUpdateModel model)
+    public void updateGameHoles(GameHoleUpdateModel model, IApiResponseListener listener)
     {
         Call<Void> caller = getApiCall().updateGameHoles(getAuthorizationHeader(), model);
 
@@ -96,7 +97,12 @@ public class GameController extends ApiController<IGameCall>
             {
                 if ( response.isSuccessful() )
                 {
+                    listener.onResponseSuccessful();
                     // todo: success callback
+                }
+                else
+                {
+                    listener.onResponseFailed();
                 }
             }
 
@@ -105,6 +111,7 @@ public class GameController extends ApiController<IGameCall>
                 Call<Void> call,
                 Throwable t)
             {
+                listener.onCallFailure();
                 System.out.println("Failed to retrieve group members because you are a loser and nobody wants to be in your group.");
             }
         });

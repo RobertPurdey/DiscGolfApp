@@ -7,6 +7,7 @@ import java.util.UUID;
 public class GameModel
 {
     public UUID IdKey;
+    public UUID CreatorId;
     public String Name;
     public List HoleIds;
 
@@ -23,6 +24,16 @@ public class GameModel
     public void setIdKey(UUID idKey)
     {
         IdKey = idKey;
+    }
+
+    public UUID getCreatorId()
+    {
+        return CreatorId;
+    }
+
+    public void setCreatorId(UUID creatorId)
+    {
+        CreatorId = creatorId;
     }
 
     public String getName()

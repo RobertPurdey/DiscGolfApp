@@ -1,7 +1,9 @@
 package robert.purdey.caddytracker.ui.activities;
 
 import robert.purdey.caddytracker.R;
+import robert.purdey.caddytracker.ui.FrolfApp;
 import robert.purdey.caddytracker.ui.fragments.GameHoleScoresFragment;
+import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.viewmodels.ScoreGameActivityViewModel;
 
 import android.arch.lifecycle.ViewModelProviders;
@@ -54,37 +56,76 @@ public class ScoreGameActivity extends AppCompatActivity
 
     public void onNextHoleClick(View view)
     {
-        SaveCurrentHoles();
         int nextHole = viewModel.getNextHoleNumber();
+        saveCurrentHoles(nextHole);
 
         // Load new holes until next hole is the last one
-        if (nextHole <= viewModel.Game.getValue().getHoleIds().size())
-        {
-            LoadHoleScores(viewModel.Game.getValue().getIdKey(), nextHole);
-        }
+       // if (nextHole <= viewModel.Game.getValue().getHoleIds().size())
+       // {
+        //    LoadHoleScores(viewModel.Game.getValue().getIdKey(), nextHole);
+        //}
     }
 
     public void onPrevHoleClick(View view)
     {
-        SaveCurrentHoles();
         int prevHole = viewModel.getPrevHoleNumber();
+        saveCurrentHoles(prevHole);
 
         // Load new holes until next hole is the last one
-        if (prevHole > 0)
-        {
-            LoadHoleScores(viewModel.Game.getValue().getIdKey(), prevHole);
-        }
+       //if (prevHole > 0)
+       // {
+        //    LoadHoleScores(viewModel.Game.getValue().getIdKey(), prevHole);
+       // }
 
     }
 
-    private void SaveCurrentHoles()
+    private void saveCurrentHoles(int nextHole)
     {
         GameHoleScoresFragment fragment = getGameHoleScoreFrag();
 
         if (fragment != null)
         {
-            viewModel.SaveHoleScores(fragment.getHoleScores());
+            if ( viewModel.CurrentUserIsCreator(FrolfApp.getUserSession().getCurrentUserId() ) )
+            {
+                viewModel.SaveHoleScores(fragment.getHoleScores(), new IApiResponseListener()
+                {
+                    @Override
+                    public void onResponseSuccessful()
+                    {
+                        loadNextHole(nextHole);
+                    }
+
+                    @Override
+                    public void onResponseFailed()
+                    {
+                        // todo: toast message
+                    }
+
+                    @Override
+                    public void onCallFailure()
+                    {
+                        // todo: toast message
+                    }
+                });
+            }
+            else
+            {
+                loadNextHole(nextHole);
+            }
         }
+    }
+
+    private void loadNextHole(int nextHole)
+    {
+        if ( withinHoleBoundary(nextHole) )
+        {
+            LoadHoleScores(viewModel.Game.getValue().getIdKey(), nextHole);
+        }
+    }
+
+    private boolean withinHoleBoundary(int n)
+    {
+        return n > 0 && n <= viewModel.Game.getValue().getHoleIds().size();
     }
 
     private GameHoleScoresFragment getGameHoleScoreFrag()
