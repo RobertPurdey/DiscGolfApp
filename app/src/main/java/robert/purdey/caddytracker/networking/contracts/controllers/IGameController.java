@@ -7,10 +7,12 @@ import java.util.UUID;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.GameHoleUpdateModel;
 import robert.purdey.caddytracker.ui.models.GameModel;
+import robert.purdey.caddytracker.ui.models.scorecard.PlayerGameResultModel;
 
 public interface IGameController
 {
     MutableLiveData<List<GameModel>> getAll();
+    MutableLiveData<List<PlayerGameResultModel>> getPlayerResults(UUID id);
     MutableLiveData<GameModel> getGame(UUID id);
     void updateGameHoles(GameHoleUpdateModel model, IApiResponseListener listener);
 }

@@ -39,6 +39,11 @@
             android:name=".ui.activities.ResumeGameActivity"
             android:parentActivityName=".ui.activities.MainMenuActivity" />
 
+        <!-- Game Results -->
+        <activity
+            android:name=".ui.activities.GameResultsActivity"
+            android:parentActivityName=".ui.activities.MainMenuActivity" />
+
         <!-- Manage Groups -->
         <activity
             android:name=".ui.activities.ManageFrolfGroupsActivity"
@@ -53,7 +58,14 @@
         <activity
             android:name=".ui.activities.ManageInvitesActivity"
             android:parentActivityName=".ui.activities.MainMenuActivity" />
-        <activity android:name=".ui.activities.ScoreGameActivity"></activity>
+
+        <!-- Score Game -->
+        <activity android:name=".ui.activities.ScoreGameActivity" />
+
+        <!-- View Game Score and other results -->
+        <activity
+            android:name=".ui.activities.ScoreCardActivity"
+            android:parentActivityName=".ui.activities.GameResultsActivity"/>
     </application>
 
 </manifest>

@@ -11,6 +11,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import robert.purdey.caddytracker.ui.models.GameHoleUpdateModel;
 import robert.purdey.caddytracker.ui.models.GameModel;
+import robert.purdey.caddytracker.ui.models.scorecard.PlayerGameResultModel;
 
 public interface IGameCall
 {
@@ -27,4 +28,9 @@ public interface IGameCall
     Call<Void> updateGameHoles(
         @Header("Authorization") String auth,
         @Body GameHoleUpdateModel gameHoleUpdateModel);
+
+    @GET("api/games/{id}/playerresults/")
+    Call<List<PlayerGameResultModel>> getPlayerResults(
+        @Header("Authorization") String auth,
+        @Path("id") UUID id);
 }

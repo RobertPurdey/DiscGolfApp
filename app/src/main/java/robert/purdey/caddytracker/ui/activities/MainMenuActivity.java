@@ -36,6 +36,16 @@ public class MainMenuActivity extends AppCompatActivity
     }
 
     /**
+     * Start Game Results Game activity
+     *
+     * @param view - view calling the method
+     */
+    public void onClickGameResults(View view)
+    {
+        ActivityStarter.startGameResultsActivity(this);
+    }
+
+    /**
      * Start Manage Frolf Groups activity
      *
      * @param view - view calling the method

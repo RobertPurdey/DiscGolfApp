@@ -34,6 +34,18 @@
         android:text="@string/resume_game"
         android:onClick="onClickResumeGame" />
 
+    <!-- Game results navigation button -->
+    <Button
+        android:id="@+id/game_results"
+        android:textColor="@color/white"
+        android:background="@color/button_green"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/resume_game"
+        android:text="@string/game_results"
+        android:onClick="onClickGameResults" />
+
     <!-- Statistics navigation button -->
     <Button
         android:id="@+id/statistics"
@@ -42,7 +54,7 @@
         android:background="@color/button_green"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:layout_below="@+id/resume_game"
+        android:layout_below="@+id/game_results"
         android:text="@string/statistics"
         android:onClick="onClickStats" />
 

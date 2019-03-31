@@ -7,11 +7,13 @@ import android.content.Intent;
 import java.util.UUID;
 
 import robert.purdey.caddytracker.ui.activities.FrolfGroupRecordActivity;
+import robert.purdey.caddytracker.ui.activities.GameResultsActivity;
 import robert.purdey.caddytracker.ui.activities.MainMenuActivity;
 import robert.purdey.caddytracker.ui.activities.ManageFrolfGroupsActivity;
 import robert.purdey.caddytracker.ui.activities.ManageInvitesActivity;
 import robert.purdey.caddytracker.ui.activities.NewGameActivity;
 import robert.purdey.caddytracker.ui.activities.ResumeGameActivity;
+import robert.purdey.caddytracker.ui.activities.ScoreCardActivity;
 import robert.purdey.caddytracker.ui.activities.ScoreGameActivity;
 
 /**
@@ -48,6 +50,16 @@ public class ActivityStarter
     public static void startResumeGameActivity(Context context)
     {
         startActivity(context, ResumeGameActivity.class);
+    }
+
+    /**
+     * Starts  Game Results Activity
+     *
+     * @param context
+     */
+    public static void startGameResultsActivity(Context context)
+    {
+        startActivity(context, GameResultsActivity.class);
     }
 
     /**
@@ -138,6 +150,28 @@ public class ActivityStarter
         }
 
         intent.putExtra(ScoreGameActivity.RECORD_ID, id);
+        context.startActivity(intent);
+    }
+
+    /**
+     * Starts Score Game Activity loading the game for the id passed in as gameId
+     *
+     * @param context
+     * @param gameId - id of game to score
+     */
+    public static void startScoreCardActivity(Context context, UUID gameId)
+    {
+        // todo: throw error here if no game id? you cant score without finding a game
+
+        Intent intent = new Intent(context, ScoreCardActivity.class);
+        String id     = "";
+
+        if ( gameId != null )
+        {
+            id = gameId.toString();
+        }
+
+        intent.putExtra(ScoreCardActivity.RECORD_ID, id);
         context.startActivity(intent);
     }
 

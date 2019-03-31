@@ -14,6 +14,7 @@ import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.GameHoleUpdateModel;
 import robert.purdey.caddytracker.ui.models.GameModel;
+import robert.purdey.caddytracker.ui.models.scorecard.PlayerGameResultModel;
 
 
 public class GameController extends ApiController<IGameCall>
@@ -55,6 +56,35 @@ public class GameController extends ApiController<IGameCall>
         return data;
     }
 
+    @Override
+    public MutableLiveData<List<PlayerGameResultModel>> getPlayerResults(UUID id)
+    {
+        final MutableLiveData<List<PlayerGameResultModel>> data = new MutableLiveData<>();
+        Call<List<PlayerGameResultModel>> caller = getApiCall().getPlayerResults(getAuthorizationHeader(), id);
+
+        caller.enqueue(new Callback<List<PlayerGameResultModel>>() {
+            @Override
+            public void onResponse(
+                Call<List<PlayerGameResultModel>> call,
+                Response<List<PlayerGameResultModel>> response)
+            {
+                if ( response.isSuccessful() )
+                {
+                    data.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(
+                Call<List<PlayerGameResultModel>> call,
+                Throwable t)
+            {
+                System.out.println("Failed to retrieve group invites because you are a loser and have none!");
+            }
+        });
+
+        return data;
+    }
 
     public MutableLiveData<GameModel> getGame(UUID id)
     {

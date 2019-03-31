@@ -13,9 +13,6 @@ import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
 import robert.purdey.caddytracker.ui.models.PlayerModel;
 
-/**
- * Created by r_pur on 2/18/2019.
- */
 
 public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.PlayerViewHolder>
 {
