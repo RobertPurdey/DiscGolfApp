@@ -1,6 +1,8 @@
 package robert.purdey.caddytracker.ui.activities;
 
 import robert.purdey.caddytracker.R;
+
+import robert.purdey.caddytracker.databinding.ActivityScoreGameBinding;
 import robert.purdey.caddytracker.ui.FrolfApp;
 import robert.purdey.caddytracker.ui.fragments.GameHoleScoresFragment;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
@@ -8,6 +10,7 @@ import robert.purdey.caddytracker.ui.viewmodels.ScoreGameActivityViewModel;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +20,7 @@ import java.util.UUID;
 public class ScoreGameActivity extends AppCompatActivity
 {
     public static final String RECORD_ID = "RECORD_ID";
-    private ScoreGameActivityViewModel viewModel;
+    private ScoreGameActivityViewModel scoreGameActivViewModel;
 
     public ScoreGameActivity()
     {
@@ -29,19 +32,23 @@ public class ScoreGameActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_score_game);
+
+        ActivityScoreGameBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_score_game);
+        scoreGameActivViewModel          = ViewModelProviders.of(this).get(ScoreGameActivityViewModel.class);
+
+        binding.setScoreGameActivViewModel(scoreGameActivViewModel);
+        binding.setLifecycleOwner(this);
 
         // Attempt to get id.
         Intent intent   = getIntent();
         String recordId = intent.getStringExtra(ScoreGameActivity.RECORD_ID);
-        viewModel       = ViewModelProviders.of(this).get(ScoreGameActivityViewModel.class);
 
         // todo: throw error if one isnt given? cant score no game :D
 
         // get record data when set
         if ( !recordId.equals("") )
         {
-            viewModel.getGame(UUID.fromString(recordId)).observe(this, gameModel ->
+            scoreGameActivViewModel.getGame(UUID.fromString(recordId)).observe(this, gameModel ->
                 LoadHoleScores(gameModel.getIdKey(), 1)
             );
         }
@@ -50,13 +57,13 @@ public class ScoreGameActivity extends AppCompatActivity
     private void LoadHoleScores(UUID gameId, int holeNumber)
     {
         GameHoleScoresFragment fragment = getGameHoleScoreFrag();
-        viewModel.setCurrentHole(holeNumber);
+        scoreGameActivViewModel.setCurrentHole(holeNumber);
         fragment.Load(gameId, holeNumber);
     }
 
     public void onNextHoleClick(View view)
     {
-        int nextHole = viewModel.getNextHoleNumber();
+        int nextHole = scoreGameActivViewModel.getNextHoleNumber();
         saveCurrentHoles(nextHole);
 
         // Load new holes until next hole is the last one
@@ -68,7 +75,7 @@ public class ScoreGameActivity extends AppCompatActivity
 
     public void onPrevHoleClick(View view)
     {
-        int prevHole = viewModel.getPrevHoleNumber();
+        int prevHole = scoreGameActivViewModel.getPrevHoleNumber();
         saveCurrentHoles(prevHole);
 
         // Load new holes until next hole is the last one
@@ -85,9 +92,9 @@ public class ScoreGameActivity extends AppCompatActivity
 
         if (fragment != null)
         {
-            if ( viewModel.CurrentUserIsCreator(FrolfApp.getUserSession().getCurrentUserId() ) )
+            if ( scoreGameActivViewModel.CurrentUserIsCreator(FrolfApp.getUserSession().getCurrentUserId() ) )
             {
-                viewModel.SaveHoleScores(fragment.getHoleScores(), new IApiResponseListener()
+                scoreGameActivViewModel.SaveHoleScores(fragment.getHoleScores(), new IApiResponseListener()
                 {
                     @Override
                     public void onResponseSuccessful()
@@ -119,13 +126,13 @@ public class ScoreGameActivity extends AppCompatActivity
     {
         if ( withinHoleBoundary(nextHole) )
         {
-            LoadHoleScores(viewModel.Game.getValue().getIdKey(), nextHole);
+            LoadHoleScores(scoreGameActivViewModel.Game.getValue().getIdKey(), nextHole);
         }
     }
 
     private boolean withinHoleBoundary(int n)
     {
-        return n > 0 && n <= viewModel.Game.getValue().getHoleIds().size();
+        return n > 0 && n <= scoreGameActivViewModel.Game.getValue().getHoleIds().size();
     }
 
     private GameHoleScoresFragment getGameHoleScoreFrag()

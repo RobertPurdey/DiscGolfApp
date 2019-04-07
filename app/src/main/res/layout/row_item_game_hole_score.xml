@@ -19,14 +19,25 @@
         android:textSize="20dp"
         android:gravity="center_vertical"/>
 
-    <!-- Hole score -->
+    <!-- Strokes -->
     <TextView
-        android:id="@+id/txtv_row_game_hole_score_score"
-        android:layout_width="10dp"
+        android:id="@+id/txtv_row_game_hole_score_strokes"
+        android:layout_width="20dp"
         android:layout_height="18dp"
         android:text="0"
         android:textSize="15dp"
         android:layout_toRightOf="@+id/txtv_row_game_hole_score_player_name"
+        android:gravity="center_vertical"/>
+
+    <!-- Score -->
+    <TextView
+        android:id="@+id/txtv_row_game_hole_score_score"
+        android:layout_marginLeft="20dp"
+        android:layout_width="20dp"
+        android:layout_height="18dp"
+        android:text="0"
+        android:textSize="15dp"
+        android:layout_toRightOf="@+id/txtv_row_game_hole_score_strokes"
         android:gravity="center_vertical"/>
 
     <!-- Increase button -->

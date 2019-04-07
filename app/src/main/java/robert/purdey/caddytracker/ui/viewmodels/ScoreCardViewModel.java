@@ -12,6 +12,7 @@ import robert.purdey.caddytracker.networking.RetrofitConfig;
 import robert.purdey.caddytracker.networking.contracts.controllers.IGameController;
 import robert.purdey.caddytracker.networking.controllers.GameController;
 import robert.purdey.caddytracker.networking.services.ApiCallService;
+import robert.purdey.caddytracker.ui.models.GameResultModel;
 import robert.purdey.caddytracker.ui.models.scorecard.PlayerGameResultModel;
 
 public class ScoreCardViewModel extends ViewModel
@@ -19,7 +20,7 @@ public class ScoreCardViewModel extends ViewModel
     public MutableLiveData<UUID> GameId;
     public MutableLiveData<Integer> CurrentHole;
     public MutableLiveData<Integer> MaxHole;
-    public MutableLiveData<List<PlayerGameResultModel>> PlayerResults;
+    public MutableLiveData<GameResultModel> GameResults;
 
     private IGameController gameController;
 
@@ -28,7 +29,7 @@ public class ScoreCardViewModel extends ViewModel
         GameId          = new MutableLiveData<>();
         CurrentHole     = new MutableLiveData<>();
         MaxHole         = new MutableLiveData<>();
-        PlayerResults   = new MutableLiveData<>();
+        GameResults     = new MutableLiveData<>();
 
         ApiCallService apiCallService = new ApiCallService(
             new RetrofitConfig(),
@@ -48,16 +49,16 @@ public class ScoreCardViewModel extends ViewModel
         GameId.setValue(id);
     }
 
-    public LiveData<List<PlayerGameResultModel>> getPlayerResults(UUID gameId)
+    public LiveData<GameResultModel> getGameResults(UUID gameId)
     {
-        PlayerResults = new MutableLiveData<>();
-        loadPlayerResults(gameId);
+        GameResults = new MutableLiveData<>();
+        loadGameResults(gameId);
 
-        return PlayerResults;
+        return GameResults;
     }
 
-    private void loadPlayerResults(UUID id)
+    private void loadGameResults(UUID id)
     {
-        PlayerResults = gameController.getPlayerResults(id);
+        GameResults = gameController.getGameResults(id);
     }
 }

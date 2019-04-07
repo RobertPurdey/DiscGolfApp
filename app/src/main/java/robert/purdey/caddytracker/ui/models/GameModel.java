@@ -2,6 +2,7 @@ package robert.purdey.caddytracker.ui.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class GameModel
@@ -10,6 +11,7 @@ public class GameModel
     public UUID CreatorId;
     public String Name;
     public List HoleIds;
+    public Map<Integer, Integer> HolePars;
 
     public GameModel()
     {
@@ -54,5 +56,15 @@ public class GameModel
     public void setHoleIds(List holeIds)
     {
         HoleIds = holeIds;
+    }
+
+    public Map<Integer, Integer> getHolePars()
+    {
+        return HolePars;
+    }
+
+    public void setHolePars(Map<Integer, Integer> holePars)
+    {
+        HolePars = holePars;
     }
 }

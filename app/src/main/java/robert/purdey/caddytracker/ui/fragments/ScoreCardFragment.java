@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.adapters.ScoreCardViewAdapter;
+import robert.purdey.caddytracker.ui.models.GameResultModel;
 import robert.purdey.caddytracker.ui.models.scorecard.PlayerGameResultModel;
 import robert.purdey.caddytracker.ui.models.scorecard.ScoreCellModel;
 import robert.purdey.caddytracker.ui.models.scorecard.ScoreColumnHeaderModel;
@@ -46,28 +47,37 @@ public class ScoreCardFragment extends Fragment
         return rootView;
     }
 
-    public void LoadScoreCard(List<PlayerGameResultModel> results)
+    public void LoadScoreCard(GameResultModel result)
     {
         List<ScoreRowHeaderModel> rowHeaders        = new ArrayList<>();
         List<ScoreColumnHeaderModel> columnHeaders  = new ArrayList<>();
         List<List<ScoreCellModel>> playerResults    = new ArrayList<>();
 
+        // create columns
         columnHeaders.add(new ScoreColumnHeaderModel("Score"));
-        columnHeaders.add(new ScoreColumnHeaderModel("Strokes"));
 
-        int holeCount = results.get(0).getScores().size();
-
-        for (int i = 1; i <= holeCount; i++)
+        // create hole columns headers
+        for (int i = 1; i <= result.getHoleCount(); i++)
         {
-            columnHeaders.add(new ScoreColumnHeaderModel(Integer.toString(i)));
+            String header = "H" + Integer.toString(i);
+            columnHeaders.add(new ScoreColumnHeaderModel(header));
         }
 
-        rowHeaders = results
+        columnHeaders.add(new ScoreColumnHeaderModel("Strokes"));
+
+        // create row
+        rowHeaders.add(new ScoreRowHeaderModel("PAR"));
+
+        rowHeaders.addAll(result.getPlayerResults()
             .stream()
             .map(res -> new ScoreRowHeaderModel(res.getPlayerName()))
-            .collect(Collectors.toList());
+            .collect(Collectors.toList()));
 
-        for (PlayerGameResultModel model : results)
+
+        // to Par cells
+        playerResults.add(ToParCells(result));
+
+        for (PlayerGameResultModel model : result.getPlayerResults())
         {
             playerResults.add(ToScoreCellModels(model));
         }
@@ -75,21 +85,39 @@ public class ScoreCardFragment extends Fragment
         scoreCardTableAdapter.setAllItems(columnHeaders, rowHeaders, playerResults);
     }
 
+    private List<ScoreCellModel> ToParCells(GameResultModel model)
+    {
+        List<ScoreCellModel> cells = new ArrayList<>();
+        cells.add(new ScoreCellModel("-"));
+
+        for (int i = 1; i <= model.getHoleCount(); i++)
+        {
+            cells.add(new ScoreCellModel(model.getHolePars().get(i)));
+        }
+
+        cells.add(new ScoreCellModel("-"));
+
+        return cells;
+    }
+
     private List<ScoreCellModel> ToScoreCellModels(PlayerGameResultModel model)
     {
         List<ScoreCellModel> cells = new ArrayList<>();
 
         cells.add(new ScoreCellModel(model.getTotalScore()));
-        cells.add(new ScoreCellModel(model.getStrokes()));
 
-        // Scores
-        int holeCount                       = model.getScores().size();
+        // Scores / strokes
         Map<Integer, Integer> holeScores    = model.getScores();
+        Map<Integer, Integer> holeStrokes   = model.getStrokes();
+        int holeCount                       = holeStrokes.size();
 
         for(int i = 1; i <= holeCount; i++)
         {
-            cells.add(new ScoreCellModel(holeScores.get(i)));
+            String cellValue = holeStrokes.get(i) + " (" + holeScores.get(i) + ")";
+            cells.add(new ScoreCellModel(cellValue));
         }
+
+        cells.add(new ScoreCellModel(model.getTotalStrokes()));
 
         return cells;
     }

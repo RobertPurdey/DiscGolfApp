@@ -1,54 +1,102 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_score_game"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/background_gray"
-    tools:context="robert.purdey.caddytracker.ui.activities.ScoreGameActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="scoreGameActivViewModel"
+            type="robert.purdey.caddytracker.ui.viewmodels.ScoreGameActivityViewModel" />
+    </data>
 
-
-    <!-- Prev button -->
-    <Button
-        android:id="@+id/bttn_score_game_activity_prev_hole"
-        android:layout_width="40dp"
-        android:layout_height="30dp"
-        android:textColor="@color/white"
-        android:background="@color/button_green2"
-        android:text="@string/prev"
-        android:textSize="15dp"
-        android:textAlignment="center"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="35dp"
-        android:onClick="onPrevHoleClick"/>
-
-    <!-- Next button -->
-    <Button
-        android:id="@+id/bttn_score_game_activity_next_hole"
-        android:layout_width="40dp"
-        android:layout_height="30dp"
-        android:textColor="@color/white"
-        android:background="@color/button_green2"
-        android:text="@string/next"
-        android:textSize="15dp"
-        android:textAlignment="center"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="35dp"
-        android:layout_toRightOf="@id/bttn_score_game_activity_prev_hole"
-        android:onClick="onNextHoleClick"/>
-
-    <!-- Score game hole scores fragment -->
-    <fragment
-        android:name="robert.purdey.caddytracker.ui.fragments.GameHoleScoresFragment"
-        android:id="@+id/frag_mng_game_hole_scores_fragment"
-        android:layout_weight="2"
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_score_game"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_below="@id/bttn_score_game_activity_next_hole"
-        />
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:background="@color/background_gray"
+        tools:context="robert.purdey.caddytracker.ui.activities.ScoreGameActivity">
 
-</RelativeLayout>
+        <!-- Hole label -->
+        <TextView
+            android:id="@+id/txtv_activity_score_game_hole_lbl"
+            android:text="@string/hole"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:textSize="15dp"
+            android:textColor="@color/white"/>
+
+        <!-- Current hole -->
+        <TextView
+            android:id="@+id/txtv_activity_score_game_current_hole"
+            android:text="@={scoreGameActivViewModel.CurrentHoleLbl}"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_toRightOf="@id/txtv_activity_score_game_hole_lbl"/>
+
+
+        <!-- Par label -->
+        <TextView
+            android:id="@+id/txtv_activity_score_game_par_lbl"
+            android:text="@string/par"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:textSize="15dp"
+            android:layout_toRightOf="@id/txtv_activity_score_game_current_hole"
+            android:textColor="@color/white"/>
+
+        <!-- Current hole -->
+        <TextView
+            android:id="@+id/txtv_activity_score_game_par"
+            android:text="@={scoreGameActivViewModel.ParLbl}"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_toRightOf="@id/txtv_activity_score_game_par_lbl"/>
+
+        <!-- Prev button -->
+        <Button
+            android:id="@+id/bttn_score_game_activity_prev_hole"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:textColor="@color/white"
+            android:background="@color/button_green2"
+            android:text="@string/prev"
+            android:textSize="15dp"
+            android:textAlignment="center"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="60dp"
+            android:layout_toRightOf="@id/txtv_activity_score_game_current_hole"
+            android:onClick="onPrevHoleClick"/>
+
+        <!-- Next button -->
+        <Button
+            android:id="@+id/bttn_score_game_activity_next_hole"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:textColor="@color/white"
+            android:background="@color/button_green2"
+            android:text="@string/next"
+            android:textSize="15dp"
+            android:textAlignment="center"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="35dp"
+            android:layout_toRightOf="@id/bttn_score_game_activity_prev_hole"
+            android:onClick="onNextHoleClick"/>
+
+        <!-- todo: rename to score -->
+        <!-- Sacore game hole sacores fragment -->
+        <fragment
+            android:name="robert.purdey.caddytracker.ui.fragments.GameHoleScoresFragment"
+            android:id="@+id/frag_mng_game_hole_scores_fragment"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_below="@id/bttn_score_game_activity_next_hole"
+            />
+
+    </RelativeLayout>
+</layout>

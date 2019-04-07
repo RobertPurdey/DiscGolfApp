@@ -5,8 +5,9 @@ import java.util.Map;
 public class PlayerGameResultModel
 {
     public String PlayerName;
-    public int Strokes;
+    public int TotalStrokes;
     public int TotalScore;
+    public Map<Integer, Integer> Strokes;
     public Map<Integer, Integer> Scores;
 
     public String getPlayerName()
@@ -19,14 +20,14 @@ public class PlayerGameResultModel
         PlayerName = playerName;
     }
 
-    public int getStrokes()
+    public int getTotalStrokes()
     {
-        return Strokes;
+        return TotalStrokes;
     }
 
-    public void setStrokes(int strokes)
+    public void setTotalStrokes(int totalStrokes)
     {
-        Strokes = strokes;
+        TotalStrokes = totalStrokes;
     }
 
     public int getTotalScore()
@@ -37,6 +38,16 @@ public class PlayerGameResultModel
     public void setTotalScore(int totalScore)
     {
         TotalScore = totalScore;
+    }
+
+    public Map<Integer, Integer> getStrokes()
+    {
+        return Strokes;
+    }
+
+    public void setStrokes(Map<Integer, Integer> strokes)
+    {
+        Strokes = strokes;
     }
 
     public Map<Integer, Integer> getScores()

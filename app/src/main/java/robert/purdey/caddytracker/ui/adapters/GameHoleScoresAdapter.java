@@ -45,6 +45,7 @@ public class GameHoleScoresAdapter extends RecyclerView.Adapter<GameHoleScoresAd
             holder.txtvHoleScoreId.setText(current.getIdKey().toString());
             holder.txtvPlayerName.setText(current.getPlayerHandle());
             holder.txtvScore.setText(Integer.toString(current.getScore()));
+            holder.txtvStrokes.setText(Integer.toString(current.getStrokes()));
         }
         else
         {
@@ -52,6 +53,7 @@ public class GameHoleScoresAdapter extends RecyclerView.Adapter<GameHoleScoresAd
             holder.txtvHoleScoreId.setText("");
             holder.txtvPlayerName.setText("");
             holder.txtvScore.setText("0");
+            holder.txtvStrokes.setText("0");
         }
     }
 
@@ -81,6 +83,7 @@ public class GameHoleScoresAdapter extends RecyclerView.Adapter<GameHoleScoresAd
         private final TextView txtvHoleScoreId;
         private final TextView txtvPlayerName;
         private final TextView txtvScore;
+        private final TextView txtvStrokes;
         private final Button bttnIncrease;
         private final Button bttnDecrease;
 
@@ -91,6 +94,7 @@ public class GameHoleScoresAdapter extends RecyclerView.Adapter<GameHoleScoresAd
             txtvHoleScoreId          = itemView.findViewById(R.id.txtv_row_game_hole_score_hole_score_id);
             txtvPlayerName           = itemView.findViewById(R.id.txtv_row_game_hole_score_player_name);
             txtvScore                = itemView.findViewById(R.id.txtv_row_game_hole_score_score);
+            txtvStrokes              = itemView.findViewById(R.id.txtv_row_game_hole_score_strokes);
             bttnIncrease             = itemView.findViewById(R.id.bttn_row_game_hole_score_increase);
             bttnDecrease             = itemView.findViewById(R.id.bttn_row_game_hole_score_decrease);
 
@@ -116,15 +120,16 @@ public class GameHoleScoresAdapter extends RecyclerView.Adapter<GameHoleScoresAd
         private void ModifyHoleScore(boolean isIncrease)
         {
             HoleScoreModel model = GetCurrentHoleScore();
-            int currentScore     = model.getScore();
+            int currentStrokes   = model.getStrokes();
 
-            int newScore = isIncrease
-                ? currentScore + 1
-                : currentScore - 1;
+            int newStrokes = isIncrease
+                ? currentStrokes + 1
+                : currentStrokes - 1;
 
-            model.setScore(newScore);
+            model.setStrokes(newStrokes);
+            model.setScore(newStrokes - model.getHolePar());
 
-            bttnDecrease.setEnabled(newScore > 1);
+            bttnDecrease.setEnabled(newStrokes > 1);
 
             notifyDataSetChanged();
         }

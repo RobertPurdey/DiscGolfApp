@@ -8,7 +8,10 @@ public class HoleScoreModel
     public UUID HoleId;
     public UUID PlayerId;
     public UUID RoundId;
+    public int Strokes;
     public int Score;
+    public int HolePar;
+
     public String PlayerHandle;
 
     public UUID getIdKey()
@@ -51,6 +54,16 @@ public class HoleScoreModel
         RoundId = roundId;
     }
 
+    public int getStrokes()
+    {
+        return Strokes;
+    }
+
+    public void setStrokes(int strokes)
+    {
+        Strokes = strokes;
+    }
+
     public int getScore()
     {
         return Score;
@@ -69,5 +82,15 @@ public class HoleScoreModel
     public void setPlayerHandle(String playerHandle)
     {
         PlayerHandle = playerHandle;
+    }
+
+    public int getHolePar()
+    {
+        return HolePar;
+    }
+
+    public void setHolePar(int holePar)
+    {
+        HolePar = holePar;
     }
 }

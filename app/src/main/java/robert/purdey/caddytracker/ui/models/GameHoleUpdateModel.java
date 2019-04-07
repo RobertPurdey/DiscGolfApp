@@ -36,7 +36,7 @@ public class GameHoleUpdateModel
 
         for ( HoleScoreModel hole : holeScoreUpdates )
         {
-            HoleScoreUpdates.put(hole.getIdKey(), hole.getScore());
+            HoleScoreUpdates.put(hole.getIdKey(), hole.getStrokes());
         }
     }
 }

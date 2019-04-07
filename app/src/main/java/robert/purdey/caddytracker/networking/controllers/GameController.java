@@ -14,6 +14,7 @@ import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.GameHoleUpdateModel;
 import robert.purdey.caddytracker.ui.models.GameModel;
+import robert.purdey.caddytracker.ui.models.GameResultModel;
 import robert.purdey.caddytracker.ui.models.scorecard.PlayerGameResultModel;
 
 
@@ -57,16 +58,16 @@ public class GameController extends ApiController<IGameCall>
     }
 
     @Override
-    public MutableLiveData<List<PlayerGameResultModel>> getPlayerResults(UUID id)
+    public MutableLiveData<GameResultModel> getGameResults(UUID id)
     {
-        final MutableLiveData<List<PlayerGameResultModel>> data = new MutableLiveData<>();
-        Call<List<PlayerGameResultModel>> caller = getApiCall().getPlayerResults(getAuthorizationHeader(), id);
+        final MutableLiveData<GameResultModel> data = new MutableLiveData<>();
+        Call<GameResultModel> caller = getApiCall().getGameResults(getAuthorizationHeader(), id);
 
-        caller.enqueue(new Callback<List<PlayerGameResultModel>>() {
+        caller.enqueue(new Callback<GameResultModel>() {
             @Override
             public void onResponse(
-                Call<List<PlayerGameResultModel>> call,
-                Response<List<PlayerGameResultModel>> response)
+                Call<GameResultModel> call,
+                Response<GameResultModel> response)
             {
                 if ( response.isSuccessful() )
                 {
@@ -76,7 +77,7 @@ public class GameController extends ApiController<IGameCall>
 
             @Override
             public void onFailure(
-                Call<List<PlayerGameResultModel>> call,
+                Call<GameResultModel> call,
                 Throwable t)
             {
                 System.out.println("Failed to retrieve group invites because you are a loser and have none!");

@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.fragments.ScoreCardFragment;
+import robert.purdey.caddytracker.ui.models.GameResultModel;
 import robert.purdey.caddytracker.ui.models.scorecard.PlayerGameResultModel;
 import robert.purdey.caddytracker.ui.viewmodels.ScoreCardViewModel;
 
@@ -34,16 +35,16 @@ public class ScoreCardActivity extends AppCompatActivity
         // get record data when set
         if ( !recordId.equals("") )
         {
-            viewModel.getPlayerResults(UUID.fromString(recordId)).observe(this, playerGameResultModels ->
-                LoadScoreCard(playerGameResultModels)
+            viewModel.getGameResults(UUID.fromString(recordId)).observe(this, gameResultModel ->
+                LoadScoreCard(gameResultModel)
             );
         }
     }
 
-    private void LoadScoreCard(List<PlayerGameResultModel> results)
+    private void LoadScoreCard(GameResultModel result)
     {
         ScoreCardFragment scoreCard = getGameHoleScoreFrag();
-        scoreCard.LoadScoreCard(results);
+        scoreCard.LoadScoreCard(result);
     }
 
     private ScoreCardFragment getGameHoleScoreFrag()

@@ -131,8 +131,8 @@ public class ActivityStarter
         startActivity(context, ManageInvitesActivity.class);
     }
 
-    /**
-     * Starts Score Game Activity loading the game for the id passed in as gameId
+    /**todo: rename to score
+     * Starts Sacore Game Activity loading the game for the id passed in as gameId
      *
      * @param context
      * @param gameId - id of game to score
@@ -153,8 +153,8 @@ public class ActivityStarter
         context.startActivity(intent);
     }
 
-    /**
-     * Starts Score Game Activity loading the game for the id passed in as gameId
+    /** todo: rename to score
+     * Starts Sacore Game Activity loading the game for the id passed in as gameId
      *
      * @param context
      * @param gameId - id of game to score

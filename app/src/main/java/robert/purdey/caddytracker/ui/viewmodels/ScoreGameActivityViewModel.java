@@ -24,6 +24,8 @@ public class ScoreGameActivityViewModel extends ViewModel
     public MutableLiveData<Integer> CurrentHole;
     public MutableLiveData<Integer> MaxHole;
     public MutableLiveData<GameModel> Game;
+    public MutableLiveData<String> CurrentHoleLbl;
+    public MutableLiveData<String> ParLbl;
 
     private IGameController gameController;
 
@@ -33,6 +35,8 @@ public class ScoreGameActivityViewModel extends ViewModel
         CurrentHole     = new MutableLiveData<>();
         MaxHole         = new MutableLiveData<>();
         Game            = new MutableLiveData<>();
+        CurrentHoleLbl  = new MutableLiveData<>();
+        ParLbl          = new MutableLiveData<>();
 
         ApiCallService apiCallService = new ApiCallService(
             new RetrofitConfig(),
@@ -61,7 +65,11 @@ public class ScoreGameActivityViewModel extends ViewModel
 
     public void setCurrentHole(int i)
     {
+        int holePar = Game.getValue().getHolePars().get(i);
+
         CurrentHole.setValue(i);
+        CurrentHoleLbl.setValue(Integer.toString(i));
+        ParLbl.setValue(Integer.toString(holePar));
     }
 
     public LiveData<GameModel> getGame(UUID id)
