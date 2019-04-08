@@ -24,15 +24,28 @@
             android:layout_height="40dp"
             android:background="@android:color/white"
             android:hint="@string/game_name"
+            android:paddingLeft="10dp"
+            android:maxLines="1"
             android:text="@={newGameViewModel.gameName}"
             />
+
+        <!-- Selection step description -->
+        <TextView
+            android:id="@+id/txtv_activity_new_game_select_description"
+            android:layout_width="300dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="20dp"
+            android:textSize="15dp"
+            android:layout_below="@+id/etxt_create_game_name"
+            android:text="Select course"
+            android:textColor="@color/white"/>
 
         <!-- Select Course fragment -->
         <FrameLayout
             android:id="@+id/create_new_game_frame"
             android:layout_width="match_parent"
             android:layout_height="380dp"
-            android:layout_below="@+id/etxt_create_game_name">
+            android:layout_below="@+id/txtv_activity_new_game_select_description">
 
             <!-- Choose course -->
             <fragment

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.UUID;
 
@@ -38,8 +39,8 @@ public class NewGameActivity extends AppCompatActivity
             FrolfGroupListFragment chooseGroupFrag          = new FrolfGroupListFragment();
             FrolfGroupMemberListFragment chooseMembersFrag  = new FrolfGroupMemberListFragment();
 
-            chooseCourseFrag.SetCourseClickListener( (view, id) -> onCourseSelected(id)     );
-            chooseGroupFrag.SetGroupClickListener(   (view, id) -> onFrolfGroupSelected(id) );
+            chooseCourseFrag.SetCourseClickListener(  (view, id) -> onCourseSelected(id)     );
+            chooseGroupFrag.SetGroupClickListener(    (view, id) -> onFrolfGroupSelected(id) );
             chooseMembersFrag.SetMemberClickListener( (view, id) -> onMemberSelected(id)     );
 
             FragmentManager fm = getSupportFragmentManager();
@@ -80,6 +81,7 @@ public class NewGameActivity extends AppCompatActivity
         if (id != null)
         {
             newGameViewModel.setCourse(id);
+            SetSelectionDescription("Select group playing");
 
             getSupportFragmentManager().beginTransaction()
                 .hide( this.getCourseListFragment() )
@@ -89,11 +91,18 @@ public class NewGameActivity extends AppCompatActivity
         }
     }
 
+    private void SetSelectionDescription(String description)
+    {
+        TextView selectionDesc = findViewById(R.id.txtv_activity_new_game_select_description);
+        selectionDesc.setText(description);
+    }
+
     private void onFrolfGroupSelected(UUID id)
     {
         if (id != null)
         {
             newGameViewModel.setGroup(id);
+            SetSelectionDescription("Select players you like");
             this.getMembersListFragment().Load(id);
 
             getSupportFragmentManager().beginTransaction()

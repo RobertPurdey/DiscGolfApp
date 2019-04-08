@@ -23,6 +23,7 @@
             android:layout_height="fill_parent"
             android:gravity="center"
             android:orientation="vertical">
+
             <!-- Username text input -->
             <EditText
                 android:id="@+id/etxt_username"
@@ -32,6 +33,8 @@
                 android:layout_margin="5dp"
                 android:background="@android:color/white"
                 android:hint="@string/username"
+                android:paddingLeft="10dp"
+                android:maxLines="1"
                 android:text="@={loginViewModel.username}"/>
 
             <!-- Password text input -->
@@ -44,6 +47,8 @@
                 android:layout_margin="5dp"
                 android:background="@android:color/white"
                 android:hint="@string/password"
+                android:paddingLeft="10dp"
+                android:maxLines="1"
                 android:text="@={loginViewModel.password}"/>
 
             <!-- Login button -->

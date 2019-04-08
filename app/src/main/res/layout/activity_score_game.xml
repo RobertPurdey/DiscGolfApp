@@ -64,12 +64,12 @@
             android:layout_height="30dp"
             android:textColor="@color/white"
             android:background="@color/button_green2"
-            android:text="@string/prev"
-            android:textSize="15dp"
+            android:text="&lt;"
+            android:textSize="20dp"
             android:textAlignment="center"
             android:layout_marginRight="10dp"
-            android:layout_marginLeft="60dp"
-            android:layout_toRightOf="@id/txtv_activity_score_game_current_hole"
+            android:layout_marginLeft="35dp"
+            android:layout_toLeftOf="@id/bttn_score_game_activity_next_hole"
             android:onClick="onPrevHoleClick"/>
 
         <!-- Next button -->
@@ -79,16 +79,15 @@
             android:layout_height="30dp"
             android:textColor="@color/white"
             android:background="@color/button_green2"
-            android:text="@string/next"
-            android:textSize="15dp"
+            android:text="&gt;"
+            android:textSize="20dp"
             android:textAlignment="center"
             android:layout_marginRight="10dp"
-            android:layout_marginLeft="35dp"
-            android:layout_toRightOf="@id/bttn_score_game_activity_prev_hole"
+            android:layout_alignParentRight="true"
             android:onClick="onNextHoleClick"/>
 
         <!-- todo: rename to score -->
-        <!-- Sacore game hole sacores fragment -->
+        <!-- Score game hole scores fragment -->
         <fragment
             android:name="robert.purdey.caddytracker.ui.fragments.GameHoleScoresFragment"
             android:id="@+id/frag_mng_game_hole_scores_fragment"

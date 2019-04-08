@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.models.HoleScoreModel;
+import robert.purdey.caddytracker.utilities.Integers;
 
 
 public class GameHoleScoresAdapter extends RecyclerView.Adapter<GameHoleScoresAdapter.GameHoleScoresViewHolder>
@@ -44,7 +45,7 @@ public class GameHoleScoresAdapter extends RecyclerView.Adapter<GameHoleScoresAd
 
             holder.txtvHoleScoreId.setText(current.getIdKey().toString());
             holder.txtvPlayerName.setText(current.getPlayerHandle());
-            holder.txtvScore.setText(Integer.toString(current.getScore()));
+            holder.txtvScore.setText(Integers.SignInt(current.getScore()));
             holder.txtvStrokes.setText(Integer.toString(current.getStrokes()));
         }
         else
@@ -127,7 +128,10 @@ public class GameHoleScoresAdapter extends RecyclerView.Adapter<GameHoleScoresAd
                 : currentStrokes - 1;
 
             model.setStrokes(newStrokes);
-            model.setScore(newStrokes - model.getHolePar());
+
+            // set score
+            int score = newStrokes - model.getHolePar();
+            model.setScore(score);
 
             bttnDecrease.setEnabled(newStrokes > 1);
 
