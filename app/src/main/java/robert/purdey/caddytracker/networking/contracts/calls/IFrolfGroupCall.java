@@ -11,6 +11,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
 import robert.purdey.caddytracker.ui.models.GameCreationModel;
+import robert.purdey.caddytracker.ui.models.GameModel;
 import robert.purdey.caddytracker.ui.models.PlayerModel;
 
 public interface IFrolfGroupCall
@@ -40,7 +41,7 @@ public interface IFrolfGroupCall
         @Body FrolfGroupModel groupModel);
 
     @POST("api/frolfgroups/creategame/")
-    Call<Void> createGame(
+    Call<GameModel> createGame(
         @Header("Authorization") String auth,
         @Body GameCreationModel creationModel);
 }

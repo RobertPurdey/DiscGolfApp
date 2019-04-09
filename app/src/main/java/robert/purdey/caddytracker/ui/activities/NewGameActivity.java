@@ -16,6 +16,8 @@ import robert.purdey.caddytracker.databinding.ActivityNewGameBinding;
 import robert.purdey.caddytracker.ui.fragments.CourseListFragment;
 import robert.purdey.caddytracker.ui.fragments.FrolfGroupListFragment;
 import robert.purdey.caddytracker.ui.fragments.FrolfGroupMemberListFragment;
+import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
+import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.viewmodels.NewGameViewModel;
 
 public class NewGameActivity extends AppCompatActivity
@@ -73,7 +75,9 @@ public class NewGameActivity extends AppCompatActivity
      */
     public void addGame(View view)
     {
-        newGameViewModel.CreateGame();
+        newGameViewModel.CreateGame().observe(this, gameModel -> {
+            ActivityStarter.startScoreGameActivity(this, gameModel.getIdKey());
+        });
     }
 
     private void onCourseSelected(UUID id)
@@ -123,41 +127,6 @@ public class NewGameActivity extends AppCompatActivity
             newGameViewModel.managePlayer(id);
         }
     }
-
-/*    @Override
-    public void onCourseIdPass(int courseId)
-    {
-        if (coursePkeyId == -1)
-        {
-            getSupportFragmentManager().beginTransaction()
-                .hide(this.getCourseListFragment() )
-                .show(this.getPlayerListFragment() )
-                .commit();
-
-            Button startNewGame = (Button) findViewById(R.id.bttn_start_new_game);
-            startNewGame.setClickable(true);
-        }
-
-        coursePkeyId = courseId;
-    }*/
-
-    // hook into onclick of frags
-    //@Override
-    //public void onPlayerIdPass(int playerId)
-    //{
-    //    playerPKeyIds.add(playerId);
-   // }
-
-    /**
-     * Gets the player fragment
-     *
-     * @return Player list fragment or null if it is not found.
-     */
-   // protected PlayerListFragment getPlayerListFragment()
-   // {
-    //    return (PlayerListFragment) getSupportFragmentManager()
-    //        .findFragmentByTag("Tag2");
-  //  }
 
     /**
      * Gets the course fragment

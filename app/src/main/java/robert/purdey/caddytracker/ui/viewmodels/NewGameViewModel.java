@@ -1,5 +1,6 @@
 package robert.purdey.caddytracker.ui.viewmodels;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
@@ -12,6 +13,7 @@ import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupCo
 import robert.purdey.caddytracker.networking.controllers.FrolfGroupController;
 import robert.purdey.caddytracker.networking.services.ApiCallService;
 import robert.purdey.caddytracker.ui.models.GameCreationModel;
+import robert.purdey.caddytracker.ui.models.GameModel;
 
 public class NewGameViewModel extends ViewModel
 {
@@ -34,10 +36,11 @@ public class NewGameViewModel extends ViewModel
         creationModel.setValue( new GameCreationModel() );
     }
 
-    public void CreateGame()
+    public LiveData<GameModel> CreateGame()
     {
         creationModel.getValue().setName(gameName.getValue());
-        frolfGroupController.createGame( creationModel.getValue() );
+
+        return frolfGroupController.createGame( creationModel.getValue());
     }
 
     public void setCourse(UUID id)

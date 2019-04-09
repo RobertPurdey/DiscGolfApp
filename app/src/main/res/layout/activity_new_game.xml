@@ -35,7 +35,7 @@
             android:layout_width="300dp"
             android:layout_marginTop="10dp"
             android:layout_height="20dp"
-            android:textSize="15dp"
+            android:textSize="16dp"
             android:layout_below="@+id/etxt_create_game_name"
             android:text="Select course"
             android:textColor="@color/white"/>
@@ -44,7 +44,7 @@
         <FrameLayout
             android:id="@+id/create_new_game_frame"
             android:layout_width="match_parent"
-            android:layout_height="380dp"
+            android:layout_height="340dp"
             android:layout_below="@+id/txtv_activity_new_game_select_description">
 
             <!-- Choose course -->

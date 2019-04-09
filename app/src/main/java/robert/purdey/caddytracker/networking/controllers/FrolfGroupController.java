@@ -13,6 +13,7 @@ import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupCo
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
 import robert.purdey.caddytracker.ui.models.GameCreationModel;
+import robert.purdey.caddytracker.ui.models.GameModel;
 import robert.purdey.caddytracker.ui.models.PlayerModel;
 
 public class FrolfGroupController
@@ -170,29 +171,36 @@ public class FrolfGroupController
         return data;
     }
 
-    public void createGame(GameCreationModel model)
+    public MutableLiveData<GameModel> createGame(GameCreationModel model)
     {
-        Call<Void> caller = getApiCall().createGame(getAuthorizationHeader(), model);
+        final MutableLiveData<GameModel> data = new MutableLiveData<>();
+        Call<GameModel> caller = getApiCall().createGame(getAuthorizationHeader(), model);
 
-        caller.enqueue(new Callback<Void>() {
+        caller.enqueue(new Callback<GameModel>() {
             @Override
             public void onResponse(
-                Call<Void> call,
-                Response<Void> response)
+                Call<GameModel> call,
+                Response<GameModel> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    // todo: success callback
+                    data.setValue(response.body());
+                }
+                else
+                {
+                    System.out.println("loser");
                 }
             }
 
             @Override
             public void onFailure(
-                Call<Void> call,
+                Call<GameModel> call,
                 Throwable t)
             {
                 System.out.println("Failed to retrieve group members because you are a loser and nobody wants to be in your group.");
             }
         });
+
+        return data;
     }
 }
