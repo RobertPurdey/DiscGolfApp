@@ -14,7 +14,7 @@
     <TextView
         android:id="@+id/txtv_row_game_hole_score_player_name"
         android:layout_width="100dp"
-        android:layout_height="25dp"
+        android:layout_height="30dp"
         android:text="Name"
         android:textSize="15dp"
         android:paddingLeft="10dp"
@@ -26,7 +26,7 @@
     <TextView
         android:id="@+id/txtv_row_game_hole_score_strokes"
         android:layout_width="25dp"
-        android:layout_height="18dp"
+        android:layout_height="30dp"
         android:text="0"
         android:textSize="15dp"
         android:layout_toLeftOf="@+id/txtv_row_game_hole_score_score"
@@ -36,8 +36,8 @@
     <TextView
         android:id="@+id/txtv_row_game_hole_score_score"
         android:layout_marginLeft="10dp"
-        android:layout_width="25dp"
-        android:layout_height="18dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:text="0"
         android:textSize="15dp"
         android:layout_toLeftOf="@+id/bttn_row_game_hole_score_increase"

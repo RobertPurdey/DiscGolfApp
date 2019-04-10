@@ -6,6 +6,7 @@ import java.util.UUID;
 public class PlayerModel
 {
     public UUID IdKey;
+    public UUID AppUserId;
     public String Handle;
 
     public UUID getIdKey()
@@ -26,5 +27,15 @@ public class PlayerModel
     public void setHandle(String handle)
     {
         Handle = handle;
+    }
+
+    public UUID getAppUserId()
+    {
+        return AppUserId;
+    }
+
+    public void setAppUserId(UUID appUserId)
+    {
+        AppUserId = appUserId;
     }
 }

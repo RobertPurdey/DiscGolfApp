@@ -5,9 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
@@ -20,11 +23,13 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
     private final LayoutInflater mInflater;
     private final IItemClickListener clickListener;
     private List<PlayerModel> mPlayers;
+    private HashSet<UUID> selectedIds;
 
     public PlayerListAdapter(Context context, IItemClickListener listener)
     {
-        mInflater     = LayoutInflater.from(context);
-        clickListener = listener;
+        mInflater           = LayoutInflater.from(context);
+        clickListener       = listener;
+        selectedIds         = new HashSet<>();
     }
 
     @Override
@@ -43,16 +48,29 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
     {
         if (mPlayers != null)
         {
-            PlayerModel current = mPlayers.get(position);
+            PlayerModel current     = mPlayers.get(position);
+            UUID key                = current.getIdKey();
 
             holder.txtvPlayerId.setText(current.getIdKey().toString());
             holder.txtvPlayerHandle.setText(current.getHandle());
 
             if (clickListener != null)
             {
-                holder.itemView.setOnClickListener(
-                    view -> clickListener.onClick(view, current.getIdKey())
-                );
+
+                holder.itemView.setOnClickListener(view -> {
+                    if ( selectedIds.contains(key) )
+                    {
+                        selectedIds.remove(key);
+                        holder.playerLayout.setSelected(false);
+                    }
+                    else
+                    {
+                        selectedIds.add(key);
+                        holder.playerLayout.setSelected(true);
+                    }
+
+                    clickListener.onClick(view, key);
+                });
             }
         }
         else
@@ -65,7 +83,9 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
 
     public void setPlayers(List<PlayerModel> players)
     {
-        mPlayers = players;
+        mPlayers     = players;
+        selectedIds  = new HashSet<>();
+
         notifyDataSetChanged();
     }
 
@@ -82,11 +102,15 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
     {
         private final TextView txtvPlayerId;
         private final TextView txtvPlayerHandle;
+        private final RelativeLayout playerLayout;
+
+        private boolean isSelected;
 
         private PlayerViewHolder(View itemView)
         {
             super(itemView);
 
+            playerLayout     = itemView.findViewById(R.id.row_item_frolf_group_member);
             txtvPlayerId     = itemView.findViewById(R.id.txtv_player_id);
             txtvPlayerHandle = itemView.findViewById(R.id.txtv_handle);
         }
