@@ -6,14 +6,14 @@
     <!-- Hole score ID -->
     <TextView
         android:id="@+id/txtv_row_game_hole_score_hole_score_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:visibility="gone"/>
 
     <!-- Player name -->
     <TextView
         android:id="@+id/txtv_row_game_hole_score_player_name"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="30dp"
         android:text="Name"
         android:textSize="15dp"

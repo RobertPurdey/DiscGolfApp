@@ -38,6 +38,7 @@
             android:textSize="16dp"
             android:layout_below="@+id/etxt_create_game_name"
             android:text="Select course"
+            android:layout_marginBottom="10dp"
             android:textColor="@color/white"/>
 
         <!-- Select Course fragment -->

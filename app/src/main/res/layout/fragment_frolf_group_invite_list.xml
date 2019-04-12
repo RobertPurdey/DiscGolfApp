@@ -8,7 +8,6 @@
         android:id="@+id/frolfGroupInviteRecycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp"
         android:background="@color/white"
         tools:listitem="@layout/row_item_frolf_group_invite"
     />
