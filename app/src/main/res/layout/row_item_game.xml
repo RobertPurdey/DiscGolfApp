@@ -17,6 +17,18 @@
         android:layout_height="25dp"
         android:text=""
         android:textSize="16dp"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"/>
+
+    <!-- Course name -->
+    <TextView
+        android:id="@+id/txtv_row_game_course_name"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@+id/txtv_row_game_name"
+        android:text=""
+        android:textSize="14dp"
+        android:paddingLeft="10dp"
         android:gravity="center_vertical"/>
 
 </RelativeLayout>

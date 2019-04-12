@@ -60,7 +60,8 @@
             android:parentActivityName=".ui.activities.MainMenuActivity" />
 
         <!-- Score Game -->
-        <activity android:name=".ui.activities.ScoreGameActivity" />
+        <activity android:name=".ui.activities.ScoreGameActivity"
+            android:parentActivityName=".ui.activities.ResumeGameActivity" />
 
         <!-- View Game Score and other results -->
         <activity

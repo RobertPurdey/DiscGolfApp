@@ -46,6 +46,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameVi
 
             holder.txtvGameId.setText(current.getIdKey().toString());
             holder.txtvGameName.setText(current.getName());
+            holder.txtvCourseName.setText(current.getCourseName());
 
             if (clickListener != null)
             {
@@ -59,6 +60,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameVi
             // Covers the case of data not being ready yet.
             holder.txtvGameId.setText("");
             holder.txtvGameName.setText("Retrieving group data...");
+            holder.txtvCourseName.setText("Retrieving group data...");
         }
     }
 
@@ -81,13 +83,15 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameVi
     {
         private final TextView txtvGameId;
         private final TextView txtvGameName;
+        private final TextView txtvCourseName;
 
         private GameViewHolder(View itemView)
         {
             super(itemView);
 
-            txtvGameId     = itemView.findViewById(R.id.txtv_row_game_id);
-            txtvGameName   = itemView.findViewById(R.id.txtv_row_game_name);
+            txtvGameId              = itemView.findViewById(R.id.txtv_row_game_id);
+            txtvGameName            = itemView.findViewById(R.id.txtv_row_game_name);
+            txtvCourseName          = itemView.findViewById(R.id.txtv_row_game_course_name);
         }
     }
 }

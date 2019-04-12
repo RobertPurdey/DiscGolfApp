@@ -17,23 +17,34 @@
         android:background="@color/background_gray"
         tools:context="robert.purdey.caddytracker.ui.activities.ScoreGameActivity">
 
+        <!-- Course name -->
+        <TextView
+            android:id="@+id/txtv_activity_score_course_name"
+            android:text=""
+            android:layout_width="250dp"
+            android:layout_height="20dp"
+            android:textSize="14dp"
+            android:textColor="@color/white"/>
+
         <!-- Hole label -->
         <TextView
             android:id="@+id/txtv_activity_score_game_hole_lbl"
             android:text="@string/hole"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:textSize="15dp"
+            android:layout_width="35dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/txtv_activity_score_course_name"
+            android:textSize="13dp"
             android:textColor="@color/white"/>
 
         <!-- Current hole -->
         <TextView
             android:id="@+id/txtv_activity_score_game_current_hole"
             android:text="@={scoreGameActivViewModel.CurrentHoleLbl}"
-            android:layout_width="20dp"
-            android:layout_height="40dp"
+            android:layout_width="25dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/txtv_activity_score_course_name"
             android:textColor="@color/white"
-            android:textSize="15dp"
+            android:textSize="13dp"
             android:layout_toRightOf="@id/txtv_activity_score_game_hole_lbl"/>
 
 
@@ -41,9 +52,10 @@
         <TextView
             android:id="@+id/txtv_activity_score_game_par_lbl"
             android:text="@string/par"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:textSize="15dp"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/txtv_activity_score_course_name"
+            android:textSize="13dp"
             android:layout_toRightOf="@id/txtv_activity_score_game_current_hole"
             android:textColor="@color/white"/>
 
@@ -51,10 +63,11 @@
         <TextView
             android:id="@+id/txtv_activity_score_game_par"
             android:text="@={scoreGameActivViewModel.ParLbl}"
-            android:layout_width="20dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/txtv_activity_score_course_name"
             android:textColor="@color/white"
-            android:textSize="15dp"
+            android:textSize="13dp"
             android:layout_toRightOf="@id/txtv_activity_score_game_par_lbl"/>
 
         <!-- Prev button -->
@@ -62,6 +75,7 @@
             android:id="@+id/bttn_score_game_activity_prev_hole"
             android:layout_width="40dp"
             android:layout_height="30dp"
+            android:layout_below="@+id/txtv_activity_score_course_name"
             android:textColor="@color/white"
             android:background="@color/button_green2"
             android:text="&lt;"
@@ -77,6 +91,7 @@
             android:id="@+id/bttn_score_game_activity_next_hole"
             android:layout_width="40dp"
             android:layout_height="30dp"
+            android:layout_below="@+id/txtv_activity_score_course_name"
             android:textColor="@color/white"
             android:background="@color/button_green2"
             android:text="&gt;"
@@ -90,9 +105,10 @@
             android:id="@+id/txtv_activity_score_game_player_lbl"
             android:text="@string/player"
             android:layout_width="90dp"
-            android:layout_height="40dp"
+            android:layout_height="20dp"
             android:layout_below="@+id/bttn_score_game_activity_prev_hole"
             android:textSize="12dp"
+            android:paddingLeft="10dp"
             android:textColor="@color/white"/>
 
         <!-- Strokes column label -->
@@ -100,8 +116,8 @@
             android:id="@+id/txtv_activity_score_game_strokes_lbl"
             android:text="@string/strokes"
             android:layout_width="45dp"
-            android:layout_marginLeft="25dp"
-            android:layout_height="40dp"
+            android:layout_marginLeft="28dp"
+            android:layout_height="20dp"
             android:layout_below="@+id/bttn_score_game_activity_prev_hole"
             android:layout_toRightOf="@+id/txtv_activity_score_game_player_lbl"
             android:textSize="12dp"
@@ -112,7 +128,8 @@
             android:id="@+id/txtv_activity_score_game_score_lbl"
             android:text="@string/score"
             android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="12dp"
             android:layout_below="@+id/bttn_score_game_activity_prev_hole"
             android:layout_toRightOf="@+id/txtv_activity_score_game_strokes_lbl"
             android:textSize="12dp"

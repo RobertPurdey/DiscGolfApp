@@ -14,6 +14,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.UUID;
 
@@ -48,9 +49,11 @@ public class ScoreGameActivity extends AppCompatActivity
         // get record data when set
         if ( !recordId.equals("") )
         {
-            scoreGameActivViewModel.getGame(UUID.fromString(recordId)).observe(this, gameModel ->
-                LoadHoleScores(gameModel.getIdKey(), 1)
-            );
+            scoreGameActivViewModel.getGame(UUID.fromString(recordId)).observe(this, gameModel -> {
+                TextView courseName = findViewById(R.id.txtv_activity_score_course_name);
+                courseName.setText(gameModel.getCourseName());
+                LoadHoleScores(gameModel.getIdKey(), 1);
+            });
         }
     }
 

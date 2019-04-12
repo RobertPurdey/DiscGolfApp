@@ -9,7 +9,13 @@ public class GameModel
 {
     public UUID IdKey;
     public UUID CreatorId;
+
     public String Name;
+    public String CourseName;
+
+    public int CoursePar;
+    public int CourseHoleCount;
+
     public List HoleIds;
     public Map<Integer, Integer> HolePars;
 
@@ -46,6 +52,36 @@ public class GameModel
     public void setName(String name)
     {
         Name = name;
+    }
+
+    public String getCourseName()
+    {
+        return CourseName;
+    }
+
+    public void setCourseName(String courseName)
+    {
+        CourseName = courseName;
+    }
+
+    public int getCoursePar()
+    {
+        return CoursePar;
+    }
+
+    public void setCoursePar(int coursePar)
+    {
+        CoursePar = coursePar;
+    }
+
+    public int getCourseHoleCount()
+    {
+        return CourseHoleCount;
+    }
+
+    public void setCourseHoleCount(int courseHoleCount)
+    {
+        CourseHoleCount = courseHoleCount;
     }
 
     public List getHoleIds()
