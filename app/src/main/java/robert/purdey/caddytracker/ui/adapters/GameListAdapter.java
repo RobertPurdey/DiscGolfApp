@@ -7,7 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
@@ -42,11 +45,15 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameVi
     {
         if (mGames != null)
         {
-            GameModel current = mGames.get(position);
+            GameModel current   = mGames.get(position);
+            String date         = holder.dateFormatter
+                .format(current.getCreatedDate())
+                .toString();
 
             holder.txtvGameId.setText(current.getIdKey().toString());
             holder.txtvGameName.setText(current.getName());
             holder.txtvCourseName.setText(current.getCourseName());
+            holder.txtvCreatedDate.setText(date);
 
             if (clickListener != null)
             {
@@ -59,6 +66,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameVi
         {
             // Covers the case of data not being ready yet.
             holder.txtvGameId.setText("");
+            holder.txtvCreatedDate.setText("");
             holder.txtvGameName.setText("Retrieving group data...");
             holder.txtvCourseName.setText("Retrieving group data...");
         }
@@ -83,7 +91,10 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameVi
     {
         private final TextView txtvGameId;
         private final TextView txtvGameName;
+        private final TextView txtvCreatedDate;
         private final TextView txtvCourseName;
+
+        private final SimpleDateFormat dateFormatter;
 
         private GameViewHolder(View itemView)
         {
@@ -91,7 +102,11 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameVi
 
             txtvGameId              = itemView.findViewById(R.id.txtv_row_game_id);
             txtvGameName            = itemView.findViewById(R.id.txtv_row_game_name);
+            txtvCreatedDate         = itemView.findViewById(R.id.txtv_row_game_created_date);
             txtvCourseName          = itemView.findViewById(R.id.txtv_row_game_course_name);
+
+            dateFormatter = new SimpleDateFormat();
+            dateFormatter.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
         }
     }
 }

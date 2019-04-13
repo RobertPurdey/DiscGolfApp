@@ -1,23 +1,26 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="65dp">
 
     <!-- Game id -->
     <TextView
         android:id="@+id/txtv_row_game_id"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:visibility="gone"/>
 
     <!-- Game name -->
     <TextView
         android:id="@+id/txtv_row_game_name"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="20dp"
         android:text=""
-        android:textSize="16dp"
+        android:textSize="14dp"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:gravity="center_vertical"/>
 
     <!-- Course name -->
@@ -27,8 +30,20 @@
         android:layout_height="25dp"
         android:layout_below="@+id/txtv_row_game_name"
         android:text=""
-        android:textSize="14dp"
+        android:textSize="12dp"
         android:paddingLeft="10dp"
-        android:gravity="center_vertical"/>
+        android:gravity="bottom"/>
+
+
+    <!-- Created Date -->
+    <TextView
+        android:id="@+id/txtv_row_game_created_date"
+        android:layout_width="110dp"
+        android:layout_height="20dp"
+        android:text=""
+        android:textSize="12dp"
+        android:paddingLeft="10dp"
+        android:gravity="bottom"
+        android:layout_below="@+id/txtv_row_game_course_name"/>
 
 </RelativeLayout>
