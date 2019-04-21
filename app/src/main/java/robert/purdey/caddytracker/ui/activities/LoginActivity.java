@@ -91,6 +91,12 @@ public class LoginActivity extends AppCompatActivity
         });
     }
 
+    public void onCreateAccount(View view)
+    {
+        ActivityStarter.startCreateAccountActivity(this);
+    }
+
+
     private void createLoginViewModel()
     {
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);

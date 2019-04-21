@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.evrencoskun.tableview.TableView;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -77,7 +79,11 @@ public class ScoreCardFragment extends Fragment
         // to Par cells
         playerResults.add(ToParCells(result));
 
-        for (PlayerGameResultModel model : result.getPlayerResults())
+        // order results by best score before displaying
+        List<PlayerGameResultModel> models = result.getPlayerResults();
+        Collections.sort(models, Comparator.comparingInt(PlayerGameResultModel::getTotalScore));
+
+        for (PlayerGameResultModel model : models)
         {
             playerResults.add(ToScoreCellModels(model));
         }

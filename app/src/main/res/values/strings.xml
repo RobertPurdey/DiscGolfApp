@@ -4,8 +4,10 @@
     <string name="main_menu">Main Menu</string>
     <string name="save">Save</string>
     <string name="par">Par</string>
+    <string name="confirm">Confirm</string>
     <string name="course_name">Course Name</string>
     <string name="create">Create</string>
+    <string name="create_account">Create Account</string>
     <string name="player_name">Player Name</string>
     <string name="game_name">Game Name</string>
     <string name="course">Course</string>
@@ -25,6 +27,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="login_name">Login Name</string>
     <string name="new_game">New Game</string>
     <string name="resume_game">Resume Game</string>
     <string name="statistics">Statistics</string>
@@ -35,6 +38,7 @@
     <string name="groups">Groups</string>
     <string name="invites">Invites</string>
     <string name="invited_by">Invited by:</string>
+    <string name="handle">Handle</string>
     <string name="help_app">Help</string>
     <string name="help_1">1. Add player(s)</string>
     <string name="help_2">2. Add a course</string>

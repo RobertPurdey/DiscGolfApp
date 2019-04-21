@@ -47,6 +47,7 @@ public class GameHoleScoresAdapter extends RecyclerView.Adapter<GameHoleScoresAd
             holder.txtvPlayerName.setText(current.getPlayerHandle());
             holder.txtvScore.setText(Integers.SignInt(current.getScore()));
             holder.txtvStrokes.setText(Integer.toString(current.getStrokes()));
+            holder.bttnDecrease.setEnabled(current.getStrokes() > 1 );
         }
         else
         {

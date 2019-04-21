@@ -106,6 +106,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameVi
             txtvCourseName          = itemView.findViewById(R.id.txtv_row_game_course_name);
 
             dateFormatter = new SimpleDateFormat();
+            // todo: how to make local date (default timezone was not working.. could be an emulator phone setting)
             dateFormatter.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
         }
     }

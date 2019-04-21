@@ -6,8 +6,10 @@ import android.content.Intent;
 
 import java.util.UUID;
 
+import robert.purdey.caddytracker.ui.activities.CreateAccountActivity;
 import robert.purdey.caddytracker.ui.activities.FrolfGroupRecordActivity;
 import robert.purdey.caddytracker.ui.activities.GameResultsActivity;
+import robert.purdey.caddytracker.ui.activities.LoginActivity;
 import robert.purdey.caddytracker.ui.activities.MainMenuActivity;
 import robert.purdey.caddytracker.ui.activities.ManageFrolfGroupsActivity;
 import robert.purdey.caddytracker.ui.activities.ManageInvitesActivity;
@@ -90,6 +92,26 @@ public class ActivityStarter
     public static void startHelpActivity(Context context)
     {
         //startActivity(context, HelpActivity.class);
+    }
+
+    /**
+     * Starts Create Account Activity
+     *
+     * @param context
+     */
+    public static void startCreateAccountActivity(Context context)
+    {
+        startActivity(context, CreateAccountActivity.class);
+    }
+
+    /**
+     * Starts Login Acitivity
+     *
+     * @param context
+     */
+    public static void startLoginAcitvity(Context context)
+    {
+        startActivity(context, LoginActivity.class);
     }
 
     /**

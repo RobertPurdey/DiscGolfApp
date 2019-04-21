@@ -11,6 +11,7 @@ import robert.purdey.caddytracker.networking.contracts.controllers.IAppUserContr
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
 import robert.purdey.caddytracker.ui.FrolfApp;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
+import robert.purdey.caddytracker.ui.models.AppUserCreationModel;
 import robert.purdey.caddytracker.ui.models.AppUserModel;
 import robert.purdey.caddytracker.ui.models.TokenModel;
 
@@ -99,5 +100,33 @@ public class AppUserController
         });
 
         return data;
+    }
+
+    public void createAccount(
+        AppUserCreationModel userCreateRequest,
+        IApiResponseListener listener)
+    {
+        Call<Void> createAccountCall = getApiCall().createAccount(userCreateRequest);
+
+        createAccountCall.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response)
+            {
+                if ( response.isSuccessful() )
+                {
+                    listener.onResponseSuccessful();
+                }
+                else
+                {
+                    listener.onResponseFailed();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t)
+            {
+                listener.onCallFailure();
+            }
+        });
     }
 }

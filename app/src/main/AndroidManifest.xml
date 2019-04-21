@@ -60,13 +60,15 @@
             android:parentActivityName=".ui.activities.MainMenuActivity" />
 
         <!-- Score Game -->
-        <activity android:name=".ui.activities.ScoreGameActivity"
+        <activity
+            android:name=".ui.activities.ScoreGameActivity"
             android:parentActivityName=".ui.activities.ResumeGameActivity" />
 
         <!-- View Game Score and other results -->
         <activity
             android:name=".ui.activities.ScoreCardActivity"
-            android:parentActivityName=".ui.activities.GameResultsActivity"/>
+            android:parentActivityName=".ui.activities.GameResultsActivity" />
+        <activity android:name=".ui.activities.CreateAccountActivity"></activity>
     </application>
 
 </manifest>
