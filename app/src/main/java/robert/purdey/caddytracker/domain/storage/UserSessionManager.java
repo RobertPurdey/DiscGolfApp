@@ -2,6 +2,7 @@ package robert.purdey.caddytracker.domain.storage;
 
 import android.support.annotation.NonNull;
 
+import java.security.PrivateKey;
 import java.util.UUID;
 
 import robert.purdey.caddytracker.domain.storage.contracts.ISharedPreferenceManager;
@@ -16,6 +17,8 @@ public class UserSessionManager implements IUserSessionManager
     private static final String TOKEN_KEY = "com.purdey.caddytracker.token";
     private static final String REFRESH_TOKEN_KEY = "com.purdey.caddytracker.refreshToken";
     private static final String CURRENT_USER_ID_KEY = "com.purdey.caddytracker.current.user.id";
+    private static final String PUBLIC_KEY = "com.purdey.caddytracker.publicKey";
+    private static final String PRIVATE_KEY = "com.purdey.caddytracker.privateKey";
 
     private UserSessionManager()
     {
@@ -76,6 +79,30 @@ public class UserSessionManager implements IUserSessionManager
     }
 
     @Override
+    public byte[] getEncodedPrivateKey()
+    {
+        return sharedPref.getData(PRIVATE_KEY).getBytes();
+    }
+
+    @Override
+    public void storeEncodedPrivateKey(@NonNull byte[] privateKey)
+    {
+        sharedPref.saveData(PRIVATE_KEY, privateKey.toString());
+    }
+
+    @Override
+    public byte[] getEncodedPublicKey()
+    {
+        return sharedPref.getData(PUBLIC_KEY).getBytes();
+    }
+
+    @Override
+    public void storeEncodedPublicKey(@NonNull byte[] publicKey)
+    {
+        sharedPref.saveData(PUBLIC_KEY, publicKey.toString());
+    }
+
+    @Override
     public boolean isValidUserSession()
     {
         String token        = getToken();
@@ -90,5 +117,7 @@ public class UserSessionManager implements IUserSessionManager
     {
         storeToken("");
         storeRefreshToken("");
+        storeEncodedPrivateKey(new byte[0]);
+        storeEncodedPublicKey(new byte[0]);
     }
 }

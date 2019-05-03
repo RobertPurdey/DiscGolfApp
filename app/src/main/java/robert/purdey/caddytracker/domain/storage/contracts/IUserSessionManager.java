@@ -2,6 +2,8 @@ package robert.purdey.caddytracker.domain.storage.contracts;
 
 import android.support.annotation.NonNull;
 
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.UUID;
 
 public interface IUserSessionManager
@@ -14,6 +16,12 @@ public interface IUserSessionManager
 
     UUID getCurrentUserId();
     void storeCurrentUserId(@NonNull UUID id);
+
+    byte[] getEncodedPrivateKey();
+    void storeEncodedPrivateKey(@NonNull byte[] privateKey);
+
+    byte[] getEncodedPublicKey();
+    void storeEncodedPublicKey(@NonNull byte[] publicKey);
 
     boolean isValidUserSession();
 

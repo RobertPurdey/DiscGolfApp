@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="robert.purdey.caddytracker.ui.activities.WatchGameActivity">
+
+    <!-- Create account button -->
+    <Button
+        android:id="@+id/bttn_activity_create_account_create"
+        android:textColor="@color/white"
+        android:background="@color/button_green"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:text="watch me "
+        android:onClick="onWatch"/>
+
+    <Button
+        android:id="@+id/bttn_activity_create_account_create2"
+        android:textColor="@color/white"
+        android:background="@color/button_green"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/bttn_activity_create_account_create"
+        android:layout_margin="5dp"
+        android:text="api"
+        android:onClick="onApi"/>
+
+</RelativeLayout>

@@ -17,6 +17,7 @@ import robert.purdey.caddytracker.ui.activities.NewGameActivity;
 import robert.purdey.caddytracker.ui.activities.ResumeGameActivity;
 import robert.purdey.caddytracker.ui.activities.ScoreCardActivity;
 import robert.purdey.caddytracker.ui.activities.ScoreGameActivity;
+import robert.purdey.caddytracker.ui.activities.WatchGameActivity;
 
 /**
  *
@@ -91,7 +92,7 @@ public class ActivityStarter
      */
     public static void startHelpActivity(Context context)
     {
-        //startActivity(context, HelpActivity.class);
+        startActivity(context, WatchGameActivity.class);
     }
 
     /**
@@ -105,7 +106,7 @@ public class ActivityStarter
     }
 
     /**
-     * Starts Login Acitivity
+     * Starts Login Activity
      *
      * @param context
      */

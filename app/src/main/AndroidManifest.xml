@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="robert.purdey.caddytracker">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".ui.FrolfApp"
@@ -12,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:replace="android:icon">
 
         <!-- Login -->
         <activity
@@ -68,7 +71,8 @@
         <activity
             android:name=".ui.activities.ScoreCardActivity"
             android:parentActivityName=".ui.activities.GameResultsActivity" />
-        <activity android:name=".ui.activities.CreateAccountActivity"></activity>
+        <activity android:name=".ui.activities.CreateAccountActivity" />
+        <activity android:name=".ui.activities.WatchGameActivity"></activity>
     </application>
 
 </manifest>
