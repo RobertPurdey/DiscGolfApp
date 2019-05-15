@@ -7,13 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
-import com.zsoft.signala.hubs.HubConnection;
-import com.zsoft.signala.hubs.HubOnDataCallback;
-import com.zsoft.signala.hubs.IHubProxy;
-import com.zsoft.signala.transport.StateBase;
-import com.zsoft.signala.transport.longpolling.LongPollingTransport;
-
 import org.json.JSONArray;
 
 import java.io.BufferedReader;
@@ -30,8 +23,6 @@ import robert.purdey.caddytracker.ui.viewmodels.CourseListViewModel;
 
 public class WatchGameActivity extends AppCompatActivity
 {
-    protected HubConnection con     = null;
-    protected IHubProxy hub         = null;
     protected boolean isConnected   = false;
     private CourseListViewModel courseListViewModel;
 
@@ -51,57 +42,15 @@ public class WatchGameActivity extends AppCompatActivity
     public void onWatch(View view)
     {
         testClass t = new testClass();
-//        con = new HubConnection(IApiCall.BASE_URL, this, new LongPollingTransport())
-//        {
-//            @Override
-//            public void OnStateChanged(StateBase oldState, StateBase newState) {
-//
-//                switch(newState.getState())
-//                {
-//                    case Connected:
-//                        isConnected = true;
-//                        break;
-//                    case Disconnected:
-//                        isConnected = false;
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//
-//            @Override
-//            public void OnError(Exception exception) {
-//                Toast.makeText(WatchGameActivity.this, "On error: " + exception.getMessage(), Toast.LENGTH_LONG).show();
-//            }
-//
-//        };
-//
-//        try {
-//            hub = con.CreateHubProxy("watchGame");
-//        } catch (OperationApplicationException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//
-//        hub.On("hello", new HubOnDataCallback()
-//        {
-//            @Override
-//            public void OnReceived(JSONArray args) {
-//                Toast.makeText(WatchGameActivity.this, "Holy fuck", Toast.LENGTH_LONG).show();
-//            }
-//        });
-//
-//
-//        con.Start();
     }
 
     class testClass
     {
-        private String serverIpAddress = "192.168.1.66";
+        private String serverIpAddress = "192.168.1.101";
         public String results="";
         public testClass()
         {
-            Thread cThread = new Thread(new   ClientThread());
+             Thread cThread = new Thread(new   ClientThread());
             cThread.start();
         }
 
@@ -112,7 +61,7 @@ public class WatchGameActivity extends AppCompatActivity
             {
                 try
                 {
-                    InetAddress serverAddr = InetAddress.getByName("192.168.1.66");
+                    InetAddress serverAddr = InetAddress.getByName(serverIpAddress);
                     Log.d("ClientActivity", "C: Connecting...");
 
                     results="";
@@ -139,6 +88,16 @@ public class WatchGameActivity extends AppCompatActivity
 
                         // Sending command spectate command is always 10 chars (10 bytes)
                         out.write("--SPECTATE");
+                        out.flush();
+
+                        // Sending game guid as string (36 bytes)
+                        // todo: use real game guid
+                        out.write("0d1c3702-d70d-4197-a8c9-6601116310ea");
+                        out.flush();
+
+                        // Sending game guid as string (36 bytes)
+                        // todo: use real user guid (not katie/katie)
+                        out.write("f9968023-583c-4962-ae94-dca322755069");
                         out.flush();
 
                         socket.close();
