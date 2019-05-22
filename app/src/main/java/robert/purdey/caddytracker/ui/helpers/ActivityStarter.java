@@ -18,6 +18,7 @@ import robert.purdey.caddytracker.ui.activities.ResumeGameActivity;
 import robert.purdey.caddytracker.ui.activities.ScoreCardActivity;
 import robert.purdey.caddytracker.ui.activities.ScoreGameActivity;
 import robert.purdey.caddytracker.ui.activities.WatchGameActivity;
+import robert.purdey.caddytracker.ui.activities.WatchGameRequestActivity;
 
 /**
  *
@@ -66,13 +67,13 @@ public class ActivityStarter
     }
 
     /**
-     * Starts Manage Courses Activity
+     * Starts Watch Game Request Activity
      *
      * @param context
      */
-    public static void startManageCoursesActivity(Context context)
+    public static void startWatchGameRequest(Context context)
     {
-        //startActivity(context, ManageCoursesActivity.class);
+        startActivity(context, WatchGameRequestActivity.class);
     }
 
     /**
@@ -80,9 +81,18 @@ public class ActivityStarter
      *
      * @param context
      */
-    public static void startAddPlayerActivity(Context context)
+    public static void startWatchGame(Context context, UUID recordId)
     {
-        //startActivity(context, AddPlayerActivity.class);
+        Intent intent = new Intent(context, WatchGameActivity.class);
+        String id     = "";
+
+        if ( recordId != null )
+        {
+            id = recordId.toString();
+
+            intent.putExtra(FrolfGroupRecordActivity.RECORD_ID, id);
+            startActivity(context, WatchGameActivity.class);
+        }
     }
 
     /**

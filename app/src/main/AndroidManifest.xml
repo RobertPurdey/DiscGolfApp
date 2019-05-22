@@ -4,7 +4,7 @@
     package="robert.purdey.caddytracker">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".ui.FrolfApp"
@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
-
+        <activity android:name=".ui.activities.WatchGameRequestActivity"></activity>
         <!-- Login -->
         <activity
             android:name=".ui.activities.LoginActivity"
@@ -27,52 +27,34 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Main Menu -->
-        <activity android:name=".ui.activities.MainMenuActivity" />
-
-        <!-- Create New Game -->
+        </activity> <!-- Main Menu -->
+        <activity android:name=".ui.activities.MainMenuActivity" /> <!-- Create New Game -->
         <activity
             android:name=".ui.activities.NewGameActivity"
-            android:parentActivityName=".ui.activities.MainMenuActivity" />
-
-        <!-- Resume Game -->
+            android:parentActivityName=".ui.activities.MainMenuActivity" /> <!-- Resume Game -->
         <activity
             android:name=".ui.activities.ResumeGameActivity"
-            android:parentActivityName=".ui.activities.MainMenuActivity" />
-
-        <!-- Game Results -->
+            android:parentActivityName=".ui.activities.MainMenuActivity" /> <!-- Game Results -->
         <activity
             android:name=".ui.activities.GameResultsActivity"
-            android:parentActivityName=".ui.activities.MainMenuActivity" />
-
-        <!-- Manage Groups -->
+            android:parentActivityName=".ui.activities.MainMenuActivity" /> <!-- Manage Groups -->
         <activity
             android:name=".ui.activities.ManageFrolfGroupsActivity"
-            android:parentActivityName=".ui.activities.MainMenuActivity" />
-
-        <!-- Create/Edit Group -->
+            android:parentActivityName=".ui.activities.MainMenuActivity" /> <!-- Create/Edit Group -->
         <activity
             android:name=".ui.activities.FrolfGroupRecordActivity"
-            android:parentActivityName=".ui.activities.ManageFrolfGroupsActivity" />
-
-        <!-- Manage Invites -->
+            android:parentActivityName=".ui.activities.ManageFrolfGroupsActivity" /> <!-- Manage Invites -->
         <activity
             android:name=".ui.activities.ManageInvitesActivity"
-            android:parentActivityName=".ui.activities.MainMenuActivity" />
-
-        <!-- Score Game -->
+            android:parentActivityName=".ui.activities.MainMenuActivity" /> <!-- Score Game -->
         <activity
             android:name=".ui.activities.ScoreGameActivity"
-            android:parentActivityName=".ui.activities.ResumeGameActivity" />
-
-        <!-- View Game Score and other results -->
+            android:parentActivityName=".ui.activities.ResumeGameActivity" /> <!-- View Game Score and other results -->
         <activity
             android:name=".ui.activities.ScoreCardActivity"
             android:parentActivityName=".ui.activities.GameResultsActivity" />
         <activity android:name=".ui.activities.CreateAccountActivity" />
-        <activity android:name=".ui.activities.WatchGameActivity"></activity>
+        <activity android:name=".ui.activities.WatchGameActivity" />
     </application>
 
 </manifest>

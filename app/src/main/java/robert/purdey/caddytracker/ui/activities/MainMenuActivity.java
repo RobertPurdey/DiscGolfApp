@@ -66,6 +66,16 @@ public class MainMenuActivity extends AppCompatActivity
     }
 
     /**
+     * Start Manage Invites activity
+     *
+     * @param view - view calling the method
+     */
+    public void onClickWatchGameRequest(View view)
+    {
+        ActivityStarter.startWatchGameRequest(this);
+    }
+
+    /**
      * Start Help activity
      *
      * @param view - view calling the method

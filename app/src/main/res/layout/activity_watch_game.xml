@@ -14,8 +14,7 @@
         android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:layout_margin="5dp"
-        android:text="watch me "
-        android:onClick="onWatch"/>
+        android:text="watch me "/>
 
     <Button
         android:id="@+id/bttn_activity_create_account_create2"
@@ -25,7 +24,6 @@
         android:layout_height="40dp"
         android:layout_below="@+id/bttn_activity_create_account_create"
         android:layout_margin="5dp"
-        android:text="api"
-        android:onClick="onApi"/>
+        android:text="api"/>
 
 </RelativeLayout>

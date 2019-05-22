@@ -36,27 +36,27 @@
 
     <!-- Game results navigation button -->
     <Button
-        android:id="@+id/game_results"
+        android:id="@+id/new_game_watch"
         android:textColor="@color/white"
         android:background="@color/button_green"
         android:layout_width="match_parent"
         android:layout_marginBottom="20dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/resume_game"
-        android:text="@string/game_results"
-        android:onClick="onClickGameResults" />
+        android:text="@string/watch_game"
+        android:onClick="onClickWatchGameRequest" />
 
-    <!-- Statistics navigation button -->
+    <!-- Game results navigation button -->
     <Button
-        android:id="@+id/statistics"
-        android:layout_width="match_parent"
+        android:id="@+id/game_results"
         android:textColor="@color/white"
         android:background="@color/button_green"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:layout_marginBottom="20dp"
-        android:layout_below="@+id/game_results"
-        android:text="@string/statistics"
-        android:onClick="onClickStats" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/new_game_watch"
+        android:text="@string/game_results"
+        android:onClick="onClickGameResults" />
 
     <!-- Manage Groups navigation button -->
     <Button
@@ -65,7 +65,7 @@
         android:background="@color/button_green"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/statistics"
+        android:layout_below="@+id/game_results"
         android:text="@string/groups"
         android:layout_marginBottom="20dp"
         android:onClick="onClickManageFrolfGroups"/>

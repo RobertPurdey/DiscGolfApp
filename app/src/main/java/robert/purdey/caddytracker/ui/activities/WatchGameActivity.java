@@ -1,13 +1,9 @@
 package robert.purdey.caddytracker.ui.activities;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.content.OperationApplicationException;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
-import org.json.JSONArray;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,42 +11,49 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.UUID;
 
 import robert.purdey.caddytracker.R;
-import robert.purdey.caddytracker.networking.contracts.calls.IApiCall;
 import robert.purdey.caddytracker.ui.FrolfApp;
-import robert.purdey.caddytracker.ui.viewmodels.CourseListViewModel;
+
 
 public class WatchGameActivity extends AppCompatActivity
 {
-    protected boolean isConnected   = false;
-    private CourseListViewModel courseListViewModel;
+    TestClass ts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_watch_game);
-        courseListViewModel = ViewModelProviders.of(this).get(CourseListViewModel.class);
+        setContentView(R.layout.activity_game_results);
+
+        // Attempt to get id.
+        Intent intent   = getIntent();
+        String recordId = intent.getStringExtra(ScoreGameActivity.RECORD_ID);
+
+        // todo: throw error if one isnt given? cant score no game :D
+
+        // get record data when set
+        if ( !recordId.equals("") )
+        {
+            ts = new TestClass(UUID.fromString(recordId));
+        }
     }
 
-    public void onApi(View view)
-    {
-        courseListViewModel.getCourses();
-    }
 
-    public void onWatch(View view)
-    {
-        testClass t = new testClass();
-    }
-
-    class testClass
+    // todo Move somewhere better duh
+    class TestClass
     {
         private String serverIpAddress = "192.168.1.101";
+        private UUID gameId;
+
         public String results="";
-        public testClass()
+
+        public TestClass(UUID gameId)
         {
-             Thread cThread = new Thread(new   ClientThread());
+            Thread cThread  = new Thread(new ClientThread());
+            this.gameId     = gameId;
+
             cThread.start();
         }
 
@@ -67,10 +70,10 @@ public class WatchGameActivity extends AppCompatActivity
                     results="";
                     try
                     {
-                        String s = null;
-                        Socket socket = new Socket(serverAddr, 45000);
-                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                        String s            = null;
+                        Socket socket       = new Socket(serverAddr, 45000);
+                        BufferedReader in   = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        BufferedWriter out  = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
                         // Sending token size + token
                         String token            = FrolfApp.getUserSession().getToken();
@@ -92,12 +95,12 @@ public class WatchGameActivity extends AppCompatActivity
 
                         // Sending game guid as string (36 bytes)
                         // todo: use real game guid
-                        out.write("0d1c3702-d70d-4197-a8c9-6601116310ea");
+                        out.write(gameId.toString());
                         out.flush();
 
-                        // Sending game guid as string (36 bytes)
+                        // Sending user guid as string (36 bytes)
                         // todo: use real user guid (not katie/katie)
-                        out.write("f9968023-583c-4962-ae94-dca322755069");
+                        out.write(FrolfApp.getUserSession().getCurrentUserId().toString());
                         out.flush();
 
                         socket.close();
