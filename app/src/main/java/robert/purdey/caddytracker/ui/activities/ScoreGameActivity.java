@@ -13,15 +13,23 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.UUID;
 
 public class ScoreGameActivity extends AppCompatActivity
 {
     public static final String RECORD_ID = "RECORD_ID";
     private ScoreGameActivityViewModel scoreGameActivViewModel;
+    Announcer announce;
 
     public ScoreGameActivity()
     {
@@ -53,6 +61,8 @@ public class ScoreGameActivity extends AppCompatActivity
                 TextView courseName = findViewById(R.id.txtv_activity_score_course_name);
                 courseName.setText(gameModel.getCourseName());
                 LoadHoleScores(gameModel.getIdKey(), 1);
+
+                announce = new Announcer(gameModel.getIdKey());
             });
         }
     }
@@ -143,4 +153,80 @@ public class ScoreGameActivity extends AppCompatActivity
         return (GameHoleScoresFragment)
             getSupportFragmentManager().findFragmentById(R.id.frag_mng_game_hole_scores_fragment);
     }
+
+    // todo Move somewhere better duh
+    class Announcer
+    {
+        private String serverIpAddress = "192.168.1.101";
+        private UUID gameId;
+
+        public String results="";
+
+        public Announcer(UUID gameId)
+        {
+            Thread cThread  = new Thread(new ScoreGameActivity.Announcer.ClientThread());
+            this.gameId     = gameId;
+
+            cThread.start();
+        }
+
+
+        public class ClientThread implements Runnable
+        {
+            public void run()
+            {
+                try
+                {
+                    InetAddress serverAddr = InetAddress.getByName(serverIpAddress);
+                    Log.d("ClientActivity", "C: Connecting...");
+
+                    results="";
+                    try
+                    {
+                        String s            = null;
+                        Socket socket       = new Socket(serverAddr, 45000);
+                        BufferedReader in   = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        BufferedWriter out  = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+                        // Sending token size + token
+                        String token            = FrolfApp.getUserSession().getToken();
+                        byte[] tokenByte        = token.getBytes();
+                        int tokenSize           = tokenByte.length;
+                        String tokenSizeMsg     = String.format("%04d" , tokenSize);
+
+                        // send token size
+                        out.write(tokenSizeMsg);
+                        out.flush();
+
+                        // send token
+                        out.write(token);
+                        out.flush();
+
+                        // Sending command spectate command is always 10 chars (10 bytes)
+                        out.write("--ANNOUNCE");
+                        out.flush();
+
+                        // Sending game guid as string (36 bytes)
+                        out.write(gameId.toString());
+                        out.flush();
+
+                        // Sending user guid as string (36 bytes)
+                        out.write(FrolfApp.getUserSession().getCurrentUserId().toString());
+                        out.flush();
+
+                        // Sending game update command (replace with real game data) (10)
+                        out.write("----UPDATE");
+                        out.flush();
+
+                        //socket.close();
+                        Log.d("ClientActivity", "C: Closed.");
+                    } catch (Exception e){
+                        Log.e("ClientActivity", "S: Error", e);
+                    }
+                }
+                catch (Exception e) { Log.e("ClientActivity", "C: Error", e);}
+            }
+        }
+    }
 }
+
