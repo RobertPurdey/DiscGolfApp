@@ -15,6 +15,7 @@ import robert.purdey.caddytracker.networking.services.ApiCallService;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.GameHoleUpdateModel;
 import robert.purdey.caddytracker.ui.models.GameModel;
+import robert.purdey.caddytracker.ui.models.GameResultModel;
 import robert.purdey.caddytracker.ui.models.HoleScoreModel;
 
 
@@ -78,6 +79,11 @@ public class ScoreGameActivityViewModel extends ViewModel
         loadGame(id);
 
         return Game;
+    }
+
+    public LiveData<GameResultModel> getGameResults(UUID id)
+    {
+        return gameController.getGameResults(id);
     }
 
     public int getNextHoleNumber()

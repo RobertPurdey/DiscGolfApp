@@ -90,8 +90,8 @@ public class ActivityStarter
         {
             id = recordId.toString();
 
-            intent.putExtra(FrolfGroupRecordActivity.RECORD_ID, id);
-            startActivity(context, WatchGameActivity.class);
+            intent.putExtra(WatchGameActivity.RECORD_ID, id);
+            context.startActivity(intent);
         }
     }
 

@@ -6,6 +6,8 @@ import robert.purdey.caddytracker.databinding.ActivityScoreGameBinding;
 import robert.purdey.caddytracker.ui.FrolfApp;
 import robert.purdey.caddytracker.ui.fragments.GameHoleScoresFragment;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
+import robert.purdey.caddytracker.ui.models.GameModel;
+import robert.purdey.caddytracker.ui.models.GameResultModel;
 import robert.purdey.caddytracker.ui.viewmodels.ScoreGameActivityViewModel;
 
 import android.arch.lifecycle.ViewModelProviders;
@@ -16,6 +18,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -28,7 +32,7 @@ import java.util.UUID;
 public class ScoreGameActivity extends AppCompatActivity
 {
     public static final String RECORD_ID = "RECORD_ID";
-    private ScoreGameActivityViewModel scoreGameActivViewModel;
+    private ScoreGameActivityViewModel scoreGameActiveViewModel;
     Announcer announce;
 
     public ScoreGameActivity()
@@ -43,9 +47,9 @@ public class ScoreGameActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         ActivityScoreGameBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_score_game);
-        scoreGameActivViewModel          = ViewModelProviders.of(this).get(ScoreGameActivityViewModel.class);
+        scoreGameActiveViewModel         = ViewModelProviders.of(this).get(ScoreGameActivityViewModel.class);
 
-        binding.setScoreGameActivViewModel(scoreGameActivViewModel);
+        binding.setScoreGameActivViewModel(scoreGameActiveViewModel);
         binding.setLifecycleOwner(this);
 
         // Attempt to get id.
@@ -57,7 +61,7 @@ public class ScoreGameActivity extends AppCompatActivity
         // get record data when set
         if ( !recordId.equals("") )
         {
-            scoreGameActivViewModel.getGame(UUID.fromString(recordId)).observe(this, gameModel -> {
+            scoreGameActiveViewModel.getGame(UUID.fromString(recordId)).observe(this, gameModel -> {
                 TextView courseName = findViewById(R.id.txtv_activity_score_course_name);
                 courseName.setText(gameModel.getCourseName());
                 LoadHoleScores(gameModel.getIdKey(), 1);
@@ -70,33 +74,20 @@ public class ScoreGameActivity extends AppCompatActivity
     private void LoadHoleScores(UUID gameId, int holeNumber)
     {
         GameHoleScoresFragment fragment = getGameHoleScoreFrag();
-        scoreGameActivViewModel.setCurrentHole(holeNumber);
+        scoreGameActiveViewModel.setCurrentHole(holeNumber);
         fragment.Load(gameId, holeNumber);
     }
 
     public void onNextHoleClick(View view)
     {
-        int nextHole = scoreGameActivViewModel.getNextHoleNumber();
+        int nextHole = scoreGameActiveViewModel.getNextHoleNumber();
         saveCurrentHoles(nextHole);
-
-        // Load new holes until next hole is the last one
-       // if (nextHole <= viewModel.Game.getValue().getHoleIds().size())
-       // {
-        //    LoadHoleScores(viewModel.Game.getValue().getIdKey(), nextHole);
-        //}
     }
 
     public void onPrevHoleClick(View view)
     {
-        int prevHole = scoreGameActivViewModel.getPrevHoleNumber();
+        int prevHole = scoreGameActiveViewModel.getPrevHoleNumber();
         saveCurrentHoles(prevHole);
-
-        // Load new holes until next hole is the last one
-       //if (prevHole > 0)
-       // {
-        //    LoadHoleScores(viewModel.Game.getValue().getIdKey(), prevHole);
-       // }
-
     }
 
     private void saveCurrentHoles(int nextHole)
@@ -105,14 +96,16 @@ public class ScoreGameActivity extends AppCompatActivity
 
         if (fragment != null)
         {
-            if ( scoreGameActivViewModel.CurrentUserIsCreator(FrolfApp.getUserSession().getCurrentUserId() ) )
+            // todo: only trigger save when no changes were made
+            if ( scoreGameActiveViewModel.CurrentUserIsCreator(FrolfApp.getUserSession().getCurrentUserId() ) )
             {
-                scoreGameActivViewModel.SaveHoleScores(fragment.getHoleScores(), new IApiResponseListener()
+                scoreGameActiveViewModel.SaveHoleScores(fragment.getHoleScores(), new IApiResponseListener()
                 {
                     @Override
                     public void onResponseSuccessful()
                     {
                         loadNextHole(nextHole);
+                        triggerGameUpdate();
                     }
 
                     @Override
@@ -135,17 +128,28 @@ public class ScoreGameActivity extends AppCompatActivity
         }
     }
 
+    private void triggerGameUpdate()
+    {
+
+        // send new data to socket
+        // todo: send real game data
+        // get game update, send
+        scoreGameActiveViewModel.getGameResults(scoreGameActiveViewModel.Game.getValue().getIdKey()).observe(
+            this,
+            gameResultModel -> announce.SendGameUpdate(gameResultModel));
+    }
+
     private void loadNextHole(int nextHole)
     {
         if ( withinHoleBoundary(nextHole) )
         {
-            LoadHoleScores(scoreGameActivViewModel.Game.getValue().getIdKey(), nextHole);
+            LoadHoleScores(scoreGameActiveViewModel.Game.getValue().getIdKey(), nextHole);
         }
     }
 
     private boolean withinHoleBoundary(int n)
     {
-        return n > 0 && n <= scoreGameActivViewModel.Game.getValue().getHoleIds().size();
+        return n > 0 && n <= scoreGameActiveViewModel.Game.getValue().getHoleIds().size();
     }
 
     private GameHoleScoresFragment getGameHoleScoreFrag()
@@ -154,77 +158,146 @@ public class ScoreGameActivity extends AppCompatActivity
             getSupportFragmentManager().findFragmentById(R.id.frag_mng_game_hole_scores_fragment);
     }
 
-    // todo Move somewhere better duh
+    // todo Move somewhere better
     class Announcer
     {
+        // todo: read from file
         private String serverIpAddress = "192.168.1.101";
         private UUID gameId;
 
         public String results="";
 
+        String s;
+        Socket socket;
+        BufferedReader in;
+        BufferedWriter out;
+
         public Announcer(UUID gameId)
         {
-            Thread cThread  = new Thread(new ScoreGameActivity.Announcer.ClientThread());
+            Thread cThread  = new Thread(new ScoreGameActivity.Announcer.MakeConnection());
             this.gameId     = gameId;
 
             cThread.start();
         }
 
-
-        public class ClientThread implements Runnable
+        public void SendGameUpdate(GameResultModel gameUpdate)
         {
+            // convert to JSON
+            Gson gson               = new Gson();
+            String updateStr        = gson.toJson(gameUpdate);
+
+            // todo: dont let this be called if not established
+            Thread cThread  = new Thread(new ScoreGameActivity.Announcer.GameUpdate(updateStr));
+            cThread.start();
+        }
+
+        private void packageGameUpdate(GameModel model)
+        {
+
+        }
+
+        public void SendGameUpdate(String gameUpdate)
+        {
+            // todo: dont let this be called if not established
+            Thread cThread  = new Thread(new ScoreGameActivity.Announcer.GameUpdate(gameUpdate));
+            cThread.start();
+        }
+
+
+        private class GameUpdate implements Runnable
+        {
+            private String gameUpdate = "";
+
+            public GameUpdate(String newGameUpdate)
+            {
+                gameUpdate = newGameUpdate;
+            }
+
+            @Override
+            public void run()
+            {
+                try
+                {
+                    int updateSize         = gameUpdate.length();
+                    String updateSizeMsg   = String.format("%07d" , updateSize);
+
+                    // send update size
+                    out.write(updateSizeMsg);
+                    out.flush();
+
+                    // send update
+                    out.write(gameUpdate);
+                    out.flush();
+
+                    Log.d("GameUpdate", "C: Update sent...");
+                }
+                catch (Exception ex)
+                {
+                    Log.d("GameUpdate", "C: Update not sent...");
+                }
+            }
+        }
+
+        private class MakeConnection implements Runnable
+        {
+            @Override
             public void run()
             {
                 try
                 {
                     InetAddress serverAddr = InetAddress.getByName(serverIpAddress);
-                    Log.d("ClientActivity", "C: Connecting...");
 
-                    results="";
-                    try
-                    {
-                        String s            = null;
-                        Socket socket       = new Socket(serverAddr, 45000);
-                        BufferedReader in   = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                        BufferedWriter out  = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                    s       = null;
+                    socket  = new Socket(serverAddr, 45000);
+                    in      = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    out     = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-                        // Sending token size + token
-                        String token            = FrolfApp.getUserSession().getToken();
-                        byte[] tokenByte        = token.getBytes();
-                        int tokenSize           = tokenByte.length;
-                        String tokenSizeMsg     = String.format("%04d" , tokenSize);
-
-                        // send token size
-                        out.write(tokenSizeMsg);
-                        out.flush();
-
-                        // send token
-                        out.write(token);
-                        out.flush();
-
-                        // Sending command spectate command is always 10 chars (10 bytes)
-                        out.write("--ANNOUNCE");
-                        out.flush();
-
-                        // Sending game guid as string (36 bytes)
-                        out.write(gameId.toString());
-                        out.flush();
-
-                        // Sending user guid as string (36 bytes)
-                        out.write(FrolfApp.getUserSession().getCurrentUserId().toString());
-                        out.flush();
-
-                        // Sending game update command (replace with real game data) (10)
-                        out.write("----UPDATE");
-                        out.flush();
-
-                        //socket.close();
-                        Log.d("ClientActivity", "C: Closed.");
-                    } catch (Exception e){
-                        Log.e("ClientActivity", "S: Error", e);
-                    }
+                    Log.d("Announcer", "C: Connected to broadcast server :) ...");
                 }
-                catch (Exception e) { Log.e("ClientActivity", "C: Error", e);}
+                catch (Exception ex)
+                {
+                    Log.d("Announcer", "C: Failure to connect to broadcast server :( ...");
+                }
+
+                EstablishConnection();
+            }
+
+            private void EstablishConnection()
+            {
+                try
+                {
+                    // Sending token size + token
+                    String token            = FrolfApp.getUserSession().getToken();
+                    byte[] tokenByte        = token.getBytes();
+                    int tokenSize           = tokenByte.length;
+                    String tokenSizeMsg     = String.format("%04d" , tokenSize);
+
+                    // send token size
+                    out.write(tokenSizeMsg);
+                    out.flush();
+
+                    // send token
+                    out.write(token);
+                    out.flush();
+
+                    // Sending command spectate command is always 10 chars (10 bytes)
+                    out.write("--ANNOUNCE");
+                    out.flush();
+
+                    // Sending game guid as string (36 bytes)
+                    out.write(gameId.toString());
+                    out.flush();
+
+                    // Sending user guid as string (36 bytes)
+                    out.write(FrolfApp.getUserSession().getCurrentUserId().toString());
+                    out.flush();
+
+                    Log.d("Announcer", "C: Connection established :) ...");
+                }
+                catch (Exception ex)
+                {
+                    Log.d("Announcer", "C: Failure to establish connection :( ...");
+                }
             }
         }
     }
