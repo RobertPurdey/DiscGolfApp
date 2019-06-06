@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import robert.purdey.caddytracker.domain.games.GameState;
+
 public class GameModel
 {
     public UUID IdKey;
@@ -19,6 +21,8 @@ public class GameModel
 
     public int CoursePar;
     public int CourseHoleCount;
+
+    public GameState State;
 
     public List HoleIds;
     public Map<Integer, Integer> HolePars;
@@ -61,6 +65,16 @@ public class GameModel
     public String getCourseName()
     {
         return CourseName;
+    }
+
+    public GameState getState()
+    {
+        return State;
+    }
+
+    public void setState(GameState state)
+    {
+        State = state;
     }
 
     public void setCourseName(String courseName)
