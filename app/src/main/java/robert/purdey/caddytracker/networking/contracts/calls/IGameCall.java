@@ -7,8 +7,10 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import robert.purdey.caddytracker.domain.games.GameFilter;
 import robert.purdey.caddytracker.ui.models.GameHoleUpdateModel;
 import robert.purdey.caddytracker.ui.models.GameModel;
 import robert.purdey.caddytracker.ui.models.GameResultModel;
@@ -19,6 +21,11 @@ public interface IGameCall
     @GET("api/games/")
     Call<List<GameModel>> getAll(
         @Header("Authorization") String auth);
+
+    @POST("api/games/filter")
+    Call<List<GameModel>> getWithFilter(
+        @Header("Authorization") String auth,
+        @Body GameFilter gameFilter);
 
     @GET("api/games/{id}/")
     Call<GameModel> getById(
@@ -32,6 +39,11 @@ public interface IGameCall
 
     @GET("api/games/{id}/results/")
     Call<GameResultModel> getGameResults(
+        @Header("Authorization") String auth,
+        @Path("id") UUID id);
+
+    @PATCH("api/games/{id}/complete")
+    Call<Void> completeGame(
         @Header("Authorization") String auth,
         @Path("id") UUID id);
 }

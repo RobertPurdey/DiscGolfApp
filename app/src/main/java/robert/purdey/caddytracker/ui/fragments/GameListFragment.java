@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import java.util.UUID;
 
 import robert.purdey.caddytracker.R;
+import robert.purdey.caddytracker.domain.games.GameFilter;
 import robert.purdey.caddytracker.ui.adapters.GameListAdapter;
 import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
 import robert.purdey.caddytracker.ui.viewmodels.GameListViewModel;
@@ -25,6 +26,7 @@ import robert.purdey.caddytracker.ui.viewmodels.GameListViewModel;
 public class GameListFragment extends Fragment implements IItemClickListener
 {
     private GameListViewModel gameListViewModel;
+    private GameListAdapter gameAdapter;
     private IItemClickListener gameClickLisetner;
 
 
@@ -38,10 +40,10 @@ public class GameListFragment extends Fragment implements IItemClickListener
 
         Context activityContext                    = getActivity();
         RecyclerView recyclerView                  = rootView.findViewById(R.id.gameListRecycleView);
-        final GameListAdapter GameAdapter          = new GameListAdapter(activityContext, this);
+        gameAdapter                                = new GameListAdapter(activityContext, this);
         LinearLayoutManager layoutManger           = new LinearLayoutManager(activityContext);
 
-        recyclerView.setAdapter(GameAdapter);
+        recyclerView.setAdapter(gameAdapter);
         recyclerView.setLayoutManager(layoutManger);
 
         DividerItemDecoration dividerDecorator = new DividerItemDecoration(
@@ -52,11 +54,14 @@ public class GameListFragment extends Fragment implements IItemClickListener
 
         gameListViewModel = ViewModelProviders.of(this).get(GameListViewModel.class);
 
-        gameListViewModel.getGames().observe(this, GameModels ->
-            GameAdapter.setGames(GameModels)
-        );
-
         return rootView;
+    }
+
+    public void SetGames(GameFilter filter)
+    {
+        gameListViewModel.getGames(filter).observe(this, GameModels ->
+            gameAdapter.setGames(GameModels)
+        );
     }
 
     @Override

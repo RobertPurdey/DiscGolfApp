@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModel;
 
 import java.util.List;
 
+import robert.purdey.caddytracker.domain.games.GameFilter;
 import robert.purdey.caddytracker.networking.HttpClientConfig;
 import robert.purdey.caddytracker.networking.RetrofitConfig;
 import robert.purdey.caddytracker.networking.contracts.controllers.IGameController;
@@ -30,20 +31,20 @@ public class GameListViewModel extends ViewModel
         gameGroupController = new GameController(apiCallService);
     }
 
-    public LiveData<List<GameModel>> getGames()
+    public LiveData<List<GameModel>> getGames(GameFilter filter)
     {
         // todo: maybe this check requires isDirty??
         if (games == null)
         {
             games = new MutableLiveData<>();
-            loadGames();
+            loadGames(filter);
         }
 
         return games;
     }
 
-    private void loadGames()
+    private void loadGames(GameFilter filter)
     {
-        games = gameGroupController.getAll();
+        games = gameGroupController.getWithFilter(filter);
     }
 }

@@ -5,6 +5,7 @@ import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.databinding.ActivityScoreGameBinding;
 import robert.purdey.caddytracker.ui.FrolfApp;
 import robert.purdey.caddytracker.ui.fragments.GameHoleScoresFragment;
+import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.GameModel;
 import robert.purdey.caddytracker.ui.models.GameResultModel;
@@ -81,13 +82,80 @@ public class ScoreGameActivity extends AppCompatActivity
     public void onNextHoleClick(View view)
     {
         int nextHole = scoreGameActiveViewModel.getNextHoleNumber();
-        saveCurrentHoles(nextHole);
+
+        if ( isLastHole(nextHole - 1) )
+        {
+            completeGame();
+        }
+        else
+        {
+            saveCurrentHoles(nextHole);
+        }
     }
 
     public void onPrevHoleClick(View view)
     {
         int prevHole = scoreGameActiveViewModel.getPrevHoleNumber();
         saveCurrentHoles(prevHole);
+    }
+
+    private void startScoreCardActivity()
+    {
+        ActivityStarter.startScoreCardActivity(
+            ScoreGameActivity.this,
+            scoreGameActiveViewModel.getGameId());
+    }
+
+    private void completeGame()
+    {
+        GameHoleScoresFragment fragment = getGameHoleScoreFrag();
+
+        if (fragment != null)
+        {
+            // todo: only trigger save when no changes were made
+            if ( scoreGameActiveViewModel.CurrentUserIsCreator(FrolfApp.getUserSession().getCurrentUserId() ) )
+            {
+                scoreGameActiveViewModel.SaveHoleScores(fragment.getHoleScores(), new IApiResponseListener()
+                {
+                    @Override
+                    public void onResponseSuccessful()
+                    {
+                        scoreGameActiveViewModel.completeGame(new IApiResponseListener()
+                        {
+                            @Override
+                            public void onResponseSuccessful()
+                            {
+                                startScoreCardActivity();
+                            }
+
+                            @Override
+                            public void onResponseFailed()
+                            {
+                                // todo: toast message
+                            }
+
+                            @Override
+                            public void onCallFailure()
+                            {
+                                // todo: toast message
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onResponseFailed()
+                    {
+                        // todo: toast message
+                    }
+
+                    @Override
+                    public void onCallFailure()
+                    {
+                        // todo: toast message
+                    }
+                });
+            }
+        }
     }
 
     private void saveCurrentHoles(int nextHole)
@@ -150,6 +218,11 @@ public class ScoreGameActivity extends AppCompatActivity
     private boolean withinHoleBoundary(int n)
     {
         return n > 0 && n <= scoreGameActiveViewModel.Game.getValue().getHoleIds().size();
+    }
+
+    private boolean isLastHole(int n)
+    {
+        return n == scoreGameActiveViewModel.Game.getValue().getHoleIds().size();
     }
 
     private GameHoleScoresFragment getGameHoleScoreFrag()

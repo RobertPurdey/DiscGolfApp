@@ -8,6 +8,7 @@ import java.util.UUID;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import robert.purdey.caddytracker.domain.games.GameFilter;
 import robert.purdey.caddytracker.networking.contracts.calls.IGameCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IGameController;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
@@ -32,6 +33,36 @@ public class GameController extends ApiController<IGameCall>
     {
         final MutableLiveData<List<GameModel>> data = new MutableLiveData<>();
         Call<List<GameModel>> caller = getApiCall().getAll(getAuthorizationHeader());
+
+        caller.enqueue(new Callback<List<GameModel>>() {
+            @Override
+            public void onResponse(
+                Call<List<GameModel>> call,
+                Response<List<GameModel>> response)
+            {
+                if ( response.isSuccessful() )
+                {
+                    data.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(
+                Call<List<GameModel>> call,
+                Throwable t)
+            {
+                System.out.println("Failed to retrieve group invites because you are a loser and have none!");
+            }
+        });
+
+        return data;
+    }
+
+    @Override
+    public MutableLiveData<List<GameModel>> getWithFilter(GameFilter filter)
+    {
+        final MutableLiveData<List<GameModel>> data = new MutableLiveData<>();
+        Call<List<GameModel>> caller = getApiCall().getWithFilter(getAuthorizationHeader(), filter);
 
         caller.enqueue(new Callback<List<GameModel>>() {
             @Override
@@ -144,6 +175,39 @@ public class GameController extends ApiController<IGameCall>
             {
                 listener.onCallFailure();
                 System.out.println("Failed to retrieve group members because you are a loser and nobody wants to be in your group.");
+            }
+        });
+    }
+
+
+    public void completeGame(UUID id, IApiResponseListener listener)
+    {
+        Call<Void> caller = getApiCall().completeGame(getAuthorizationHeader(), id);
+
+        caller.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(
+                Call<Void> call,
+                Response<Void> response)
+            {
+                if ( response.isSuccessful() )
+                {
+                    listener.onResponseSuccessful();
+                    // todo: success callback
+                }
+                else
+                {
+                    listener.onResponseFailed();
+                }
+            }
+
+            @Override
+            public void onFailure(
+                Call<Void> call,
+                Throwable t)
+            {
+                listener.onCallFailure();
+                System.out.println("Failed to complete game");
             }
         });
     }

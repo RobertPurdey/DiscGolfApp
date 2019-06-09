@@ -51,7 +51,7 @@ public class ScoreGameActivityViewModel extends ViewModel
 
     public UUID getGameId()
     {
-        return GameId.getValue();
+        return Game.getValue().getIdKey();
     }
 
     public void setGameId(UUID id)
@@ -104,6 +104,11 @@ public class ScoreGameActivityViewModel extends ViewModel
         updateModel.setHoleScoreUpdates(holeScores);
 
         gameController.updateGameHoles(updateModel, listener);
+    }
+
+    public void completeGame(IApiResponseListener listener)
+    {
+        gameController.completeGame(Game.getValue().getIdKey(), listener);
     }
 
     public boolean CurrentUserIsCreator(UUID id)
