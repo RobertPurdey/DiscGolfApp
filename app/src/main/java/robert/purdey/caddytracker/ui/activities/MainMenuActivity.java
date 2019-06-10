@@ -16,33 +16,23 @@ public class MainMenuActivity extends AppCompatActivity
     }
 
     /**
-     * Start New Game activity
+     * Start Game Menu activity
      *
      * @param view - view calling the method
      */
-    public void onClickNewGame(View view)
+    public void onClickGamesMenu(View view)
     {
-        ActivityStarter.startNewGameActivity(this);
+        ActivityStarter.startGamesMenu(this);
     }
 
     /**
-     * Start Resume Game activity
+     * Start Account activity
      *
      * @param view - view calling the method
      */
-    public void onClickResumeGame(View view)
+    public void onClickAccount(View view)
     {
-        ActivityStarter.startResumeGameActivity(this);
-    }
-
-    /**
-     * Start Game Results Game activity
-     *
-     * @param view - view calling the method
-     */
-    public void onClickGameResults(View view)
-    {
-        ActivityStarter.startGameResultsActivity(this);
+        ActivityStarter.startAccountActivity(this);
     }
 
     /**
@@ -63,16 +53,6 @@ public class MainMenuActivity extends AppCompatActivity
     public void onClickManageInvites(View view)
     {
         ActivityStarter.startManageInvitesActivity(this);
-    }
-
-    /**
-     * Start Manage Invites activity
-     *
-     * @param view - view calling the method
-     */
-    public void onClickWatchGameRequest(View view)
-    {
-        ActivityStarter.startWatchGameRequest(this);
     }
 
     /**

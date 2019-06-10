@@ -10,53 +10,17 @@
     android:background="@color/background_gray"
     tools:context=".ui.activities.MainMenuActivity">
 
-    <!-- New Game navigation button -->
+    <!-- Games menu navigation button -->
     <Button
-        android:id="@+id/new_game"
+        android:id="@+id/games_menu"
         android:textColor="@color/white"
         android:background="@color/button_green"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="20dp"
-        android:text="@string/new_game"
-        android:onClick="onClickNewGame"/>
-
-    <!-- Resume Game navigation button -->
-    <Button
-        android:id="@+id/resume_game"
-        android:textColor="@color/white"
-        android:background="@color/button_green"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="20dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/new_game"
-        android:text="@string/resume_game"
-        android:onClick="onClickResumeGame" />
-
-    <!-- Game results navigation button -->
-    <Button
-        android:id="@+id/new_game_watch"
-        android:textColor="@color/white"
-        android:background="@color/button_green"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="20dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/resume_game"
-        android:text="@string/watch_game"
-        android:onClick="onClickWatchGameRequest" />
-
-    <!-- Game results navigation button -->
-    <Button
-        android:id="@+id/game_results"
-        android:textColor="@color/white"
-        android:background="@color/button_green"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="20dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/new_game_watch"
-        android:text="@string/game_results"
-        android:onClick="onClickGameResults" />
+        android:text="@string/games"
+        android:onClick="onClickGamesMenu"/>
 
     <!-- Manage Groups navigation button -->
     <Button
@@ -65,7 +29,7 @@
         android:background="@color/button_green"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/game_results"
+        android:layout_below="@+id/games_menu"
         android:text="@string/groups"
         android:layout_marginBottom="20dp"
         android:onClick="onClickManageFrolfGroups"/>
@@ -82,6 +46,18 @@
         android:layout_marginBottom="20dp"
         android:onClick="onClickManageInvites"/>
 
+    <!-- Account navigation button -->
+    <Button
+        android:id="@+id/account"
+        android:textColor="@color/white"
+        android:background="@color/button_green"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/manage_invites"
+        android:text="@string/account"
+        android:layout_marginBottom="20dp"
+        android:onClick="onClickAccount"/>
+
     <!-- Help button -->
     <Button
         android:id="@+id/help"
@@ -89,7 +65,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:background="@color/button_green"
-        android:layout_below="@+id/manage_invites"
+        android:layout_below="@+id/account"
         android:text="@string/help_app"
         android:layout_marginBottom="20dp"
         android:onClick="onClickHelp"/>

@@ -6,9 +6,11 @@ import android.content.Intent;
 
 import java.util.UUID;
 
+import robert.purdey.caddytracker.ui.activities.AccountActivity;
 import robert.purdey.caddytracker.ui.activities.CreateAccountActivity;
 import robert.purdey.caddytracker.ui.activities.FrolfGroupRecordActivity;
 import robert.purdey.caddytracker.ui.activities.GameResultsActivity;
+import robert.purdey.caddytracker.ui.activities.GamesMenuActivity;
 import robert.purdey.caddytracker.ui.activities.LoginActivity;
 import robert.purdey.caddytracker.ui.activities.MainMenuActivity;
 import robert.purdey.caddytracker.ui.activities.ManageFrolfGroupsActivity;
@@ -77,6 +79,16 @@ public class ActivityStarter
     }
 
     /**
+     * Starts Games Menu Activity
+     *
+     * @param context
+     */
+    public static void startGamesMenu(Context context)
+    {
+        startActivity(context, GamesMenuActivity.class);
+    }
+
+    /**
      * Starts Add Player Activity
      *
      * @param context
@@ -93,6 +105,16 @@ public class ActivityStarter
             intent.putExtra(WatchGameActivity.RECORD_ID, id);
             context.startActivity(intent);
         }
+    }
+
+    /**
+     * Starts Account Activity
+     *
+     * @param context
+     */
+    public static void startAccountActivity(Context context)
+    {
+        startActivity(context, AccountActivity.class);
     }
 
     /**

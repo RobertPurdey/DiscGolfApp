@@ -2,15 +2,11 @@ package robert.purdey.caddytracker.ui.models;
 
 import java.util.UUID;
 
-public class AppUserModel
+public class AppUserUpdateModel
 {
     public UUID IdKey;
-
     public String LoginName;
-
     public String Handle;
-
-    public String FriendCode;
 
     public UUID getIdKey()
     {
@@ -40,15 +36,5 @@ public class AppUserModel
     public void setHandle(String handle)
     {
         Handle = handle;
-    }
-
-    public String getFriendCode()
-    {
-        return FriendCode;
-    }
-
-    public void setFriendCode(String friendCode)
-    {
-        FriendCode = friendCode;
     }
 }

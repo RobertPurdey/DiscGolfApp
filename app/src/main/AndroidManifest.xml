@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
-        <activity android:name=".ui.activities.WatchGameRequestActivity"></activity>
+
         <!-- Login -->
         <activity
             android:name=".ui.activities.LoginActivity"
@@ -28,16 +28,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- Main Menu -->
-        <activity android:name=".ui.activities.MainMenuActivity" /> <!-- Create New Game -->
+        <activity android:name=".ui.activities.MainMenuActivity" /> <!-- Games Menu -->
+        <activity
+            android:name=".ui.activities.GamesMenuActivity"
+            android:parentActivityName=".ui.activities.MainMenuActivity" /> <!-- Watch Game Request -->
+        <activity
+            android:name=".ui.activities.WatchGameRequestActivity"
+            android:parentActivityName=".ui.activities.GamesMenuActivity" /> <!-- Create New Game -->
         <activity
             android:name=".ui.activities.NewGameActivity"
-            android:parentActivityName=".ui.activities.MainMenuActivity" /> <!-- Resume Game -->
+            android:parentActivityName=".ui.activities.GamesMenuActivity" /> <!-- Resume Game -->
         <activity
             android:name=".ui.activities.ResumeGameActivity"
-            android:parentActivityName=".ui.activities.MainMenuActivity" /> <!-- Game Results -->
+            android:parentActivityName=".ui.activities.GamesMenuActivity" /> <!-- Game Results -->
         <activity
             android:name=".ui.activities.GameResultsActivity"
-            android:parentActivityName=".ui.activities.MainMenuActivity" /> <!-- Manage Groups -->
+            android:parentActivityName=".ui.activities.GamesMenuActivity" /> <!-- Manage Groups -->
         <activity
             android:name=".ui.activities.ManageFrolfGroupsActivity"
             android:parentActivityName=".ui.activities.MainMenuActivity" /> <!-- Create/Edit Group -->
@@ -52,9 +58,16 @@
             android:parentActivityName=".ui.activities.ResumeGameActivity" /> <!-- View Game Score and other results -->
         <activity
             android:name=".ui.activities.ScoreCardActivity"
-            android:parentActivityName=".ui.activities.GameResultsActivity" />
-        <activity android:name=".ui.activities.CreateAccountActivity" />
-        <activity android:name=".ui.activities.WatchGameActivity" />
+            android:parentActivityName=".ui.activities.GameResultsActivity" /> <!-- Create Account -->
+        <activity android:name=".ui.activities.CreateAccountActivity" /> <!-- Watch Games activity -->
+        <activity
+            android:name=".ui.activities.WatchGameActivity"
+            android:parentActivityName=".ui.activities.WatchGameRequestActivity" />
+
+        <!-- View/Update Account -->
+        <activity
+            android:name=".ui.activities.AccountActivity"
+            android:parentActivityName=".ui.activities.MainMenuActivity"/>
     </application>
 
 </manifest>

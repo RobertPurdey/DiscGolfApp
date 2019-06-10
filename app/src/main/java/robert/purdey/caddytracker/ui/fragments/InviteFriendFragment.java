@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import robert.purdey.caddytracker.R;
 
+// todo: delete this
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the

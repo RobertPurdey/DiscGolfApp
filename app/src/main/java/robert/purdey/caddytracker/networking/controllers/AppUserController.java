@@ -13,6 +13,7 @@ import robert.purdey.caddytracker.ui.FrolfApp;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.AppUserCreationModel;
 import robert.purdey.caddytracker.ui.models.AppUserModel;
+import robert.purdey.caddytracker.ui.models.AppUserUpdateModel;
 import robert.purdey.caddytracker.ui.models.TokenModel;
 
 
@@ -109,6 +110,34 @@ public class AppUserController
         Call<Void> createAccountCall = getApiCall().createAccount(userCreateRequest);
 
         createAccountCall.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response)
+            {
+                if ( response.isSuccessful() )
+                {
+                    listener.onResponseSuccessful();
+                }
+                else
+                {
+                    listener.onResponseFailed();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t)
+            {
+                listener.onCallFailure();
+            }
+        });
+    }
+
+    public void updateAccount(
+        AppUserUpdateModel updateModel,
+        IApiResponseListener listener)
+    {
+        Call<Void> updateAccountCall = getApiCall().updateAccount(updateModel);
+
+        updateAccountCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response)
             {
