@@ -3,16 +3,19 @@ package robert.purdey.caddytracker.ui.helpers;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 
 import java.util.UUID;
 
 import robert.purdey.caddytracker.ui.activities.AccountActivity;
+import robert.purdey.caddytracker.ui.activities.CourseRecordActivity;
 import robert.purdey.caddytracker.ui.activities.CreateAccountActivity;
 import robert.purdey.caddytracker.ui.activities.FrolfGroupRecordActivity;
 import robert.purdey.caddytracker.ui.activities.GameResultsActivity;
 import robert.purdey.caddytracker.ui.activities.GamesMenuActivity;
 import robert.purdey.caddytracker.ui.activities.LoginActivity;
 import robert.purdey.caddytracker.ui.activities.MainMenuActivity;
+import robert.purdey.caddytracker.ui.activities.ManageCoursesActivity;
 import robert.purdey.caddytracker.ui.activities.ManageFrolfGroupsActivity;
 import robert.purdey.caddytracker.ui.activities.ManageInvitesActivity;
 import robert.purdey.caddytracker.ui.activities.NewGameActivity;
@@ -173,6 +176,58 @@ public class ActivityStarter
         }
 
         intent.putExtra(FrolfGroupRecordActivity.RECORD_ID, id);
+        context.startActivity(intent);
+    }
+
+    /**
+     * Starts Course Record Activity
+     *
+     * @param context
+     */
+    public static void startManageCoursesActivity(
+        Context context,
+        UUID frolfGroupRecordId)
+    {
+        Intent intent       = new Intent(context, ManageCoursesActivity.class);
+        String frolfGroupId = "";
+
+        if ( frolfGroupRecordId != null )
+        {
+            frolfGroupId = frolfGroupRecordId.toString();
+        }
+
+        intent.putExtra(ManageCoursesActivity.FROLF_GROUP_ID, frolfGroupId);
+
+        context.startActivity(intent);
+    }
+
+    /**
+     * Starts Course Record Activity
+     *
+     * @param context
+     */
+    public static void startCourseRecordActivity(
+        Context context,
+        @Nullable UUID recordId,
+        @Nullable UUID frolfGroupRecordId)
+    {
+        Intent intent       = new Intent(context, CourseRecordActivity.class);
+        String id           = "";
+        String frolfGroupId = "";
+
+        if ( recordId != null )
+        {
+            id = recordId.toString();
+        }
+
+        if ( frolfGroupRecordId != null )
+        {
+            frolfGroupId = frolfGroupRecordId.toString();
+        }
+
+        intent.putExtra(CourseRecordActivity.RECORD_ID, id);
+        intent.putExtra(CourseRecordActivity.FROLF_GROUP_ID, frolfGroupId);
+
         context.startActivity(intent);
     }
 

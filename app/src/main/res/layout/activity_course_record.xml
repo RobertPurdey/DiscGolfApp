@@ -1,0 +1,71 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="courseRecordViewModel"
+            type="robert.purdey.caddytracker.ui.viewmodels.courses.CourseRecordViewModel" />
+    </data>
+
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_main_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:background="@color/background_gray"
+        tools:context=".ui.activities.CourseRecordActivity">
+
+        <!-- Course ID -->
+        <TextView
+            android:id="@+id/txtv_course_record_course_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="@={courseRecordViewModel.courseId}"/>
+
+        <!-- Frolf Group ID -->
+        <TextView
+            android:id="@+id/txtv_course_record_frolf_group_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="@={courseRecordViewModel.frolfGroupId}"/>
+
+        <!-- Course name text input -->
+        <EditText
+            android:id="@+id/etxt_course_record_course_name"
+            android:inputType="text"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/white"
+            android:hint="@string/name"
+            android:text="@={courseRecordViewModel.courseName}"/>
+
+        <!-- Course holes fragment -->
+        <fragment
+            android:name="robert.purdey.caddytracker.ui.fragments.CourseHolesFragment"
+            android:id="@+id/frag_course_record_course_holes"
+            android:layout_weight="2"
+            android:layout_below="@+id/etxt_course_record_course_name"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            />
+
+        <!-- Create course button -->
+        <Button
+            android:id="@+id/bttn_course_record_create_course"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:text="@string/create"
+            android:background="@color/button_green"
+            android:textColor="@color/white"
+            android:onClick="onCreateCourse"
+            />
+    </RelativeLayout>
+
+</layout>

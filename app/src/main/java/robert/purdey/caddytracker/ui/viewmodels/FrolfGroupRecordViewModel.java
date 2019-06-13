@@ -96,4 +96,6 @@ public class FrolfGroupRecordViewModel extends ViewModel
     {
         frolfGroup = frolfGroupController.getFrolfGroup(id);
     }
+
+
 }

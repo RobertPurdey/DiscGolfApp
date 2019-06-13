@@ -63,6 +63,19 @@
             android:textColor="@color/white"
             android:onClick="onSendInvite" />
 
+        <!-- Manage courses bttn -->
+        <Button
+            android:id="@+id/bttn_frolf_group_record_manage_courses"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_below="@+id/etxt_groupName"
+            android:layout_toRightOf="@+id/bttn_add_friend"
+            android:text="@string/courses"
+            android:background="@color/button_green"
+            android:textColor="@color/white"
+            android:onClick="onManageCourses" />
+
         <!-- Member list fragment -->
         <fragment
             android:name="robert.purdey.caddytracker.ui.fragments.FrolfGroupMemberListFragment"

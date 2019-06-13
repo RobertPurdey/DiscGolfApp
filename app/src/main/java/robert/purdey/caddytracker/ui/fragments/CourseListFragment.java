@@ -48,6 +48,7 @@ public class CourseListFragment extends Fragment implements IItemClickListener
 
         courseListViewModel = ViewModelProviders.of(this).get(CourseListViewModel.class);
 
+        // todo: this should be able to handle a frolf group id in filter
         courseListViewModel.getCourses().observe(this, courseModels ->
             courseAdapter.setCourses(courseModels)
         );

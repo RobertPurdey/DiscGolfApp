@@ -1,13 +1,19 @@
 package robert.purdey.caddytracker.ui.models;
 
+import java.util.List;
 import java.util.UUID;
+
+import robert.purdey.caddytracker.ui.models.holes.HoleModel;
 
 public class CourseModel
 {
     public UUID IdKey;
+    public UUID FrolfGroupId;
     public String Name;
     public int Par;
     public int HoleCount;
+
+    public List<HoleModel> Holes;
 
     public UUID getIdKey()
     {
@@ -17,6 +23,16 @@ public class CourseModel
     public void setIdKey(UUID idKey)
     {
         IdKey = idKey;
+    }
+
+    public UUID getFrolfGroupId()
+    {
+        return FrolfGroupId;
+    }
+
+    public void setFrolfGroupId(UUID frolfGroupId)
+    {
+        FrolfGroupId = frolfGroupId;
     }
 
     public String getName()
@@ -47,5 +63,15 @@ public class CourseModel
     public void setHoleCount(int holeCount)
     {
         HoleCount = holeCount;
+    }
+
+    public List<HoleModel> getHoles()
+    {
+        return Holes;
+    }
+
+    public void setHoles(List<HoleModel> holes)
+    {
+        Holes = holes;
     }
 }

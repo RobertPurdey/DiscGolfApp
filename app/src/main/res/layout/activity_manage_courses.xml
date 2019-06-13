@@ -1,0 +1,29 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_manage_players"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/background_gray"
+    tools:context="robert.purdey.caddytracker.ui.activities.ManageCoursesActivity">
+
+    <!-- Select Course fragment -->
+
+
+    <!-- Add Course navigation button -->
+    <Button
+        android:id="@+id/bttn_manage_courses_new_course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/new_course"
+        android:background="@color/button_green"
+        android:textColor="@color/white"
+        android:onClick="onClickNewCourse"
+        />
+
+</RelativeLayout>

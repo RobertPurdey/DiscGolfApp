@@ -5,6 +5,7 @@
     <string name="save">Save</string>
     <string name="par">Par</string>
     <string name="confirm">Confirm</string>
+    <string name="courses">Courses</string>
     <string name="course_name">Course Name</string>
     <string name="create">Create</string>
     <string name="create_account">Create Account</string>
@@ -31,6 +32,7 @@
     <string name="login">Login</string>
     <string name="login_name">Login Name</string>
     <string name="new_game">New Game</string>
+    <string name="new_course">New Course</string>
     <string name="resume_game">Resume Game</string>
     <string name="statistics">Statistics</string>
     <string name="manage_friends">Manage Friends</string>

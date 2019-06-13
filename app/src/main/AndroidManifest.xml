@@ -16,8 +16,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
-
-        <!-- Login -->
+        <activity android:name=".ui.activities.ManageCoursesActivity"></activity>
+        <activity android:name=".ui.activities.CourseRecordActivity" /> <!-- Login -->
         <activity
             android:name=".ui.activities.LoginActivity"
             android:label="@string/app_name"
@@ -62,12 +62,10 @@
         <activity android:name=".ui.activities.CreateAccountActivity" /> <!-- Watch Games activity -->
         <activity
             android:name=".ui.activities.WatchGameActivity"
-            android:parentActivityName=".ui.activities.WatchGameRequestActivity" />
-
-        <!-- View/Update Account -->
+            android:parentActivityName=".ui.activities.WatchGameRequestActivity" /> <!-- View/Update Account -->
         <activity
             android:name=".ui.activities.AccountActivity"
-            android:parentActivityName=".ui.activities.MainMenuActivity"/>
+            android:parentActivityName=".ui.activities.MainMenuActivity" />
     </application>
 
 </manifest>

@@ -1,0 +1,66 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="35dp">
+
+    <!-- Hole ID -->
+    <TextView
+        android:id="@+id/txtv_row_course_hole_id"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"/>
+
+    <!-- course id ID -->
+    <TextView
+        android:id="@+id/txtv_row_course_hole_course_id"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"/>
+
+    <!-- Hole tee -->
+    <TextView
+        android:id="@+id/txtv_row_course_hole_tee"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:textSize="15dp"
+        android:paddingLeft="15dp"
+        android:singleLine="true"
+        android:gravity="center_vertical"/>
+
+    <!-- Par -->
+    <TextView
+        android:id="@+id/txtv_row_course_hole_par"
+        android:layout_width="55dp"
+        android:layout_height="30dp"
+        android:textSize="15dp"
+        android:layout_toRightOf="@+id/txtv_row_course_hole_tee"
+        android:gravity="center_vertical"/>
+
+    <!-- Increase button -->
+    <Button
+        android:id="@+id/bttn_row_course_hole_par_increase"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/white"
+        android:background="@color/button_green"
+        android:text="+"
+        android:textSize="15dp"
+        android:textAlignment="center"
+        android:layout_toLeftOf="@+id/bttn_row_course_hole_par_decrease"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="35dp"/>
+
+    <!-- Decrease button -->
+    <Button
+        android:id="@+id/bttn_row_course_hole_par_decrease"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/white"
+        android:background="@color/button_green"
+        android:text="-"
+        android:textSize="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="10dp"/>
+</RelativeLayout>
