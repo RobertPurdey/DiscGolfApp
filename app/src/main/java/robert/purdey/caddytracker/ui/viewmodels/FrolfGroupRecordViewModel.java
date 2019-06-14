@@ -55,6 +55,11 @@ public class FrolfGroupRecordViewModel extends ViewModel
         return frolfGroup;
     }
 
+    public LiveData<FrolfGroupModel> getStoredFrolfGroup()
+    {
+        return frolfGroup;
+    }
+
     public void sendGroupInvite()
     {
         InviteCreationModel creationModel = new InviteCreationModel();

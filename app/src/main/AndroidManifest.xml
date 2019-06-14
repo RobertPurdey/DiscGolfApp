@@ -16,8 +16,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
-        <activity android:name=".ui.activities.ManageCoursesActivity"></activity>
-        <activity android:name=".ui.activities.CourseRecordActivity" /> <!-- Login -->
+         <!-- Login -->
         <activity
             android:name=".ui.activities.LoginActivity"
             android:label="@string/app_name"
@@ -40,31 +39,53 @@
             android:parentActivityName=".ui.activities.GamesMenuActivity" /> <!-- Resume Game -->
         <activity
             android:name=".ui.activities.ResumeGameActivity"
+            android:label="Resume Game"
             android:parentActivityName=".ui.activities.GamesMenuActivity" /> <!-- Game Results -->
         <activity
             android:name=".ui.activities.GameResultsActivity"
+            android:label="Game Results"
             android:parentActivityName=".ui.activities.GamesMenuActivity" /> <!-- Manage Groups -->
         <activity
             android:name=".ui.activities.ManageFrolfGroupsActivity"
+            android:label="Manage Frolf Groups"
             android:parentActivityName=".ui.activities.MainMenuActivity" /> <!-- Create/Edit Group -->
         <activity
             android:name=".ui.activities.FrolfGroupRecordActivity"
-            android:parentActivityName=".ui.activities.ManageFrolfGroupsActivity" /> <!-- Manage Invites -->
+            android:label="Frolf Group Record"
+            android:parentActivityName=".ui.activities.ManageFrolfGroupsActivity" />
+        <!-- Manage Courses -->
+        <activity
+            android:name=".ui.activities.ManageCoursesActivity"
+            android:label="Manage Courses"
+            android:parentActivityName=".ui.activities.FrolfGroupRecordActivity" />
+        <activity
+            android:name=".ui.activities.CourseRecordActivity"
+            android:label="Course Record"
+            android:parentActivityName=".ui.activities.FrolfGroupRecordActivity"/>
+        <!-- Manage Invites -->
         <activity
             android:name=".ui.activities.ManageInvitesActivity"
+            android:label="Manage Invites"
             android:parentActivityName=".ui.activities.MainMenuActivity" /> <!-- Score Game -->
         <activity
             android:name=".ui.activities.ScoreGameActivity"
+            android:label="Score Game"
             android:parentActivityName=".ui.activities.ResumeGameActivity" /> <!-- View Game Score and other results -->
         <activity
             android:name=".ui.activities.ScoreCardActivity"
+            android:label="Scorecard"
             android:parentActivityName=".ui.activities.GameResultsActivity" /> <!-- Create Account -->
-        <activity android:name=".ui.activities.CreateAccountActivity" /> <!-- Watch Games activity -->
+        <activity
+            android:label="New Account"
+            android:name=".ui.activities.CreateAccountActivity"
+            android:parentActivityName=".ui.activities.LoginActivity"/> <!-- Watch Games activity -->
         <activity
             android:name=".ui.activities.WatchGameActivity"
+            android:label="Watch Game"
             android:parentActivityName=".ui.activities.WatchGameRequestActivity" /> <!-- View/Update Account -->
         <activity
             android:name=".ui.activities.AccountActivity"
+            android:label="Manage Account"
             android:parentActivityName=".ui.activities.MainMenuActivity" />
     </application>
 

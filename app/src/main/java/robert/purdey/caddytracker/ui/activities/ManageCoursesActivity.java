@@ -1,6 +1,8 @@
 package robert.purdey.caddytracker.ui.activities;
 
 import robert.purdey.caddytracker.R;
+import robert.purdey.caddytracker.domain.courses.CourseFilter;
+import robert.purdey.caddytracker.ui.fragments.CourseListFragment;
 import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
 import robert.purdey.caddytracker.ui.models.CourseModel;
 
@@ -16,6 +18,7 @@ public class ManageCoursesActivity extends AppCompatActivity
     public static final String FROLF_GROUP_ID = "FROLF_GROUP_ID";
 
     public UUID FrolfGroupId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -26,14 +29,32 @@ public class ManageCoursesActivity extends AppCompatActivity
         Intent intent       = getIntent();
         String frolfGroupId = intent.getStringExtra(ManageCoursesActivity.FROLF_GROUP_ID);
 
-        // new record
-        if ( !frolfGroupId.equals("") )
+        // get frolf id managing courses is for
+        if ( frolfGroupId != null && !frolfGroupId.equals("") )
         {
             UUID id         = UUID.fromString(frolfGroupId);
             FrolfGroupId    = id;
+            loadHoles();
         }
     }
 
+    private void loadHoles()
+    {
+        CourseFilter filter = new CourseFilter();
+        filter.setFrolfGroupId(FrolfGroupId);
+
+        getCourseListFrag().LoadCourses(filter);
+    }
+
+    private CourseListFragment getCourseListFrag()
+    {
+        return (CourseListFragment)getSupportFragmentManager().findFragmentById(R.id.frag_mng_courses_select_fragment);
+    }
+
+    private void onCourseSelected(UUID id)
+    {
+
+    }
     /**
      * Start FrolfGroupRecordActivity in create mode
      *

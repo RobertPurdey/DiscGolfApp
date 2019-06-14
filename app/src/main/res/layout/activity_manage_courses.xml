@@ -12,7 +12,13 @@
     tools:context="robert.purdey.caddytracker.ui.activities.ManageCoursesActivity">
 
     <!-- Select Course fragment -->
-
+    <fragment
+        android:name="robert.purdey.caddytracker.ui.fragments.CourseListFragment"
+        android:id="@+id/frag_mng_courses_select_fragment"
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        />
 
     <!-- Add Course navigation button -->
     <Button

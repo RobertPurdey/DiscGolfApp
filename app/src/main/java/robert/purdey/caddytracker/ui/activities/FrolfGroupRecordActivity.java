@@ -3,6 +3,7 @@ package robert.purdey.caddytracker.ui.activities;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,10 +15,13 @@ import robert.purdey.caddytracker.databinding.ActivityFrolfGroupRecordBinding;
 import robert.purdey.caddytracker.ui.fragments.FrolfGroupMemberListFragment;
 import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
 import robert.purdey.caddytracker.ui.viewmodels.FrolfGroupRecordViewModel;
+import robert.purdey.caddytracker.utilities.Strings;
 
 public class FrolfGroupRecordActivity extends AppCompatActivity
 {
     public static final String RECORD_ID = "RECORD_ID";
+    public static final String IS_NEW = "IS_NEW";
+    private static @Nullable UUID FrolfGroupId;
     private FrolfGroupRecordViewModel frolfGroupRecordViewModel;
 
     public FrolfGroupRecordActivity()
@@ -41,15 +45,30 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
         // Attempt to get id. If given this is for an existing record
         Intent intent   = getIntent();
         String recordId = intent.getStringExtra(FrolfGroupRecordActivity.RECORD_ID);
+        String isNew    = intent.getStringExtra(FrolfGroupRecordActivity.IS_NEW);
 
+        if ( (recordId != null && !recordId.equals("") ) )
+        {
 
-        // get record data when set
-        if ( !recordId.equals("") ) {
-            UUID rId = UUID.fromString(recordId);
-            frolfGroupRecordViewModel.getFrolfGroup(rId).observe(this, frolfGroupModel -> {
-                frolfGroupRecordViewModel.setFrolfGroupRecord(frolfGroupModel);
-                LoadMembers(frolfGroupModel.getIdKey());
-            });
+            // get record data when set
+            if ( !recordId.equals("") ) {
+                UUID rId = UUID.fromString(recordId);
+                FrolfGroupId = rId;
+                frolfGroupRecordViewModel.getFrolfGroup(rId).observe(this, frolfGroupModel -> {
+                    frolfGroupRecordViewModel.setFrolfGroupRecord(frolfGroupModel);
+                    LoadMembers(frolfGroupModel.getIdKey());
+                });
+            }
+        }
+        else if ( Strings.isNullOrEmpty(isNew) )
+        {
+            if (FrolfGroupId != null)
+            {
+                frolfGroupRecordViewModel.getFrolfGroup(FrolfGroupId).observe(this, frolfGroupModel -> {
+                    frolfGroupRecordViewModel.setFrolfGroupRecord(frolfGroupModel);
+                    LoadMembers(frolfGroupModel.getIdKey());
+                });
+            }
         }
     }
 

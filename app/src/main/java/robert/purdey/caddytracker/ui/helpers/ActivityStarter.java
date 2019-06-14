@@ -165,17 +165,21 @@ public class ActivityStarter
      *
      * @param context
      */
-    public static void startFrolfGroupRecordActivity(Context context, UUID recordId)
+    public static void startFrolfGroupRecordActivity(Context context, UUID recordId, boolean isNew)
     {
         Intent intent = new Intent(context, FrolfGroupRecordActivity.class);
-        String id     = "";
+        String id           = "";
+        String isNewExtra   = isNew ? "t" : "f";
 
         if ( recordId != null )
         {
             id = recordId.toString();
         }
 
+
+
         intent.putExtra(FrolfGroupRecordActivity.RECORD_ID, id);
+        intent.putExtra(FrolfGroupRecordActivity.IS_NEW, isNewExtra);
         context.startActivity(intent);
     }
 

@@ -31,7 +31,7 @@ public class ManageFrolfGroupsActivity extends AppCompatActivity
     public void onClickNewGroup(View view)
     {
         // todo: pass create mode when ready
-        ActivityStarter.startFrolfGroupRecordActivity(this, null);
+        ActivityStarter.startFrolfGroupRecordActivity(this, null, true);
     }
 
     private void SetFragmentClick()
@@ -40,7 +40,7 @@ public class ManageFrolfGroupsActivity extends AppCompatActivity
             .findFragmentById(R.id.frag_mng_frolf_group_select_fragment);
 
         fragment.SetGroupClickListener( (view, id) ->
-            ActivityStarter.startFrolfGroupRecordActivity(this, id)
+            ActivityStarter.startFrolfGroupRecordActivity(this, id, false)
         );
     }
 }

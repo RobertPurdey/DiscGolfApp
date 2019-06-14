@@ -2,7 +2,9 @@ package robert.purdey.caddytracker.ui.fragments;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,15 +16,21 @@ import android.view.ViewGroup;
 import java.util.UUID;
 
 import robert.purdey.caddytracker.R;
+import robert.purdey.caddytracker.domain.courses.CourseFilter;
+import robert.purdey.caddytracker.ui.activities.CourseRecordActivity;
+import robert.purdey.caddytracker.ui.adapters.CourseHolesAdapter;
 import robert.purdey.caddytracker.ui.adapters.CourseListAdapter;
+import robert.purdey.caddytracker.ui.adapters.GameHoleScoresAdapter;
 import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
 import robert.purdey.caddytracker.ui.viewmodels.CourseListViewModel;
 
 public class CourseListFragment extends Fragment implements IItemClickListener
 {
+    public static final String FROLF_GROUP_ID = "RECORD_ID";
+
+    private CourseListAdapter courseListAdapter;
     private CourseListViewModel courseListViewModel;
     private IItemClickListener courseClickLisetner;
-
 
     @Override
     public View onCreateView(
@@ -34,10 +42,10 @@ public class CourseListFragment extends Fragment implements IItemClickListener
 
         Context activityContext                    = getActivity();
         RecyclerView recyclerView                  = rootView.findViewById(R.id.courseListRecycleView);
-        final CourseListAdapter courseAdapter      = new CourseListAdapter(activityContext, this);
+        courseListAdapter                          = new CourseListAdapter(activityContext, this);
         LinearLayoutManager layoutManger           = new LinearLayoutManager(activityContext);
 
-        recyclerView.setAdapter(courseAdapter);
+        recyclerView.setAdapter(courseListAdapter);
         recyclerView.setLayoutManager(layoutManger);
 
         DividerItemDecoration dividerDecorator = new DividerItemDecoration(
@@ -48,12 +56,14 @@ public class CourseListFragment extends Fragment implements IItemClickListener
 
         courseListViewModel = ViewModelProviders.of(this).get(CourseListViewModel.class);
 
-        // todo: this should be able to handle a frolf group id in filter
-        courseListViewModel.getCourses().observe(this, courseModels ->
-            courseAdapter.setCourses(courseModels)
-        );
-
         return rootView;
+    }
+
+    public void LoadCourses(CourseFilter filter)
+    {
+        courseListViewModel.getCourses(filter).observe(this, courseModels ->
+            courseListAdapter.setCourses(courseModels)
+        );
     }
 
     @Override

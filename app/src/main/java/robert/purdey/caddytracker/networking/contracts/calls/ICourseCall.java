@@ -26,7 +26,7 @@ public interface ICourseCall
     @POST("api/courses/filter")
     Call<List<CourseModel>> getWithFilter(
         @Header("Authorization") String auth,
-        @Body CourseFilter gameFilter);
+        @Body CourseFilter courseFilter);
 
     @POST("api/courses/insert/")
     Call<CourseModel> insert(

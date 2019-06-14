@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModel;
 import java.util.List;
 import java.util.UUID;
 
+import robert.purdey.caddytracker.domain.courses.CourseFilter;
 import robert.purdey.caddytracker.networking.HttpClientConfig;
 import robert.purdey.caddytracker.networking.RetrofitConfig;
 import robert.purdey.caddytracker.networking.contracts.controllers.ICourseController;
@@ -31,20 +32,16 @@ public class CourseListViewModel extends ViewModel
         courseGroupController = new CourseController(apiCallService);
     }
 
-    public LiveData<List<CourseModel>> getCourses()
+    public LiveData<List<CourseModel>> getCourses(CourseFilter filter)
     {
-        // todo: maybe this check requires isDirty??
-        if (courses == null)
-        {
-            courses = new MutableLiveData<>();
-            loadCourses();
-        }
+        courses = new MutableLiveData<>();
+        loadCourses(filter);
 
         return courses;
     }
 
-    private void loadCourses()
+    private void loadCourses(CourseFilter filter)
     {
-        courses = courseGroupController.getAll();
+        courses = courseGroupController.getWithFilter(filter);
     }
 }
