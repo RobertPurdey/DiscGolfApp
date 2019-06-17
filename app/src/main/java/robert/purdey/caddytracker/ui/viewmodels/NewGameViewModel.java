@@ -54,6 +54,16 @@ public class NewGameViewModel extends ViewModel
         creationModel.getValue().setGroupId(id);
     }
 
+    public UUID getGroupId()
+    {
+        return creationModel.getValue().getGroupId();
+    }
+
+    public void clearPlayers()
+    {
+        creationModel.getValue().getPlayerIds().clear();
+    }
+
     public void managePlayer(UUID id)
     {
         List<UUID> playerIds = creationModel.getValue().PlayerIds;

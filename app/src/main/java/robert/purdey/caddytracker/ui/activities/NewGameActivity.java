@@ -13,6 +13,7 @@ import java.util.UUID;
 
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.databinding.ActivityNewGameBinding;
+import robert.purdey.caddytracker.domain.courses.CourseFilter;
 import robert.purdey.caddytracker.ui.fragments.CourseListFragment;
 import robert.purdey.caddytracker.ui.fragments.FrolfGroupListFragment;
 import robert.purdey.caddytracker.ui.fragments.FrolfGroupMemberListFragment;
@@ -56,10 +57,12 @@ public class NewGameActivity extends AppCompatActivity
             fm.executePendingTransactions();
 
             fm.beginTransaction()
-                .hide( this.getGroupListFragment()    )
+                .hide( this.getCourseListFragment()    )
                 .hide( this.getMembersListFragment()  )
-                .show( this.getCourseListFragment()   )
+                .show( this.getGroupListFragment()   )
                 .commit();
+
+            SetSelectionDescription("Select group");
 
             Button startNewGame = (Button) findViewById(R.id.bttn_create_new_game);
             startNewGame.setClickable(false);
@@ -85,13 +88,18 @@ public class NewGameActivity extends AppCompatActivity
         if (id != null)
         {
             newGameViewModel.setCourse(id);
-            SetSelectionDescription("Select group playing");
+            SetSelectionDescription("Select players");
+
+            this.getMembersListFragment().Load( newGameViewModel.getGroupId() );
 
             getSupportFragmentManager().beginTransaction()
                 .hide( this.getCourseListFragment() )
-                .hide( this.getMembersListFragment() )
-                .show( this.getGroupListFragment() )
+                .hide( this.getGroupListFragment() )
+                .show( this.getMembersListFragment() )
                 .commit();
+
+            Button startNewGame = (Button) findViewById(R.id.bttn_create_new_game);
+            startNewGame.setClickable(true);
         }
     }
 
@@ -106,17 +114,20 @@ public class NewGameActivity extends AppCompatActivity
         if (id != null)
         {
             newGameViewModel.setGroup(id);
-            SetSelectionDescription("Select players you like");
-            this.getMembersListFragment().Load(id);
+            newGameViewModel.clearPlayers();
+
+            SetSelectionDescription("Select course");
+
+            CourseFilter groupCoursesFilter = new CourseFilter();
+            groupCoursesFilter.setFrolfGroupId(id);
+
+            this.getCourseListFragment().LoadCourses(groupCoursesFilter);
 
             getSupportFragmentManager().beginTransaction()
-                .hide( this.getCourseListFragment()  )
+                .hide( this.getMembersListFragment()  )
                 .hide( this.getGroupListFragment()   )
-                .show( this.getMembersListFragment() )
+                .show( this.getCourseListFragment() )
                 .commit();
-
-            Button startNewGame = (Button) findViewById(R.id.bttn_create_new_game);
-            startNewGame.setClickable(true);
         }
     }
 
