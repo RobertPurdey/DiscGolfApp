@@ -25,7 +25,7 @@ public interface IFrolfGroupCall
         @Header("Authorization") String auth,
         @Path("id") UUID id);
 
-    @GET("api/frolfgroups/groupmembers/{id}/")
+    @GET("api/frolfgroups/{id}/groupmembers/")
     Call<List<PlayerModel>> getGroupMembers(
         @Header("Authorization") String auth,
         @Path("id") UUID id);
@@ -44,4 +44,9 @@ public interface IFrolfGroupCall
     Call<GameModel> createGame(
         @Header("Authorization") String auth,
         @Body GameCreationModel creationModel);
+
+    @GET("api/frolfgroups/{id}/leave/")
+    Call<Void> leaveGroup(
+        @Header("Authorization") String auth,
+        @Path("id") UUID groupId);
 }

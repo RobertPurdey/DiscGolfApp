@@ -11,6 +11,7 @@ import retrofit2.Response;
 import robert.purdey.caddytracker.networking.contracts.calls.IFrolfGroupCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupController;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
+import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
 import robert.purdey.caddytracker.ui.models.GameCreationModel;
 import robert.purdey.caddytracker.ui.models.GameModel;
@@ -202,5 +203,36 @@ public class FrolfGroupController
         });
 
         return data;
+    }
+
+    @Override
+    public void leaveGroup(UUID groupId, IApiResponseListener listener)
+    {
+        Call<Void> caller = getApiCall().leaveGroup(getAuthorizationHeader(), groupId);
+
+        caller.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(
+                Call<Void> call,
+                Response<Void> response)
+            {
+                if ( response.isSuccessful() )
+                {
+                    listener.onResponseSuccessful();
+                }
+                else
+                {
+                    listener.onResponseFailed();
+                }
+            }
+
+            @Override
+            public void onFailure(
+                Call<Void> call,
+                Throwable t)
+            {
+                listener.onCallFailure();
+            }
+        });
     }
 }

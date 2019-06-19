@@ -34,6 +34,7 @@
     <string name="new_game">New Game</string>
     <string name="new_course">New Course</string>
     <string name="resume_game">Resume Game</string>
+    <string name="leave_group">Leave Group</string>
     <string name="statistics">Statistics</string>
     <string name="manage_friends">Manage Friends</string>
     <string name="manage_courses">Manage Courses</string>

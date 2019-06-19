@@ -13,6 +13,7 @@ import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupIn
 import robert.purdey.caddytracker.networking.controllers.FrolfGroupController;
 import robert.purdey.caddytracker.networking.controllers.FrolfGroupInviteController;
 import robert.purdey.caddytracker.networking.services.ApiCallService;
+import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
 import robert.purdey.caddytracker.ui.models.InviteCreationModel;
 
@@ -95,6 +96,15 @@ public class FrolfGroupRecordViewModel extends ViewModel
         //frolfGroup = frolfGroupController.insert(model);
 
         return frolfGroup;
+    }
+
+    public void leaveGroup(IApiResponseListener listener)
+    {
+        if ( groupId.getValue() != null )
+        {
+            UUID groupKey = UUID.fromString(groupId.getValue());
+            frolfGroupController.leaveGroup(groupKey, listener);
+        }
     }
 
     private void loadFrolfGroup(UUID id)

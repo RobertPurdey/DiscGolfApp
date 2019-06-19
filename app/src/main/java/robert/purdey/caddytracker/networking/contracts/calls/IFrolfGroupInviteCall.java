@@ -25,7 +25,7 @@ public interface IFrolfGroupInviteCall
         @Header("Authorization") String auth,
         @Body FrolfGroupInviteFilterModel filter);
 
-    @POST("api/frolfgroupinvites/{id}/accept")
+    @GET("api/frolfgroupinvites/{id}/accept")
     Call<Void> accept(
         @Header("Authorization") String auth,
         @Path("id") UUID inviteId);

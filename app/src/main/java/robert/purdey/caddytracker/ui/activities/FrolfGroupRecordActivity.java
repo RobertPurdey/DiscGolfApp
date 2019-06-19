@@ -14,6 +14,7 @@ import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.databinding.ActivityFrolfGroupRecordBinding;
 import robert.purdey.caddytracker.ui.fragments.FrolfGroupMemberListFragment;
 import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
+import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.viewmodels.FrolfGroupRecordViewModel;
 import robert.purdey.caddytracker.utilities.Strings;
 
@@ -96,6 +97,39 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
         // todo: use IApiResponseListener to inform when its sent
         frolfGroupRecordViewModel.sendGroupInvite();
     }
+
+    public void onLeaveGroup(View view)
+    {
+        if ( frolfGroupRecordViewModel.groupId.getValue() != null )
+        {
+            frolfGroupRecordViewModel.leaveGroup(new IApiResponseListener()
+            {
+                @Override
+                public void onResponseSuccessful()
+                {
+                    goToManageFrolfGroupsActivity();
+                }
+
+                @Override
+                public void onResponseFailed()
+                {
+                    // todo toast message
+                }
+
+                @Override
+                public void onCallFailure()
+                {
+                    // todo toast message
+                }
+            });
+        }
+    }
+
+    private void goToManageFrolfGroupsActivity()
+    {
+        ActivityStarter.startManageFrolfGroupsActivity(this);
+    }
+
 
     public void onManageCourses(View view)
     {
