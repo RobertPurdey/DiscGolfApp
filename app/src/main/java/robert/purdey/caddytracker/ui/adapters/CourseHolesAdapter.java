@@ -66,6 +66,21 @@ public class CourseHolesAdapter extends RecyclerView.Adapter<CourseHolesAdapter.
         notifyDataSetChanged();
     }
 
+    public void addCourseHole(HoleModel hole)
+    {
+        mCourseHoles.add(hole);
+        notifyDataSetChanged();
+    }
+
+    public void removeCourseHole()
+    {
+        if (mCourseHoles.size() != 0)
+        {
+            mCourseHoles.remove(mCourseHoles.size()-1);
+            notifyDataSetChanged();
+        }
+    }
+
     public List<HoleModel> getCourseHoles()
     {
         return mCourseHoles;

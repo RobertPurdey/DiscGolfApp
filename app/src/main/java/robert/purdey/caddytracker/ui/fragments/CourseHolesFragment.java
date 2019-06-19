@@ -56,6 +56,16 @@ public class CourseHolesFragment extends Fragment
         courseHolesAdapter.setCourseHoles(courseHoles);
     }
 
+    public void addHole(HoleModel hole)
+    {
+        courseHolesAdapter.addCourseHole(hole);
+    }
+
+    public void removeHole()
+    {
+        courseHolesAdapter.removeCourseHole();
+    }
+
     public List<HoleModel> getCourseHoles()
     {
         return courseHolesAdapter.getCourseHoles();

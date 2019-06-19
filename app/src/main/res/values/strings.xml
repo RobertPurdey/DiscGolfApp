@@ -63,6 +63,10 @@
     <string name="add_friend">Add friend</string>
     <string name="name">Name</string>
     <string name="watch_game">Watch Game</string>
+    <string name="plus_symbol">+</string>
+    <string name="minus_symbol">-</string>
+    <string name="tee">Tee</string>
+    <string name="adjust_par">Adjust Par</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

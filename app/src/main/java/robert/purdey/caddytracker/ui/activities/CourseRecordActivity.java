@@ -117,10 +117,28 @@ public class CourseRecordActivity extends AppCompatActivity
             List<HoleModel> courseHoles = getCourseHoleFrag().getCourseHoles();
 
             courseRecordViewModel.insert(courseHoles).observe(this, courseModel -> {
-                // todo make back new key to model returned from api (do this for frolfgrouprecord too
                 courseRecordViewModel.setCourseRecord(courseModel);
-                LoadHoles(courseHoles);
+                LoadHoles(courseModel.Holes);
             });
+        }
+    }
+
+    public void onAddHole(View view)
+    {
+        CourseHolesFragment holeFrag    = getCourseHoleFrag();
+        int nextTee                     = getCourseHoleFrag().getCourseHoles().size()+1;
+        HoleModel newHole               = courseRecordViewModel.getNewHole(nextTee);
+
+        holeFrag.addHole(newHole);
+    }
+
+    public void onRemoveHole(View view)
+    {
+        CourseHolesFragment holeFrag = getCourseHoleFrag();
+
+        if ( holeFrag.getCourseHoles().size() > 1 )
+        {
+            holeFrag.removeHole();
         }
     }
 

@@ -73,6 +73,24 @@ public class CourseRecordViewModel extends ViewModel
         courseName.setValue( model.getName() );
     }
 
+    public HoleModel getNewHole(int tee)
+    {
+        UUID courseKey = UUID.randomUUID();
+
+        if ( courseId.getValue() != null )
+        {
+            courseKey = UUID.fromString(courseId.getValue());
+        }
+
+        HoleModel newHole = new HoleModel();
+        newHole.setOrder(tee);
+        newHole.setPar(3);
+        newHole.setCourseId(courseKey);
+        newHole.setIdKey(UUID.randomUUID());
+
+        return newHole;
+    }
+
     private void loadCourse(UUID id)
     {
         course = courseController.getCourse(id);
