@@ -73,8 +73,13 @@ public class FrolfGroupMemberListFragment  extends Fragment implements IItemClic
         }
     }
 
-    public void SetMemberClickListener(IItemClickListener listener)
+    public void setMemberClickListener(IItemClickListener listener)
     {
         memberClickListener = listener;
+    }
+
+    public void setShowSelection(boolean isShow)
+    {
+        playerAdapter.setShowSelection(isShow);
     }
 }

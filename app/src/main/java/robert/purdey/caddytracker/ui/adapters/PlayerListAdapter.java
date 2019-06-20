@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 import robert.purdey.caddytracker.R;
+import robert.purdey.caddytracker.ui.listeners.IInviteActionClickListener;
 import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
 import robert.purdey.caddytracker.ui.models.PlayerModel;
 
@@ -24,12 +25,14 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
     private final IItemClickListener clickListener;
     private List<PlayerModel> mPlayers;
     private HashSet<UUID> selectedIds;
+    private boolean showSelection;
 
     public PlayerListAdapter(Context context, IItemClickListener listener)
     {
         mInflater           = LayoutInflater.from(context);
         clickListener       = listener;
         selectedIds         = new HashSet<>();
+        showSelection       = false;
     }
 
     @Override
@@ -60,13 +63,19 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
                 holder.itemView.setOnClickListener(view -> {
                     if ( selectedIds.contains(key) )
                     {
-                        selectedIds.remove(key);
-                        holder.playerLayout.setSelected(false);
+                        if (showSelection)
+                        {
+                            selectedIds.remove(key);
+                            holder.playerLayout.setSelected(false);
+                        }
                     }
                     else
                     {
-                        selectedIds.add(key);
-                        holder.playerLayout.setSelected(true);
+                        if (showSelection)
+                        {
+                            selectedIds.add(key);
+                            holder.playerLayout.setSelected(true);
+                        }
                     }
 
                     clickListener.onClick(view, key);
@@ -96,6 +105,11 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
             return mPlayers.size();
         else
             return 0;
+    }
+
+    public void setShowSelection(boolean isShow)
+    {
+        showSelection = isShow;
     }
 
     class PlayerViewHolder extends RecyclerView.ViewHolder

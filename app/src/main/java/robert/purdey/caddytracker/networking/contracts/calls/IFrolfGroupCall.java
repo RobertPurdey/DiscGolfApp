@@ -45,8 +45,14 @@ public interface IFrolfGroupCall
         @Header("Authorization") String auth,
         @Body GameCreationModel creationModel);
 
-    @GET("api/frolfgroups/{id}/leave/")
+    @POST("api/frolfgroups/{id}/leave/")
     Call<Void> leaveGroup(
         @Header("Authorization") String auth,
         @Path("id") UUID groupId);
+
+    @POST("api/frolfgroups/{id}/removePlayer/{playerId}")
+    Call<Void> removePlayer(
+        @Header("Authorization") String auth,
+        @Path("id") UUID groupId,
+        @Path("playerId") UUID playerId);
 }

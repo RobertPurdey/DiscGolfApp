@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -71,14 +72,21 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
                 });
             }
         }
+
+        getFrolfGroupMemberFrag().setShowSelection(false);
     }
 
     private void LoadMembers(UUID groupId)
     {
-        FrolfGroupMemberListFragment fragment =
-            (FrolfGroupMemberListFragment) getSupportFragmentManager().findFragmentById(R.id.frag_frolf_group_member_list);
+        FrolfGroupMemberListFragment fragment = getFrolfGroupMemberFrag();
 
         fragment.Load(groupId);
+        fragment.setMemberClickListener( (view, id) -> confirmRemovePlayer(id) );
+    }
+
+    private FrolfGroupMemberListFragment getFrolfGroupMemberFrag()
+    {
+        return (FrolfGroupMemberListFragment) getSupportFragmentManager().findFragmentById(R.id.frag_frolf_group_member_list);
     }
 
     public void onCreateFrolfGroup(View view)
@@ -123,6 +131,41 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
                 }
             });
         }
+    }
+
+    private void removePlayer(UUID id)
+    {
+        frolfGroupRecordViewModel.removePlayer(id, new IApiResponseListener()
+        {
+            @Override
+            public void onResponseSuccessful()
+            {
+                // Reload members
+                LoadMembers(FrolfGroupId);
+            }
+
+            @Override
+            public void onResponseFailed()
+            {
+                // todo:
+            }
+
+            @Override
+            public void onCallFailure()
+            {
+                // todo:
+            }
+        });
+    }
+
+    private void confirmRemovePlayer(UUID playerId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder
+            .setMessage("Are you sure you want to remove this player? The player's group data cannot be recovered.")
+            .setPositiveButton("Yes", (dialog, id) -> removePlayer(playerId))
+            .setNegativeButton("No",  (dialog, id) -> dialog.cancel() )
+            .show();
     }
 
     private void goToManageFrolfGroupsActivity()

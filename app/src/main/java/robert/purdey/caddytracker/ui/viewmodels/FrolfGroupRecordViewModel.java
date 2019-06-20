@@ -107,6 +107,15 @@ public class FrolfGroupRecordViewModel extends ViewModel
         }
     }
 
+    public void removePlayer(UUID playerId, IApiResponseListener listener)
+    {
+        if ( groupId.getValue() != null )
+        {
+            UUID groupKey = UUID.fromString(groupId.getValue());
+            frolfGroupController.removePlayer(groupKey, playerId, listener);
+        }
+    }
+
     private void loadFrolfGroup(UUID id)
     {
         frolfGroup = frolfGroupController.getFrolfGroup(id);

@@ -32,12 +32,8 @@ public class FrolfGroupMembersViewModel extends ViewModel
 
     public LiveData<List<PlayerModel>> getFrolfGroupMembers(UUID groupId)
     {
-        // todo: maybe this check requires isDirty??
-        if (groupMembers == null)
-        {
-            groupMembers = new MutableLiveData<>();
-            loadFrolfGroupMembers(groupId);
-        }
+        groupMembers = new MutableLiveData<>();
+        loadFrolfGroupMembers(groupId);
 
         return groupMembers;
     }

@@ -235,4 +235,35 @@ public class FrolfGroupController
             }
         });
     }
+
+    @Override
+    public void removePlayer(UUID groupId, UUID playerId, IApiResponseListener listener)
+    {
+        Call<Void> caller = getApiCall().removePlayer(getAuthorizationHeader(), groupId, playerId);
+
+        caller.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(
+                Call<Void> call,
+                Response<Void> response)
+            {
+                if ( response.isSuccessful() )
+                {
+                    listener.onResponseSuccessful();
+                }
+                else
+                {
+                    listener.onResponseFailed();
+                }
+            }
+
+            @Override
+            public void onFailure(
+                Call<Void> call,
+                Throwable t)
+            {
+                listener.onCallFailure();
+            }
+        });
+    }
 }

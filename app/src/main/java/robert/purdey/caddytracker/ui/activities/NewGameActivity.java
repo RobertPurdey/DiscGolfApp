@@ -18,7 +18,6 @@ import robert.purdey.caddytracker.ui.fragments.CourseListFragment;
 import robert.purdey.caddytracker.ui.fragments.FrolfGroupListFragment;
 import robert.purdey.caddytracker.ui.fragments.FrolfGroupMemberListFragment;
 import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
-import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.viewmodels.NewGameViewModel;
 
 public class NewGameActivity extends AppCompatActivity
@@ -44,7 +43,7 @@ public class NewGameActivity extends AppCompatActivity
 
             chooseCourseFrag.SetCourseClickListener(  (view, id) -> onCourseSelected(id)     );
             chooseGroupFrag.SetGroupClickListener(    (view, id) -> onFrolfGroupSelected(id) );
-            chooseMembersFrag.SetMemberClickListener( (view, id) -> onMemberSelected(id)     );
+            chooseMembersFrag.setMemberClickListener( (view, id) -> onMemberSelected(id)     );
 
             FragmentManager fm = getSupportFragmentManager();
 
@@ -57,9 +56,9 @@ public class NewGameActivity extends AppCompatActivity
             fm.executePendingTransactions();
 
             fm.beginTransaction()
-                .hide( this.getCourseListFragment()    )
+                .hide( this.getCourseListFragment()   )
                 .hide( this.getMembersListFragment()  )
-                .show( this.getGroupListFragment()   )
+                .show( this.getGroupListFragment()    )
                 .commit();
 
             SetSelectionDescription("Select group");
@@ -78,9 +77,9 @@ public class NewGameActivity extends AppCompatActivity
      */
     public void addGame(View view)
     {
-        newGameViewModel.CreateGame().observe(this, gameModel -> {
-            ActivityStarter.startScoreGameActivity(this, gameModel.getIdKey());
-        });
+        newGameViewModel.CreateGame().observe(this, gameModel ->
+            ActivityStarter.startScoreGameActivity(this, gameModel.getIdKey())
+        );
     }
 
     private void onCourseSelected(UUID id)
@@ -93,8 +92,8 @@ public class NewGameActivity extends AppCompatActivity
             this.getMembersListFragment().Load( newGameViewModel.getGroupId() );
 
             getSupportFragmentManager().beginTransaction()
-                .hide( this.getCourseListFragment() )
-                .hide( this.getGroupListFragment() )
+                .hide( this.getCourseListFragment()  )
+                .hide( this.getGroupListFragment()   )
                 .show( this.getMembersListFragment() )
                 .commit();
 
@@ -125,8 +124,8 @@ public class NewGameActivity extends AppCompatActivity
 
             getSupportFragmentManager().beginTransaction()
                 .hide( this.getMembersListFragment()  )
-                .hide( this.getGroupListFragment()   )
-                .show( this.getCourseListFragment() )
+                .hide( this.getGroupListFragment()    )
+                .show( this.getCourseListFragment()   )
                 .commit();
         }
     }
