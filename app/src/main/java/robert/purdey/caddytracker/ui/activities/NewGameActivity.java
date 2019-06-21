@@ -41,7 +41,7 @@ public class NewGameActivity extends AppCompatActivity
             FrolfGroupListFragment chooseGroupFrag          = new FrolfGroupListFragment();
             FrolfGroupMemberListFragment chooseMembersFrag  = new FrolfGroupMemberListFragment();
 
-            chooseCourseFrag.SetCourseClickListener(  (view, id) -> onCourseSelected(id)     );
+            chooseCourseFrag.setCourseClickListener(  (view, id) -> onCourseSelected(id)     );
             chooseGroupFrag.SetGroupClickListener(    (view, id) -> onFrolfGroupSelected(id) );
             chooseMembersFrag.setMemberClickListener( (view, id) -> onMemberSelected(id)     );
 

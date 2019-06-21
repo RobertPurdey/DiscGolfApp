@@ -121,6 +121,10 @@ public class CourseRecordActivity extends AppCompatActivity
                 LoadHoles(courseModel.Holes);
             });
         }
+        else
+        {
+            courseRecordViewModel.update();
+        }
     }
 
     public void onAddHole(View view)

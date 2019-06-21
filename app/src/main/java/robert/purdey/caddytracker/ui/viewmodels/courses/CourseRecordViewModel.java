@@ -66,6 +66,17 @@ public class CourseRecordViewModel extends ViewModel
         return course;
     }
 
+    public void update()
+    {
+        CourseModel model = new CourseModel();
+
+        model.setFrolfGroupId(UUID.fromString(frolfGroupId.getValue()));
+        model.setIdKey(UUID.fromString(courseId.getValue()));
+        model.setName(courseName.getValue());
+
+        courseController.update(model);
+    }
+
     public void setCourseRecord(CourseModel model)
     {
         courseId.setValue( model.getIdKey() == null ? null : model.getIdKey().toString() );

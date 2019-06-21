@@ -4,7 +4,6 @@ import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.domain.courses.CourseFilter;
 import robert.purdey.caddytracker.ui.fragments.CourseListFragment;
 import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
-import robert.purdey.caddytracker.ui.models.CourseModel;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +35,8 @@ public class ManageCoursesActivity extends AppCompatActivity
             FrolfGroupId    = id;
             loadHoles();
         }
+
+        getCourseListFrag().setCourseClickListener( (view, id) -> onCourseSelected(id) );
     }
 
     private void loadHoles()
@@ -53,7 +54,7 @@ public class ManageCoursesActivity extends AppCompatActivity
 
     private void onCourseSelected(UUID id)
     {
-
+        ActivityStarter.startCourseRecordActivity(this, id, FrolfGroupId);
     }
     /**
      * Start FrolfGroupRecordActivity in create mode

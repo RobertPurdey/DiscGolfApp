@@ -13,4 +13,5 @@ public interface ICourseController
     MutableLiveData<List<CourseModel>> getAll();
     MutableLiveData<List<CourseModel>> getWithFilter(CourseFilter filter);
     MutableLiveData<CourseModel> insert(CourseModel newModel);
+    void update(CourseModel newModel);
 }

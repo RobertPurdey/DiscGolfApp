@@ -74,7 +74,7 @@ public class CourseListFragment extends Fragment implements IItemClickListener
         }
     }
 
-    public void SetCourseClickListener(IItemClickListener listener)
+    public void setCourseClickListener(IItemClickListener listener)
     {
         courseClickLisetner = listener;
     }

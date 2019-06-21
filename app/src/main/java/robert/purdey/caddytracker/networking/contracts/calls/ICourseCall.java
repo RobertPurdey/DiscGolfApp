@@ -8,6 +8,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import robert.purdey.caddytracker.domain.courses.CourseFilter;
 import robert.purdey.caddytracker.ui.models.CourseModel;
@@ -32,4 +33,9 @@ public interface ICourseCall
     Call<CourseModel> insert(
         @Header("Authorization") String auth,
         @Body CourseModel newCourse);
+
+    @POST("api/courses/update/")
+    Call<Void> update(
+        @Header("Authorization") String auth,
+        @Body CourseModel course);
 }
