@@ -98,6 +98,10 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
                 LoadMembers(frolfGroupModel.getIdKey());
             });
         }
+        else
+        {
+            frolfGroupRecordViewModel.update();
+        }
     }
 
     public void onSendInvite(View view)

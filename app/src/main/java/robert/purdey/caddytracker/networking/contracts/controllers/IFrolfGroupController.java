@@ -16,7 +16,7 @@ public interface IFrolfGroupController
     MutableLiveData<FrolfGroupModel> getFrolfGroup(UUID id);
     MutableLiveData<List<PlayerModel>> getGroupMembers(UUID groupId);
     MutableLiveData<FrolfGroupModel> insert(FrolfGroupModel model);
-    MutableLiveData<FrolfGroupModel> update(FrolfGroupModel model);
+    void update(FrolfGroupModel model);
     MutableLiveData<GameModel> createGame(GameCreationModel model);
     void leaveGroup(UUID groupId, IApiResponseListener listener);
     void removePlayer(UUID groupId, UUID playerId, IApiResponseListener listener);

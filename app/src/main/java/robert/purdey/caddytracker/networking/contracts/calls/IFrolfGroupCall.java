@@ -36,8 +36,8 @@ public interface IFrolfGroupCall
         @Header("Authorization") String auth,
         @Body FrolfGroupModel groupModel);
 
-    @PUT("api/frolfgroups/")
-    Call<FrolfGroupModel> update(
+    @POST("api/frolfgroups/update/")
+    Call<Void> update(
         @Header("Authorization") String auth,
         @Body FrolfGroupModel groupModel);
 

@@ -87,15 +87,13 @@ public class FrolfGroupRecordViewModel extends ViewModel
         groupName.setValue( model.getName() );
     }
 
-    public LiveData<FrolfGroupModel> update()
+    public void update()
     {
         FrolfGroupModel model = new FrolfGroupModel();
         model.setIdKey( UUID.fromString( groupId.getValue() ) );
         model.setName( groupName.getValue() );
 
-        //frolfGroup = frolfGroupController.insert(model);
-
-        return frolfGroup;
+        frolfGroupController.update(model);
     }
 
     public void leaveGroup(IApiResponseListener listener)

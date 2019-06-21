@@ -114,33 +114,30 @@ public class FrolfGroupController
         return data;
     }
 
-    public MutableLiveData<FrolfGroupModel> update(FrolfGroupModel model)
+    public void update(FrolfGroupModel model)
     {
-        final MutableLiveData<FrolfGroupModel> data = new MutableLiveData<>();
-        Call<FrolfGroupModel> caller = getApiCall().update(getAuthorizationHeader(), model);
+        Call<Void> caller = getApiCall().update(getAuthorizationHeader(), model);
 
-        caller.enqueue(new Callback<FrolfGroupModel>() {
+        caller.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(
-                Call<FrolfGroupModel> call,
-                Response<FrolfGroupModel> response)
+                Call<Void> call,
+                Response<Void> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    data.setValue(response.body());
+
                 }
             }
 
             @Override
             public void onFailure(
-                Call<FrolfGroupModel> call,
+                Call<Void> call,
                 Throwable t)
             {
                 System.out.println("Failed to retrieve groups because you are a loser and have none!");
             }
         });
-
-        return data;
     }
 
     public MutableLiveData<List<PlayerModel>> getGroupMembers(UUID groupId)
