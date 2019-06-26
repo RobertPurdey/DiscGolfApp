@@ -8,6 +8,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import robert.purdey.caddytracker.domain.encryption.EncryptModel;
 import robert.purdey.caddytracker.ui.activities.CreateAccountActivity;
 import robert.purdey.caddytracker.ui.models.AppUserCreationModel;
 import robert.purdey.caddytracker.ui.models.AppUserModel;
@@ -33,7 +34,7 @@ public interface IAppUserCall
 
     @POST("api/appusers/create/account")
     Call<Void> createAccount(
-        @Body AppUserCreationModel userCreateRequest);
+        @Body EncryptModel userCreateRequest);
 
     @POST("api/appusers/update/account")
     Call<Void> updateAccount(

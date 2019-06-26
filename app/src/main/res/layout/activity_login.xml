@@ -75,6 +75,18 @@
                 android:text="@string/create_account"
                 android:onClick="onCreateAccount"/>
 
+
+            <!-- Login button -->
+            <Button
+                android:id="@+id/aaaaa"
+                android:textColor="@color/white"
+                android:background="@color/button_green"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/bttn_activity_login"
+                android:layout_margin="5dp"
+                android:text="test encrypt"
+                android:onClick="onTestEncrypt"/>
         </LinearLayout>
 
     </RelativeLayout>

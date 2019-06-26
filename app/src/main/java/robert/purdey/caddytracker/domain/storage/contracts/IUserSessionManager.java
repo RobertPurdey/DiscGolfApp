@@ -17,11 +17,11 @@ public interface IUserSessionManager
     UUID getCurrentUserId();
     void storeCurrentUserId(@NonNull UUID id);
 
-    byte[] getEncodedPrivateKey();
-    void storeEncodedPrivateKey(@NonNull byte[] privateKey);
+    byte[] getEncodedPrivateKeySpec();
+    void storeEncodedPrivateKeySpec(@NonNull byte[] privateKey);
 
-    byte[] getEncodedPublicKey();
-    void storeEncodedPublicKey(@NonNull byte[] publicKey);
+    byte[] getEncodedPublicKeySpec();
+    void storeEncodedPublicKeySpec(@NonNull byte[] publicKey);
 
     boolean isValidUserSession();
 

@@ -31,4 +31,9 @@ public class FrolfApp extends Application
     {
         return userSession;
     }
+
+    public static String GetServerPublicKey()
+    {
+        return "";
+    }
 }

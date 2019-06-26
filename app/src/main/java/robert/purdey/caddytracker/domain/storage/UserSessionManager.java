@@ -79,25 +79,25 @@ public class UserSessionManager implements IUserSessionManager
     }
 
     @Override
-    public byte[] getEncodedPrivateKey()
+    public byte[] getEncodedPrivateKeySpec()
     {
         return sharedPref.getData(PRIVATE_KEY).getBytes();
     }
 
     @Override
-    public void storeEncodedPrivateKey(@NonNull byte[] privateKey)
+    public void storeEncodedPrivateKeySpec(@NonNull byte[] privateKey)
     {
         sharedPref.saveData(PRIVATE_KEY, privateKey.toString());
     }
 
     @Override
-    public byte[] getEncodedPublicKey()
+    public byte[] getEncodedPublicKeySpec()
     {
         return sharedPref.getData(PUBLIC_KEY).getBytes();
     }
 
     @Override
-    public void storeEncodedPublicKey(@NonNull byte[] publicKey)
+    public void storeEncodedPublicKeySpec(@NonNull byte[] publicKey)
     {
         sharedPref.saveData(PUBLIC_KEY, publicKey.toString());
     }
@@ -117,7 +117,7 @@ public class UserSessionManager implements IUserSessionManager
     {
         storeToken("");
         storeRefreshToken("");
-        storeEncodedPrivateKey(new byte[0]);
-        storeEncodedPublicKey(new byte[0]);
+        storeEncodedPrivateKeySpec(new byte[0]);
+        storeEncodedPublicKeySpec(new byte[0]);
     }
 }

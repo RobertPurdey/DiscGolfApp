@@ -1,11 +1,18 @@
 package robert.purdey.caddytracker.networking.controllers;
 
+import com.google.gson.Gson;
+
 import okhttp3.Authenticator;
+import robert.purdey.caddytracker.domain.encryption.EncryptModel;
 import robert.purdey.caddytracker.networking.arguments.HttpClientArg;
 import robert.purdey.caddytracker.networking.authentication.TokenRefresher;
 import robert.purdey.caddytracker.networking.contracts.calls.IApiCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IApiController;
+import robert.purdey.caddytracker.networking.contracts.encryption.IModelEncryptor;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
+import robert.purdey.caddytracker.networking.encryption.ModelEncryptor;
+import robert.purdey.caddytracker.security.encryption.AesManager;
+import robert.purdey.caddytracker.security.encryption.RsaManager;
 import robert.purdey.caddytracker.ui.FrolfApp;
 
 
@@ -13,8 +20,10 @@ public abstract class ApiController<TApiCall> implements IApiController<TApiCall
 {
     private TApiCall apiCall;
     private IApiCallService apiCallService;
+    private IModelEncryptor modelEncryptor;
     private HttpClientArg httpClientArg;
     private Class<TApiCall> apiCallClass;
+    private Gson gson;
 
     public ApiController(
         IApiCallService apiCallService,
@@ -22,8 +31,11 @@ public abstract class ApiController<TApiCall> implements IApiController<TApiCall
     {
         this.apiCallService  = apiCallService;
         this.apiCallClass    = apiCallClass;
+        this.modelEncryptor  = createModelEncryptor();
         this.httpClientArg   = createHttpClientArg();
         this.apiCall         = apiCallService.getApiCall(httpClientArg, apiCallClass);
+
+        gson = new Gson();
     }
 
     private HttpClientArg createHttpClientArg()
@@ -33,6 +45,25 @@ public abstract class ApiController<TApiCall> implements IApiController<TApiCall
             10,
             IApiCall.BASE_URL,
             CreateAuthenticator() );
+    }
+
+    private IModelEncryptor createModelEncryptor()
+    {
+        IModelEncryptor modelEncryptor = null;
+
+        try
+        {
+            RsaManager rsaManager   = new RsaManager();
+            AesManager aesManager   = new AesManager();
+
+            modelEncryptor = new ModelEncryptor(rsaManager, aesManager);
+        }
+        catch (Exception ex)
+        {
+
+        }
+
+        return modelEncryptor;
     }
 
     protected String getAuthorizationHeader()
@@ -53,6 +84,13 @@ public abstract class ApiController<TApiCall> implements IApiController<TApiCall
     protected HttpClientArg getHttpClientArg()
     {
         return httpClientArg;
+    }
+
+    protected EncryptModel encryptModel(Object model)
+    {
+        String jsonModel = gson.toJson(model);
+
+        return modelEncryptor.encrypt(jsonModel);
     }
 
     private Authenticator CreateAuthenticator()

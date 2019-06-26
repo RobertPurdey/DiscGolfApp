@@ -5,6 +5,7 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import robert.purdey.caddytracker.domain.encryption.EncryptModel;
 import robert.purdey.caddytracker.domain.storage.UserSessionManager;
 import robert.purdey.caddytracker.networking.contracts.calls.IAppUserCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IAppUserController;
@@ -107,7 +108,8 @@ public class AppUserController
         AppUserCreationModel userCreateRequest,
         IApiResponseListener listener)
     {
-        Call<Void> createAccountCall = getApiCall().createAccount(userCreateRequest);
+        EncryptModel encryptModel     = encryptModel(userCreateRequest);
+        Call<Void> createAccountCall  = getApiCall().createAccount(encryptModel);
 
         createAccountCall.enqueue(new Callback<Void>() {
             @Override
