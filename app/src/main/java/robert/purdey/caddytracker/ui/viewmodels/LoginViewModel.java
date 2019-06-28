@@ -2,11 +2,23 @@ package robert.purdey.caddytracker.ui.viewmodels;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+
+import java.math.BigInteger;
+import java.security.KeyPair;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.RSAPrivateKeySpec;
+import java.security.spec.RSAPublicKeySpec;
+import java.util.Base64;
+
+import robert.purdey.caddytracker.domain.storage.contracts.IUserSessionManager;
 import robert.purdey.caddytracker.networking.HttpClientConfig;
 import robert.purdey.caddytracker.networking.RetrofitConfig;
 import robert.purdey.caddytracker.networking.contracts.controllers.IAppUserController;
 import robert.purdey.caddytracker.networking.controllers.AppUserController;
 import robert.purdey.caddytracker.networking.services.ApiCallService;
+import robert.purdey.caddytracker.security.encryption.RsaManager;
+import robert.purdey.caddytracker.ui.FrolfApp;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.LoginModel;
 import robert.purdey.caddytracker.ui.models.TokenModel;
@@ -46,5 +58,29 @@ public class LoginViewModel extends ViewModel
     public void storeCurrentUserInfo(IApiResponseListener listener)
     {
         appUserController.getCurrentUserInfo(listener);
+    }
+
+    public void setRsaKeys(IApiResponseListener listener)
+    {
+        RSAPublicKey rsaPubKey   = null;
+        RSAPrivateKey rsaPrivKey = null;
+
+        try
+        {
+            RsaManager rsaManager = new RsaManager();
+            KeyPair rsaKeyPair    = rsaManager.generateRsaKeyPair();
+
+            rsaPubKey  = (RSAPublicKey)  rsaKeyPair.getPublic();
+            rsaPrivKey = (RSAPrivateKey) rsaKeyPair.getPrivate();
+
+            IUserSessionManager userSession = FrolfApp.getUserSession();
+
+            userSession.storeRsaModulus(rsaPubKey.getModulus());
+            userSession.storeRsaPublicExponent(rsaPubKey.getPublicExponent());
+            userSession.storeRsaPrivateExponent(rsaPrivKey.getPrivateExponent());
+
+            appUserController.setNewPublicKey(rsaPubKey, listener);
+        }
+        catch (Exception ex) { }
     }
 }

@@ -2,8 +2,10 @@ package robert.purdey.caddytracker.domain.storage.contracts;
 
 import android.support.annotation.NonNull;
 
+import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.spec.RSAPrivateKeySpec;
 import java.util.UUID;
 
 public interface IUserSessionManager
@@ -17,11 +19,16 @@ public interface IUserSessionManager
     UUID getCurrentUserId();
     void storeCurrentUserId(@NonNull UUID id);
 
-    byte[] getEncodedPrivateKeySpec();
-    void storeEncodedPrivateKeySpec(@NonNull byte[] privateKey);
+    BigInteger getRsaModulus();
+    void storeRsaModulus(@NonNull BigInteger modulus);
 
-    byte[] getEncodedPublicKeySpec();
-    void storeEncodedPublicKeySpec(@NonNull byte[] publicKey);
+    BigInteger getRsaPublicExponent();
+    void storeRsaPublicExponent(@NonNull BigInteger pubExponent);
+
+    BigInteger getRsaPrivateExponent();
+    void storeRsaPrivateExponent(@NonNull BigInteger privExponent);
+
+    RSAPrivateKeySpec getPrivateKeySpec();
 
     boolean isValidUserSession();
 

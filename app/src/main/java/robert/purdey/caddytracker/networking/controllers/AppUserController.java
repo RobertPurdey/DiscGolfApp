@@ -1,6 +1,11 @@
 package robert.purdey.caddytracker.networking.controllers;
 
 import android.arch.lifecycle.MutableLiveData;
+
+import java.nio.charset.StandardCharsets;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.RSAPrivateKeySpec;
+import java.util.Base64;
 import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -10,11 +15,13 @@ import robert.purdey.caddytracker.domain.storage.UserSessionManager;
 import robert.purdey.caddytracker.networking.contracts.calls.IAppUserCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IAppUserController;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
+import robert.purdey.caddytracker.security.encryption.RsaManager;
 import robert.purdey.caddytracker.ui.FrolfApp;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.AppUserCreationModel;
 import robert.purdey.caddytracker.ui.models.AppUserModel;
 import robert.purdey.caddytracker.ui.models.AppUserUpdateModel;
+import robert.purdey.caddytracker.ui.models.Keys.PublicKeyModel;
 import robert.purdey.caddytracker.ui.models.TokenModel;
 
 
@@ -72,20 +79,31 @@ public class AppUserController
         IApiResponseListener listener)
     {
         final MutableLiveData<AppUserModel> data = new MutableLiveData<>();
-        Call<AppUserModel> userCall = getApiCall().getCurrentUserInfo(getAuthorizationHeader());
+        Call<EncryptModel> userCall = getApiCall().getCurrentUserInfo(getAuthorizationHeader());
 
-        userCall.enqueue(new Callback<AppUserModel>() {
+        userCall.enqueue(new Callback<EncryptModel>() {
             @Override
-            public void onResponse(Call<AppUserModel> call, Response<AppUserModel> response)
+            public void onResponse(Call<EncryptModel> call, Response<EncryptModel> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    // todo: should token be stored a different way?
-                    UserSessionManager userSession = FrolfApp.getUserSession();
+                    RSAPrivateKeySpec keySpec = FrolfApp.getUserSession().getPrivateKeySpec();
+                    try
+                    {
+                        RsaManager manager = new RsaManager();
+                        byte[] encryptedBytes = Base64.getDecoder().decode(response.body().EncryptedJson.getBytes("UTF-8"));
+                        String jsonUser = manager.decrypt(keySpec, encryptedBytes);
 
-                    userSession.storeCurrentUserId(response.body().getIdKey());
+                        String hoooray = "pelase work!";
+                    }
+                    catch(Exception ex)
+                    {
+                        int x = 1;
+                    }
 
-                    data.setValue(response.body());
+                    //userSession.storeCurrentUserId(response.body().getIdKey());
+
+                    //data.setValue(response.body());
                     listener.onResponseSuccessful();
                 }
                 else
@@ -95,7 +113,7 @@ public class AppUserController
             }
 
             @Override
-            public void onFailure(Call<AppUserModel> call, Throwable t)
+            public void onFailure(Call<EncryptModel> call, Throwable t)
             {
                 listener.onCallFailure();
             }
@@ -159,5 +177,53 @@ public class AppUserController
                 listener.onCallFailure();
             }
         });
+    }
+
+    public void setNewPublicKey(
+        RSAPublicKey rsaPublicKey,
+        IApiResponseListener listener)
+    {
+        PublicKeyModel keyModel = new PublicKeyModel();
+        keyModel.setXmlRsaPublicKey( ConvertRsaPublicKeyToXml(rsaPublicKey) );
+
+        Call<Void> updateAccountCall = getApiCall().setNewPublicKey(keyModel);
+
+        updateAccountCall.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response)
+            {
+                if ( response.isSuccessful() )
+                {
+                    listener.onResponseSuccessful();
+                }
+                else
+                {
+                    listener.onResponseFailed();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t)
+            {
+                listener.onCallFailure();
+            }
+        });
+    }
+
+    private String ConvertRsaPublicKeyToXml(RSAPublicKey key)
+    {
+        byte[] modBytes  = key.getModulus().toByteArray();
+        byte[] stripSign = new byte[modBytes.length - 1];
+
+        System.arraycopy(modBytes, 1, stripSign, 0, modBytes.length - 1);
+        String modBase64 = Base64.getEncoder().encodeToString(stripSign);
+
+        byte[] pubBytes  = key.getPublicExponent().toByteArray();
+        String pubBase64 = Base64.getEncoder().encodeToString(pubBytes);
+
+        return "<RSAKeyValue>"
+             +     "<Modulus>" + modBase64 + "</Modulus>"
+             +     "<Exponent>" + pubBase64 + "</Exponent>"
+             + "</RSAKeyValue>";
     }
 }

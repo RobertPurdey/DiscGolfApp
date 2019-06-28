@@ -2,7 +2,11 @@ package robert.purdey.caddytracker.domain.storage;
 
 import android.support.annotation.NonNull;
 
+import java.lang.reflect.Array;
+import java.math.BigInteger;
 import java.security.PrivateKey;
+import java.security.spec.RSAPrivateKeySpec;
+import java.util.Base64;
 import java.util.UUID;
 
 import robert.purdey.caddytracker.domain.storage.contracts.ISharedPreferenceManager;
@@ -14,11 +18,12 @@ public class UserSessionManager implements IUserSessionManager
     private static UserSessionManager userSession = new UserSessionManager();
     private static ISharedPreferenceManager sharedPref;
 
-    private static final String TOKEN_KEY = "com.purdey.caddytracker.token";
-    private static final String REFRESH_TOKEN_KEY = "com.purdey.caddytracker.refreshToken";
-    private static final String CURRENT_USER_ID_KEY = "com.purdey.caddytracker.current.user.id";
-    private static final String PUBLIC_KEY = "com.purdey.caddytracker.publicKey";
-    private static final String PRIVATE_KEY = "com.purdey.caddytracker.privateKey";
+    private static final String TOKEN_KEY               = "com.purdey.caddytracker.token";
+    private static final String REFRESH_TOKEN_KEY       = "com.purdey.caddytracker.refreshToken";
+    private static final String CURRENT_USER_ID_KEY     = "com.purdey.caddytracker.current.user.id";
+    private static final String KEY_MODULUS             = "com.purdey.caddytracker.keyModulus";
+    private static final String PUBLIC_KEY_EXPONENT     = "com.purdey.caddytracker.publicKeyExponent";
+    private static final String PRIVATE_KEY_EXPONENT    = "com.purdey.caddytracker.privateKeyExponent";
 
     private UserSessionManager()
     {
@@ -32,11 +37,6 @@ public class UserSessionManager implements IUserSessionManager
         {
             sharedPref = sharedPrefManager;
         }
-
-        //if ( keyStore == null )
-        //{
-        //    keyStore = keyStoreManager;
-        //}
 
         return userSession;
     }
@@ -79,27 +79,67 @@ public class UserSessionManager implements IUserSessionManager
     }
 
     @Override
-    public byte[] getEncodedPrivateKeySpec()
+    public BigInteger getRsaModulus()
     {
-        return sharedPref.getData(PRIVATE_KEY).getBytes();
+        String modBase64 = sharedPref.getData(KEY_MODULUS);
+        byte[] modBytes  = Base64.getDecoder().decode(modBase64);
+
+        return new BigInteger(1, modBytes);
     }
 
     @Override
-    public void storeEncodedPrivateKeySpec(@NonNull byte[] privateKey)
+    public void storeRsaModulus(@NonNull BigInteger modulus)
     {
-        sharedPref.saveData(PRIVATE_KEY, privateKey.toString());
+        byte[] modBytes  = modulus.toByteArray();
+        byte[] stripSign = new byte[modBytes.length - 1];
+
+        System.arraycopy(modBytes, 1, stripSign, 0, modBytes.length - 1);
+
+        String modBase64 = Base64.getEncoder().encodeToString(stripSign);
+
+        sharedPref.saveData(KEY_MODULUS, modBase64);
     }
 
     @Override
-    public byte[] getEncodedPublicKeySpec()
+    public BigInteger getRsaPublicExponent()
     {
-        return sharedPref.getData(PUBLIC_KEY).getBytes();
+        String pubBase64 = sharedPref.getData(PUBLIC_KEY_EXPONENT);
+        byte[] pubBytes  = Base64.getDecoder().decode(pubBase64);
+
+        return new BigInteger(pubBytes);
     }
 
     @Override
-    public void storeEncodedPublicKeySpec(@NonNull byte[] publicKey)
+    public void storeRsaPublicExponent(@NonNull BigInteger pubExponent)
     {
-        sharedPref.saveData(PUBLIC_KEY, publicKey.toString());
+        byte[] pubExponentBytes  = pubExponent.toByteArray();
+        String pubExponentBase64 = Base64.getEncoder().encodeToString(pubExponentBytes);
+
+        sharedPref.saveData(PUBLIC_KEY_EXPONENT, pubExponentBase64);
+    }
+
+    @Override
+    public BigInteger getRsaPrivateExponent()
+    {
+        String privBase64 = sharedPref.getData(PRIVATE_KEY_EXPONENT);
+        byte[] privBytes  = Base64.getDecoder().decode(privBase64);
+
+        return new BigInteger(privBytes);
+    }
+
+    @Override
+    public void storeRsaPrivateExponent(@NonNull BigInteger privExponent)
+    {
+        byte[] privExponentBytes  = privExponent.toByteArray();
+        String privExponentBase64 = Base64.getEncoder().encodeToString(privExponentBytes);
+
+        sharedPref.saveData(PRIVATE_KEY_EXPONENT, privExponentBase64);
+    }
+
+    @Override
+    public RSAPrivateKeySpec getPrivateKeySpec()
+    {
+        return new RSAPrivateKeySpec( getRsaModulus(), getRsaPrivateExponent() );
     }
 
     @Override
@@ -117,7 +157,8 @@ public class UserSessionManager implements IUserSessionManager
     {
         storeToken("");
         storeRefreshToken("");
-        storeEncodedPrivateKeySpec(new byte[0]);
-        storeEncodedPublicKeySpec(new byte[0]);
+        //storeRsaModulus(BigInteger.ZERO);
+        //storeRsaPublicExponent(BigInteger.ZERO);
+        //storeRsaPrivateExponent(BigInteger.ZERO);
     }
 }

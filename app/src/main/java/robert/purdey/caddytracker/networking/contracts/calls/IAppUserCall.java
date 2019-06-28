@@ -14,6 +14,7 @@ import robert.purdey.caddytracker.ui.models.AppUserCreationModel;
 import robert.purdey.caddytracker.ui.models.AppUserModel;
 import robert.purdey.caddytracker.ui.models.AppUserUpdateModel;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
+import robert.purdey.caddytracker.ui.models.Keys.PublicKeyModel;
 import robert.purdey.caddytracker.ui.models.TokenModel;
 
 public interface IAppUserCall
@@ -24,7 +25,7 @@ public interface IAppUserCall
         @FieldMap Map<String, String> loginAttempt);
 
     @GET("api/appusers/info")
-    Call<AppUserModel> getCurrentUserInfo(
+    Call<EncryptModel> getCurrentUserInfo(
         @Header("Authorization") String auth);
 
     @FormUrlEncoded
@@ -39,4 +40,8 @@ public interface IAppUserCall
     @POST("api/appusers/update/account")
     Call<Void> updateAccount(
         @Body AppUserUpdateModel userUpdateRequest);
+
+    @POST("api/appusers/setPublicKey")
+    Call<Void> setNewPublicKey(
+        @Body PublicKeyModel publicKeyModel);
 }
