@@ -103,6 +103,4 @@ public class RsaManager implements IRsaManager
 
         return decrypt(privateKey, encryptedMsg);
     }
-
-
 }

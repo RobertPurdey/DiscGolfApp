@@ -32,7 +32,6 @@ public class AesManager implements IAesManager
     @Override
     public String generateKey()
     {
-        // return "ROB ROB ROB ROB ";
         byte[] newKey       = new byte[KEY_SIZE];
         SecureRandom random = new SecureRandom();
 

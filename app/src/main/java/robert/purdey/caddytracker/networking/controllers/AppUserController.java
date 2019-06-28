@@ -79,22 +79,18 @@ public class AppUserController
         IApiResponseListener listener)
     {
         final MutableLiveData<AppUserModel> data = new MutableLiveData<>();
-        Call<EncryptModel> userCall = getApiCall().getCurrentUserInfo(getAuthorizationHeader());
+        Call<AppUserModel> userCall = getApiCall().getCurrentUserInfo(getAuthorizationHeader());
 
-        userCall.enqueue(new Callback<EncryptModel>() {
+        userCall.enqueue(new Callback<AppUserModel>() {
             @Override
-            public void onResponse(Call<EncryptModel> call, Response<EncryptModel> response)
+            public void onResponse(Call<AppUserModel> call, Response<AppUserModel> response)
             {
                 if ( response.isSuccessful() )
                 {
                     RSAPrivateKeySpec keySpec = FrolfApp.getUserSession().getPrivateKeySpec();
                     try
                     {
-                        RsaManager manager = new RsaManager();
-                        byte[] encryptedBytes = Base64.getDecoder().decode(response.body().EncryptedJson.getBytes("UTF-8"));
-                        String jsonUser = manager.decrypt(keySpec, encryptedBytes);
-
-                        String hoooray = "pelase work!";
+                        data.setValue(response.body());
                     }
                     catch(Exception ex)
                     {
@@ -113,7 +109,7 @@ public class AppUserController
             }
 
             @Override
-            public void onFailure(Call<EncryptModel> call, Throwable t)
+            public void onFailure(Call<AppUserModel> call, Throwable t)
             {
                 listener.onCallFailure();
             }

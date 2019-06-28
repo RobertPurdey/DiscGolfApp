@@ -23,7 +23,6 @@ public abstract class ApiController<TApiCall> implements IApiController<TApiCall
     private IModelEncryptor modelEncryptor;
     private HttpClientArg httpClientArg;
     private Class<TApiCall> apiCallClass;
-    private Gson gson;
 
     public ApiController(
         IApiCallService apiCallService,
@@ -34,8 +33,6 @@ public abstract class ApiController<TApiCall> implements IApiController<TApiCall
         this.modelEncryptor  = createModelEncryptor();
         this.httpClientArg   = createHttpClientArg();
         this.apiCall         = apiCallService.getApiCall(httpClientArg, apiCallClass);
-
-        gson = new Gson();
     }
 
     private HttpClientArg createHttpClientArg()
@@ -86,11 +83,14 @@ public abstract class ApiController<TApiCall> implements IApiController<TApiCall
         return httpClientArg;
     }
 
-    protected EncryptModel encryptModel(Object model)
+    protected <T> EncryptModel encryptModel(T model)
     {
-        String jsonModel = gson.toJson(model);
+        return modelEncryptor.encrypt(model);
+    }
 
-        return modelEncryptor.encrypt(jsonModel);
+    protected <T> T decryptModel(EncryptModel model, Class<T> tClass)
+    {
+        return modelEncryptor.decrypt(model, tClass);
     }
 
     private Authenticator CreateAuthenticator()

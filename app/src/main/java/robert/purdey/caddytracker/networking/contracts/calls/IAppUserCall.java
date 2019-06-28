@@ -25,7 +25,7 @@ public interface IAppUserCall
         @FieldMap Map<String, String> loginAttempt);
 
     @GET("api/appusers/info")
-    Call<EncryptModel> getCurrentUserInfo(
+    Call<AppUserModel> getCurrentUserInfo(
         @Header("Authorization") String auth);
 
     @FormUrlEncoded

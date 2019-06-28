@@ -84,18 +84,14 @@ public class UserSessionManager implements IUserSessionManager
         String modBase64 = sharedPref.getData(KEY_MODULUS);
         byte[] modBytes  = Base64.getDecoder().decode(modBase64);
 
-        return new BigInteger(1, modBytes);
+        return new BigInteger(modBytes);
     }
 
     @Override
     public void storeRsaModulus(@NonNull BigInteger modulus)
     {
         byte[] modBytes  = modulus.toByteArray();
-        byte[] stripSign = new byte[modBytes.length - 1];
-
-        System.arraycopy(modBytes, 1, stripSign, 0, modBytes.length - 1);
-
-        String modBase64 = Base64.getEncoder().encodeToString(stripSign);
+        String modBase64 = Base64.getEncoder().encodeToString(modBytes);
 
         sharedPref.saveData(KEY_MODULUS, modBase64);
     }
@@ -157,8 +153,5 @@ public class UserSessionManager implements IUserSessionManager
     {
         storeToken("");
         storeRefreshToken("");
-        //storeRsaModulus(BigInteger.ZERO);
-        //storeRsaPublicExponent(BigInteger.ZERO);
-        //storeRsaPrivateExponent(BigInteger.ZERO);
     }
 }

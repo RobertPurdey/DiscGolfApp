@@ -1,17 +1,19 @@
 package robert.purdey.caddytracker.networking.encryption;
+import com.google.gson.Gson;
 
+import java.security.spec.RSAPrivateKeySpec;
 import java.util.Base64;
-
 import robert.purdey.caddytracker.domain.encryption.EncryptModel;
 import robert.purdey.caddytracker.networking.contracts.encryption.IModelEncryptor;
 import robert.purdey.caddytracker.security.contracts.IAesManager;
 import robert.purdey.caddytracker.security.contracts.IRsaManager;
 import robert.purdey.caddytracker.security.encryption.ServerRsaPublicKeyInfo;
+import robert.purdey.caddytracker.ui.FrolfApp;
 
 public class ModelEncryptor implements IModelEncryptor
 {
-    IRsaManager rsaManager;
-    IAesManager aesManager;
+    private IRsaManager rsaManager;
+    private IAesManager aesManager;
 
     public ModelEncryptor(IRsaManager rsaManager, IAesManager aesManager)
     {
@@ -20,48 +22,46 @@ public class ModelEncryptor implements IModelEncryptor
     }
 
     @Override
-    public EncryptModel encrypt(String jsonModel)
+    public <T> EncryptModel encrypt(T modelToEncrypt)
     {
         String aesKey       = aesManager.generateKey();
         EncryptModel model  = null;
 
-        byte[] encryptedKey;
-        byte[] encryptedMsg;
-
         try
         {
-            encryptedKey = rsaManager.encrypt(ServerRsaPublicKeyInfo.RSA_KEY, aesKey);
-            encryptedMsg = aesManager.encrypt(aesKey, jsonModel);
+            String jsonModel = new Gson().toJson(modelToEncrypt);
 
-            String keyBase64 = Base64.getEncoder().encodeToString(encryptedKey);
-            String msgBase64 = Base64.getEncoder().encodeToString(encryptedMsg);
+            byte[] encryptedKey    = rsaManager.encrypt(ServerRsaPublicKeyInfo.RSA_KEY, aesKey);
+            byte[] encryptedMsg    = aesManager.encrypt(aesKey, jsonModel);
+            Base64.Encoder encoder = Base64.getEncoder();
+
+            String keyBase64 = encoder.encodeToString(encryptedKey);
+            String msgBase64 = encoder.encodeToString(encryptedMsg);
 
             model = new EncryptModel(keyBase64, msgBase64);
         }
-        catch (Exception ex)
-        {
-            // todo: what to do?
-            int x = 1;
-        }
+        catch (Exception ex) { }
 
         return model;
     }
 
     @Override
-    public String decrypt(EncryptModel encryptModel)
+    public <T> T decrypt(EncryptModel encryptModel, Class<T> tClass)
     {
-        // todo: handle decrypt after encrypt and send works
-        String jsonModel = null;
-
+        String decryptedJson = "";
         try
         {
+            RSAPrivateKeySpec privKeySpec = FrolfApp.getUserSession().getPrivateKeySpec();
+            Base64.Decoder decoder        = Base64.getDecoder();
 
+            byte[] encryptedAesKeyBytes = decoder.decode(encryptModel.getEncryptedAesKey());
+            String decryptedAesKeyBytes = rsaManager.decrypt(privKeySpec, encryptedAesKeyBytes);
+
+            byte[] encryptedJsonBytes   = decoder.decode(encryptModel.EncryptedJson);
+            decryptedJson               = aesManager.decrypt(decryptedAesKeyBytes, encryptedJsonBytes);
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) { }
 
-        }
-
-        return null;
+        return new Gson().fromJson(decryptedJson, tClass);
     }
 }
