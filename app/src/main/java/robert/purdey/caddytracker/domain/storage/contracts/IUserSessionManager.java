@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.RSAPrivateKeySpec;
+import java.security.spec.RSAPublicKeySpec;
 import java.util.UUID;
 
 public interface IUserSessionManager
@@ -29,6 +30,8 @@ public interface IUserSessionManager
     void storeRsaPrivateExponent(@NonNull BigInteger privExponent);
 
     RSAPrivateKeySpec getPrivateKeySpec();
+
+    RSAPublicKeySpec getPublicKeySpec();
 
     boolean isValidUserSession();
 

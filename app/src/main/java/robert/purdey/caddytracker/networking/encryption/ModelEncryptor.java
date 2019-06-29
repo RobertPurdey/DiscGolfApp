@@ -1,6 +1,6 @@
 package robert.purdey.caddytracker.networking.encryption;
-import com.google.gson.Gson;
 
+import com.google.gson.Gson;
 import java.security.spec.RSAPrivateKeySpec;
 import java.util.Base64;
 import robert.purdey.caddytracker.domain.encryption.EncryptModel;
@@ -22,7 +22,7 @@ public class ModelEncryptor implements IModelEncryptor
     }
 
     @Override
-    public <T> EncryptModel encrypt(T modelToEncrypt)
+    public <TModel> EncryptModel encrypt(TModel modelToEncrypt)
     {
         String aesKey       = aesManager.generateKey();
         EncryptModel model  = null;
@@ -46,19 +46,20 @@ public class ModelEncryptor implements IModelEncryptor
     }
 
     @Override
-    public <T> T decrypt(EncryptModel encryptModel, Class<T> tClass)
+    public <TModel> TModel decrypt(EncryptModel encryptModel, Class<TModel> tClass)
     {
         String decryptedJson = "";
+
         try
         {
             RSAPrivateKeySpec privKeySpec = FrolfApp.getUserSession().getPrivateKeySpec();
             Base64.Decoder decoder        = Base64.getDecoder();
 
             byte[] encryptedAesKeyBytes = decoder.decode(encryptModel.getEncryptedAesKey());
-            String decryptedAesKeyBytes = rsaManager.decrypt(privKeySpec, encryptedAesKeyBytes);
+            String decryptedAesKeyBas64 = rsaManager.decrypt(privKeySpec, encryptedAesKeyBytes);
 
             byte[] encryptedJsonBytes   = decoder.decode(encryptModel.EncryptedJson);
-            decryptedJson               = aesManager.decrypt(decryptedAesKeyBytes, encryptedJsonBytes);
+            decryptedJson               = aesManager.decrypt(decryptedAesKeyBas64, encryptedJsonBytes);
         }
         catch (Exception ex) { }
 

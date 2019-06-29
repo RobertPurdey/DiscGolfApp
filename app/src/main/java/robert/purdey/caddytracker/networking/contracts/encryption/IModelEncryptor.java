@@ -4,6 +4,6 @@ import robert.purdey.caddytracker.domain.encryption.EncryptModel;
 
 public interface IModelEncryptor
 {
-    <T> EncryptModel encrypt(T model);
-    <T> T decrypt(EncryptModel encryptModel, Class<T> tClass);
+    <TModel> EncryptModel encrypt(TModel model);
+    <TModel> TModel decrypt(EncryptModel encryptModel, Class<TModel> tClass);
 }

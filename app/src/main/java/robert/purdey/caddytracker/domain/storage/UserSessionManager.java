@@ -6,6 +6,7 @@ import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.spec.RSAPrivateKeySpec;
+import java.security.spec.RSAPublicKeySpec;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -136,6 +137,12 @@ public class UserSessionManager implements IUserSessionManager
     public RSAPrivateKeySpec getPrivateKeySpec()
     {
         return new RSAPrivateKeySpec( getRsaModulus(), getRsaPrivateExponent() );
+    }
+
+    @Override
+    public RSAPublicKeySpec getPublicKeySpec()
+    {
+        return new RSAPublicKeySpec( getRsaModulus(), getRsaPublicExponent() );
     }
 
     @Override

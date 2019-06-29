@@ -18,7 +18,7 @@ import robert.purdey.caddytracker.security.contracts.IAesManager;
 public class AesManager implements IAesManager
 {
     private final String AES                = "AES";
-    private final String CIPHER_INSTANCE    = "AES/CBC/PKCS7Padding";
+    private final String CIPHER_INSTANCE    = "AES/CBC/PKCS5Padding";
     private final int IV_SIZE               = 16;
     private final int KEY_SIZE              = 16;
 
@@ -46,8 +46,10 @@ public class AesManager implements IAesManager
     {
         byte[] msgBytes         = msg.getBytes();
         byte[] iv               = GetRandomizedInitVector();
+        byte[] keyBytes         = key.getBytes();
+
         IvParameterSpec ivParam = new IvParameterSpec(iv);
-        SecretKeySpec keySpec   = new SecretKeySpec(key.getBytes(), AES);
+        SecretKeySpec keySpec   = new SecretKeySpec(keyBytes, AES);
 
         cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivParam);
 
@@ -72,8 +74,10 @@ public class AesManager implements IAesManager
     {
         byte[] iv               = GetIvFromEncryptedMsg(encryptedMsg);
         byte[] encryptedBytes   = GetBytesFromEncryptedMsg(encryptedMsg);
+        byte[] keyBytes         = Base64.getDecoder().decode(key);
+
         IvParameterSpec ivParam = new IvParameterSpec(iv);
-        SecretKeySpec keySpec   = new SecretKeySpec(key.getBytes(), AES);
+        SecretKeySpec keySpec   = new SecretKeySpec(keyBytes, AES);
 
         cipher.init(Cipher.DECRYPT_MODE, keySpec, ivParam);
 

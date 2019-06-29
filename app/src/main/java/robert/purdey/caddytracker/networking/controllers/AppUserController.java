@@ -15,6 +15,7 @@ import robert.purdey.caddytracker.domain.storage.UserSessionManager;
 import robert.purdey.caddytracker.networking.contracts.calls.IAppUserCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IAppUserController;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
+import robert.purdey.caddytracker.security.encryption.AesManager;
 import robert.purdey.caddytracker.security.encryption.RsaManager;
 import robert.purdey.caddytracker.ui.FrolfApp;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
@@ -74,32 +75,21 @@ public class AppUserController
         return data;
     }
 
-    // todo: return proper token
     public MutableLiveData<AppUserModel> getCurrentUserInfo(
         IApiResponseListener listener)
     {
         final MutableLiveData<AppUserModel> data = new MutableLiveData<>();
-        Call<AppUserModel> userCall = getApiCall().getCurrentUserInfo(getAuthorizationHeader());
+        Call<EncryptModel> userCall = getApiCall().getCurrentUserInfo(getAuthorizationHeader());
 
-        userCall.enqueue(new Callback<AppUserModel>() {
+        userCall.enqueue(new Callback<EncryptModel>() {
             @Override
-            public void onResponse(Call<AppUserModel> call, Response<AppUserModel> response)
+            public void onResponse(Call<EncryptModel> call, Response<EncryptModel> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    RSAPrivateKeySpec keySpec = FrolfApp.getUserSession().getPrivateKeySpec();
-                    try
-                    {
-                        data.setValue(response.body());
-                    }
-                    catch(Exception ex)
-                    {
-                        int x = 1;
-                    }
+                    AppUserModel model = decryptModel(response.body(), AppUserModel.class);
+                    data.setValue(model);
 
-                    //userSession.storeCurrentUserId(response.body().getIdKey());
-
-                    //data.setValue(response.body());
                     listener.onResponseSuccessful();
                 }
                 else
@@ -109,7 +99,7 @@ public class AppUserController
             }
 
             @Override
-            public void onFailure(Call<AppUserModel> call, Throwable t)
+            public void onFailure(Call<EncryptModel> call, Throwable t)
             {
                 listener.onCallFailure();
             }
@@ -218,7 +208,7 @@ public class AppUserController
         String pubBase64 = Base64.getEncoder().encodeToString(pubBytes);
 
         return "<RSAKeyValue>"
-             +     "<Modulus>" + modBase64 + "</Modulus>"
+             +     "<Modulus>"  + modBase64 + "</Modulus>"
              +     "<Exponent>" + pubBase64 + "</Exponent>"
              + "</RSAKeyValue>";
     }
