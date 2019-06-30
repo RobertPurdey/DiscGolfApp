@@ -10,6 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import robert.purdey.caddytracker.domain.encryption.EncryptModel;
 import robert.purdey.caddytracker.domain.frolfgroups.FrolfGroupInviteFilterModel;
 import robert.purdey.caddytracker.ui.models.FrolfGroupInviteModel;
 import robert.purdey.caddytracker.ui.models.InviteCreationModel;
@@ -17,26 +18,26 @@ import robert.purdey.caddytracker.ui.models.InviteCreationModel;
 public interface IFrolfGroupInviteCall
 {
     @GET("api/frolfgroupinvites/")
-    Call<List<FrolfGroupInviteModel>> getAll(
+    Call<EncryptModel> getAll(
         @Header("Authorization") String auth);
 
     @POST("api/frolfgroupinvites/filter")
-    Call<List<FrolfGroupInviteModel>> getWithFilter(
+    Call<EncryptModel> getWithFilter(
         @Header("Authorization") String auth,
-        @Body FrolfGroupInviteFilterModel filter);
+        @Body EncryptModel filter);
 
-    @GET("api/frolfgroupinvites/{id}/accept")
+    @GET("api/frolfgroupinvites/accept")
     Call<Void> accept(
         @Header("Authorization") String auth,
-        @Path("id") UUID inviteId);
+        @Body EncryptModel inviteId);
 
-    @DELETE("api/frolfgroupinvites/{id}")
+    @DELETE("api/frolfgroupinvites/delete")
     Call<Void> remove(
         @Header("Authorization") String auth,
-        @Path("id") UUID inviteId);
+        @Body EncryptModel inviteId);
 
     @POST("api/frolfgroupinvites/send")
     Call<Void> send(
         @Header("Authorization") String auth,
-        @Body InviteCreationModel creationModel);
+        @Body EncryptModel creationModel);
 }

@@ -1,59 +1,50 @@
 package robert.purdey.caddytracker.networking.contracts.calls;
 
-import java.util.List;
-import java.util.UUID;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Path;
-import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
-import robert.purdey.caddytracker.ui.models.GameCreationModel;
-import robert.purdey.caddytracker.ui.models.GameModel;
-import robert.purdey.caddytracker.ui.models.PlayerModel;
+import robert.purdey.caddytracker.domain.encryption.EncryptModel;
 
 public interface IFrolfGroupCall
 {
     @GET("api/frolfgroups/")
-    Call<List<FrolfGroupModel>> getFrolfGroups(
+    Call<EncryptModel> getFrolfGroups(
         @Header("Authorization") String auth);
 
-    @GET("api/frolfgroups/{id}/")
-    Call<FrolfGroupModel> getById(
+    @POST("api/frolfgroups/getById")
+    Call<EncryptModel> getById(
         @Header("Authorization") String auth,
-        @Path("id") UUID id);
+        @Body EncryptModel id);
 
-    @GET("api/frolfgroups/{id}/groupmembers/")
-    Call<List<PlayerModel>> getGroupMembers(
+    @POST("api/frolfgroups/groupmembers/")
+    Call<EncryptModel> getGroupMembers(
         @Header("Authorization") String auth,
-        @Path("id") UUID id);
+        @Body EncryptModel id);
 
     @POST("api/frolfgroups/insert/")
-    Call<FrolfGroupModel> insert(
+    Call<EncryptModel> insert(
         @Header("Authorization") String auth,
-        @Body FrolfGroupModel groupModel);
+        @Body EncryptModel groupModel);
 
     @POST("api/frolfgroups/update/")
     Call<Void> update(
         @Header("Authorization") String auth,
-        @Body FrolfGroupModel groupModel);
+        @Body EncryptModel groupModel);
 
     @POST("api/frolfgroups/creategame/")
-    Call<GameModel> createGame(
+    Call<EncryptModel> createGame(
         @Header("Authorization") String auth,
-        @Body GameCreationModel creationModel);
+        @Body EncryptModel creationModel);
 
-    @POST("api/frolfgroups/{id}/leave/")
+    @POST("api/frolfgroups/leave/")
     Call<Void> leaveGroup(
         @Header("Authorization") String auth,
-        @Path("id") UUID groupId);
+        @Body EncryptModel groupId);
 
-    @POST("api/frolfgroups/{id}/removePlayer/{playerId}")
+    @POST("api/frolfgroups/removePlayer/")
     Call<Void> removePlayer(
         @Header("Authorization") String auth,
-        @Path("id") UUID groupId,
-        @Path("playerId") UUID playerId);
+        @Body EncryptModel removePlayerModel);
 }

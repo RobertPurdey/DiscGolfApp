@@ -10,6 +10,7 @@ import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import robert.purdey.caddytracker.domain.encryption.EncryptModel;
 import robert.purdey.caddytracker.domain.games.GameFilter;
 import robert.purdey.caddytracker.ui.models.GameHoleUpdateModel;
 import robert.purdey.caddytracker.ui.models.GameModel;
@@ -19,31 +20,31 @@ import robert.purdey.caddytracker.ui.models.scorecard.PlayerGameResultModel;
 public interface IGameCall
 {
     @GET("api/games/")
-    Call<List<GameModel>> getAll(
+    Call<EncryptModel> getAll(
         @Header("Authorization") String auth);
 
     @POST("api/games/filter")
-    Call<List<GameModel>> getWithFilter(
+    Call<EncryptModel> getWithFilter(
         @Header("Authorization") String auth,
-        @Body GameFilter gameFilter);
+        @Body EncryptModel gameFilter);
 
-    @GET("api/games/{id}/")
-    Call<GameModel> getById(
+    @POST("api/games/getById")
+    Call<EncryptModel> getById(
         @Header("Authorization") String auth,
-        @Path("id") UUID id);
+        @Body EncryptModel id);
 
     @POST("api/games/holeScores")
     Call<Void> updateGameHoles(
         @Header("Authorization") String auth,
-        @Body GameHoleUpdateModel gameHoleUpdateModel);
+        @Body EncryptModel gameHoleUpdateModel);
 
-    @GET("api/games/{id}/results/")
-    Call<GameResultModel> getGameResults(
+    @POST("api/games/results/")
+    Call<EncryptModel> getGameResults(
         @Header("Authorization") String auth,
-        @Path("id") UUID id);
+        @Body EncryptModel id);
 
-    @PATCH("api/games/{id}/complete")
+    @PATCH("api/games/complete")
     Call<Void> completeGame(
         @Header("Authorization") String auth,
-        @Path("id") UUID id);
+        @Body EncryptModel id);
 }

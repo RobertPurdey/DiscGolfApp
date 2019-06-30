@@ -8,6 +8,9 @@ import java.util.UUID;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import robert.purdey.caddytracker.domain.IdModel;
+import robert.purdey.caddytracker.domain.encryption.EncryptModel;
+import robert.purdey.caddytracker.domain.players.RemovePlayerModel;
 import robert.purdey.caddytracker.networking.contracts.calls.IFrolfGroupCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupController;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
@@ -30,24 +33,22 @@ public class FrolfGroupController
     public MutableLiveData<List<FrolfGroupModel>> getFrolfGroups()
     {
         final MutableLiveData<List<FrolfGroupModel>> data = new MutableLiveData<>();
-        Call<List<FrolfGroupModel>> caller = getApiCall().getFrolfGroups(getAuthorizationHeader());
 
-        caller.enqueue(new Callback<List<FrolfGroupModel>>() {
+        Call<EncryptModel> caller = getApiCall().getFrolfGroups(getAuthorizationHeader());
+
+        caller.enqueue(new Callback<EncryptModel>() {
             @Override
-            public void onResponse(
-                Call<List<FrolfGroupModel>> call,
-                Response<List<FrolfGroupModel>> response)
+            public void onResponse(Call<EncryptModel> call, Response<EncryptModel> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    data.setValue(response.body());
+                    List<FrolfGroupModel> frolfGroups = decryptModel(response.body(), (Class<List<FrolfGroupModel>>)(Object)List.class);
+                    data.setValue(frolfGroups);
                 }
             }
 
             @Override
-            public void onFailure(
-                Call<List<FrolfGroupModel>> call,
-                Throwable t)
+            public void onFailure(Call<EncryptModel> call, Throwable t)
             {
                 System.out.println("Failed to retrieve groups because you are a loser and have none!");
             }
@@ -59,24 +60,24 @@ public class FrolfGroupController
     public MutableLiveData<FrolfGroupModel> getFrolfGroup(UUID id)
     {
         final MutableLiveData<FrolfGroupModel> data = new MutableLiveData<>();
-        Call<FrolfGroupModel> caller = getApiCall().getById(getAuthorizationHeader(), id);
 
-        caller.enqueue(new Callback<FrolfGroupModel>() {
+        IdModel idModel              = new IdModel(id);
+        EncryptModel encryptModel    = encryptModel(idModel);
+        Call<EncryptModel> caller    = getApiCall().getById(getAuthorizationHeader(), encryptModel);
+
+        caller.enqueue(new Callback<EncryptModel>() {
             @Override
-            public void onResponse(
-                Call<FrolfGroupModel> call,
-                Response<FrolfGroupModel> response)
+            public void onResponse(Call<EncryptModel> call, Response<EncryptModel> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    data.setValue(response.body());
+                    FrolfGroupModel frolfGroupModel = decryptModel(response.body(), FrolfGroupModel.class);
+                    data.setValue(frolfGroupModel);
                 }
             }
 
             @Override
-            public void onFailure(
-                Call<FrolfGroupModel> call,
-                Throwable t)
+            public void onFailure(Call<EncryptModel> call, Throwable t)
             {
                 System.out.println("Failed to retrieve groups because you are a loser and have none!");
             }
@@ -88,24 +89,23 @@ public class FrolfGroupController
     public MutableLiveData<FrolfGroupModel> insert(FrolfGroupModel model)
     {
         final MutableLiveData<FrolfGroupModel> data = new MutableLiveData<>();
-        Call<FrolfGroupModel> caller = getApiCall().insert(getAuthorizationHeader(), model);
 
-        caller.enqueue(new Callback<FrolfGroupModel>() {
+        EncryptModel encryptModel = encryptModel(model);
+        Call<EncryptModel> caller = getApiCall().insert(getAuthorizationHeader(), encryptModel);
+
+        caller.enqueue(new Callback<EncryptModel>() {
             @Override
-            public void onResponse(
-                Call<FrolfGroupModel> call,
-                Response<FrolfGroupModel> response)
+            public void onResponse(Call<EncryptModel> call, Response<EncryptModel> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    data.setValue(response.body());
+                    FrolfGroupModel frolfGroupModel = decryptModel(response.body(), FrolfGroupModel.class);
+                    data.setValue(frolfGroupModel);
                 }
             }
 
             @Override
-            public void onFailure(
-                Call<FrolfGroupModel> call,
-                Throwable t)
+            public void onFailure(Call<EncryptModel> call, Throwable t)
             {
                 System.out.println("Failed to retrieve groups because you are a loser and have none!");
             }
@@ -116,13 +116,12 @@ public class FrolfGroupController
 
     public void update(FrolfGroupModel model)
     {
-        Call<Void> caller = getApiCall().update(getAuthorizationHeader(), model);
+        EncryptModel encryptModel = encryptModel(model);
+        Call<Void> caller         = getApiCall().update(getAuthorizationHeader(), encryptModel);
 
         caller.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(
-                Call<Void> call,
-                Response<Void> response)
+            public void onResponse(Call<Void> call, Response<Void> response)
             {
                 if ( response.isSuccessful() )
                 {
@@ -131,9 +130,7 @@ public class FrolfGroupController
             }
 
             @Override
-            public void onFailure(
-                Call<Void> call,
-                Throwable t)
+            public void onFailure(Call<Void> call, Throwable t)
             {
                 System.out.println("Failed to retrieve groups because you are a loser and have none!");
             }
@@ -143,24 +140,24 @@ public class FrolfGroupController
     public MutableLiveData<List<PlayerModel>> getGroupMembers(UUID groupId)
     {
         final MutableLiveData<List<PlayerModel>> data = new MutableLiveData<>();
-        Call<List<PlayerModel>> caller = getApiCall().getGroupMembers(getAuthorizationHeader(), groupId);
 
-        caller.enqueue(new Callback<List<PlayerModel>>() {
+        IdModel idModel                = new IdModel(groupId);
+        EncryptModel encryptModel      = encryptModel(idModel);
+        Call<EncryptModel> caller = getApiCall().getGroupMembers(getAuthorizationHeader(), encryptModel);
+
+        caller.enqueue(new Callback<EncryptModel>() {
             @Override
-            public void onResponse(
-                Call<List<PlayerModel>> call,
-                Response<List<PlayerModel>> response)
+            public void onResponse(Call<EncryptModel> call, Response<EncryptModel> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    data.setValue(response.body());
+                    List<PlayerModel> groupMembers = decryptModel(response.body(), (Class<List<PlayerModel>>)(Object)List.class);
+                    data.setValue(groupMembers);
                 }
             }
 
             @Override
-            public void onFailure(
-                Call<List<PlayerModel>> call,
-                Throwable t)
+            public void onFailure(Call<EncryptModel> call, Throwable t)
             {
                 System.out.println("Failed to retrieve group members because you are a loser and nobody wants to be in your group.");
             }
@@ -172,17 +169,18 @@ public class FrolfGroupController
     public MutableLiveData<GameModel> createGame(GameCreationModel model)
     {
         final MutableLiveData<GameModel> data = new MutableLiveData<>();
-        Call<GameModel> caller = getApiCall().createGame(getAuthorizationHeader(), model);
 
-        caller.enqueue(new Callback<GameModel>() {
+        EncryptModel encryptModel = encryptModel(model);
+        Call<EncryptModel> caller = getApiCall().createGame(getAuthorizationHeader(), encryptModel);
+
+        caller.enqueue(new Callback<EncryptModel>() {
             @Override
-            public void onResponse(
-                Call<GameModel> call,
-                Response<GameModel> response)
+            public void onResponse(Call<EncryptModel> call, Response<EncryptModel> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    data.setValue(response.body());
+                    GameModel game = decryptModel(response.body(), GameModel.class);
+                    data.setValue(game);
                 }
                 else
                 {
@@ -191,9 +189,7 @@ public class FrolfGroupController
             }
 
             @Override
-            public void onFailure(
-                Call<GameModel> call,
-                Throwable t)
+            public void onFailure(Call<EncryptModel> call, Throwable t)
             {
                 System.out.println("Failed to retrieve group members because you are a loser and nobody wants to be in your group.");
             }
@@ -205,13 +201,13 @@ public class FrolfGroupController
     @Override
     public void leaveGroup(UUID groupId, IApiResponseListener listener)
     {
-        Call<Void> caller = getApiCall().leaveGroup(getAuthorizationHeader(), groupId);
+        IdModel idModel           = new IdModel(groupId);
+        EncryptModel encryptModel = encryptModel(idModel);
+        Call<Void> caller         = getApiCall().leaveGroup(getAuthorizationHeader(), encryptModel);
 
         caller.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(
-                Call<Void> call,
-                Response<Void> response)
+            public void onResponse(Call<Void> call, Response<Void> response)
             {
                 if ( response.isSuccessful() )
                 {
@@ -224,9 +220,7 @@ public class FrolfGroupController
             }
 
             @Override
-            public void onFailure(
-                Call<Void> call,
-                Throwable t)
+            public void onFailure(Call<Void> call, Throwable t)
             {
                 listener.onCallFailure();
             }
@@ -236,13 +230,13 @@ public class FrolfGroupController
     @Override
     public void removePlayer(UUID groupId, UUID playerId, IApiResponseListener listener)
     {
-        Call<Void> caller = getApiCall().removePlayer(getAuthorizationHeader(), groupId, playerId);
+        RemovePlayerModel removePlayerModel = new RemovePlayerModel(groupId, playerId);
+        EncryptModel encryptModel           = encryptModel(removePlayerModel);
+        Call<Void> caller                   = getApiCall().removePlayer(getAuthorizationHeader(), encryptModel);
 
         caller.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(
-                Call<Void> call,
-                Response<Void> response)
+            public void onResponse(Call<Void> call, Response<Void> response)
             {
                 if ( response.isSuccessful() )
                 {
@@ -255,9 +249,7 @@ public class FrolfGroupController
             }
 
             @Override
-            public void onFailure(
-                Call<Void> call,
-                Throwable t)
+            public void onFailure(Call<Void> call, Throwable t)
             {
                 listener.onCallFailure();
             }

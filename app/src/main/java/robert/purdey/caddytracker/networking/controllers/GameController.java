@@ -8,6 +8,8 @@ import java.util.UUID;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import robert.purdey.caddytracker.domain.IdModel;
+import robert.purdey.caddytracker.domain.encryption.EncryptModel;
 import robert.purdey.caddytracker.domain.games.GameFilter;
 import robert.purdey.caddytracker.networking.contracts.calls.IGameCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IGameController;
@@ -32,24 +34,22 @@ public class GameController extends ApiController<IGameCall>
     public MutableLiveData<List<GameModel>> getAll()
     {
         final MutableLiveData<List<GameModel>> data = new MutableLiveData<>();
-        Call<List<GameModel>> caller = getApiCall().getAll(getAuthorizationHeader());
 
-        caller.enqueue(new Callback<List<GameModel>>() {
+        Call<EncryptModel> caller = getApiCall().getAll(getAuthorizationHeader());
+
+        caller.enqueue(new Callback<EncryptModel>() {
             @Override
-            public void onResponse(
-                Call<List<GameModel>> call,
-                Response<List<GameModel>> response)
+            public void onResponse(Call<EncryptModel> call, Response<EncryptModel> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    data.setValue(response.body());
+                    List<GameModel> games = decryptModel(response.body(), (Class<List<GameModel>>)(Object)List.class);
+                    data.setValue(games);
                 }
             }
 
             @Override
-            public void onFailure(
-                Call<List<GameModel>> call,
-                Throwable t)
+            public void onFailure(Call<EncryptModel> call, Throwable t)
             {
                 System.out.println("Failed to retrieve group invites because you are a loser and have none!");
             }
@@ -62,24 +62,23 @@ public class GameController extends ApiController<IGameCall>
     public MutableLiveData<List<GameModel>> getWithFilter(GameFilter filter)
     {
         final MutableLiveData<List<GameModel>> data = new MutableLiveData<>();
-        Call<List<GameModel>> caller = getApiCall().getWithFilter(getAuthorizationHeader(), filter);
 
-        caller.enqueue(new Callback<List<GameModel>>() {
+        EncryptModel encryptModel = encryptModel(filter);
+        Call<EncryptModel> caller = getApiCall().getWithFilter(getAuthorizationHeader(), encryptModel);
+
+        caller.enqueue(new Callback<EncryptModel>() {
             @Override
-            public void onResponse(
-                Call<List<GameModel>> call,
-                Response<List<GameModel>> response)
+            public void onResponse(Call<EncryptModel> call, Response<EncryptModel> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    data.setValue(response.body());
+                    List<GameModel> games = decryptModel(response.body(), (Class<List<GameModel>>)(Object)List.class);
+                    data.setValue(games);
                 }
             }
 
             @Override
-            public void onFailure(
-                Call<List<GameModel>> call,
-                Throwable t)
+            public void onFailure(Call<EncryptModel> call, Throwable t)
             {
                 System.out.println("Failed to retrieve group invites because you are a loser and have none!");
             }
@@ -92,24 +91,24 @@ public class GameController extends ApiController<IGameCall>
     public MutableLiveData<GameResultModel> getGameResults(UUID id)
     {
         final MutableLiveData<GameResultModel> data = new MutableLiveData<>();
-        Call<GameResultModel> caller = getApiCall().getGameResults(getAuthorizationHeader(), id);
 
-        caller.enqueue(new Callback<GameResultModel>() {
+        IdModel idModel              = new IdModel(id);
+        EncryptModel encryptModel    = encryptModel(idModel);
+        Call<EncryptModel> caller    = getApiCall().getGameResults(getAuthorizationHeader(), encryptModel);
+
+        caller.enqueue(new Callback<EncryptModel>() {
             @Override
-            public void onResponse(
-                Call<GameResultModel> call,
-                Response<GameResultModel> response)
+            public void onResponse(Call<EncryptModel> call, Response<EncryptModel> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    data.setValue(response.body());
+                    GameResultModel gameResult = decryptModel(response.body(), GameResultModel.class);
+                    data.setValue(gameResult);
                 }
             }
 
             @Override
-            public void onFailure(
-                Call<GameResultModel> call,
-                Throwable t)
+            public void onFailure(Call<EncryptModel> call, Throwable t)
             {
                 System.out.println("Failed to retrieve group invites because you are a loser and have none!");
             }
@@ -121,24 +120,24 @@ public class GameController extends ApiController<IGameCall>
     public MutableLiveData<GameModel> getGame(UUID id)
     {
         final MutableLiveData<GameModel> data = new MutableLiveData<>();
-        Call<GameModel> caller = getApiCall().getById(getAuthorizationHeader(), id);
 
-        caller.enqueue(new Callback<GameModel>() {
+        IdModel idModel            = new IdModel(id);
+        EncryptModel encryptModel  = encryptModel(idModel);
+        Call<EncryptModel> caller  = getApiCall().getById(getAuthorizationHeader(), encryptModel);
+
+        caller.enqueue(new Callback<EncryptModel>() {
             @Override
-            public void onResponse(
-                Call<GameModel> call,
-                Response<GameModel> response)
+            public void onResponse(Call<EncryptModel> call, Response<EncryptModel> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    data.setValue(response.body());
+                    GameModel game = decryptModel(response.body(), GameModel.class);
+                    data.setValue(game);
                 }
             }
 
             @Override
-            public void onFailure(
-                Call<GameModel> call,
-                Throwable t)
+            public void onFailure(Call<EncryptModel> call, Throwable t)
             {
                 System.out.println("Failed to retrieve groups because you are a loser and have none!");
             }
@@ -149,18 +148,16 @@ public class GameController extends ApiController<IGameCall>
 
     public void updateGameHoles(GameHoleUpdateModel model, IApiResponseListener listener)
     {
-        Call<Void> caller = getApiCall().updateGameHoles(getAuthorizationHeader(), model);
+        EncryptModel encryptModel = encryptModel(model);
+        Call<Void> caller         = getApiCall().updateGameHoles(getAuthorizationHeader(), encryptModel);
 
         caller.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(
-                Call<Void> call,
-                Response<Void> response)
+            public void onResponse(Call<Void> call, Response<Void> response)
             {
                 if ( response.isSuccessful() )
                 {
                     listener.onResponseSuccessful();
-                    // todo: success callback
                 }
                 else
                 {
@@ -169,9 +166,7 @@ public class GameController extends ApiController<IGameCall>
             }
 
             @Override
-            public void onFailure(
-                Call<Void> call,
-                Throwable t)
+            public void onFailure(Call<Void> call, Throwable t)
             {
                 listener.onCallFailure();
                 System.out.println("Failed to retrieve group members because you are a loser and nobody wants to be in your group.");
@@ -182,18 +177,17 @@ public class GameController extends ApiController<IGameCall>
 
     public void completeGame(UUID id, IApiResponseListener listener)
     {
-        Call<Void> caller = getApiCall().completeGame(getAuthorizationHeader(), id);
+        IdModel idModel             = new IdModel(id);
+        EncryptModel encryptModel   = encryptModel(idModel);
+        Call<Void> caller           = getApiCall().completeGame(getAuthorizationHeader(), encryptModel);
 
         caller.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(
-                Call<Void> call,
-                Response<Void> response)
+            public void onResponse(Call<Void> call, Response<Void> response)
             {
                 if ( response.isSuccessful() )
                 {
                     listener.onResponseSuccessful();
-                    // todo: success callback
                 }
                 else
                 {
@@ -202,9 +196,7 @@ public class GameController extends ApiController<IGameCall>
             }
 
             @Override
-            public void onFailure(
-                Call<Void> call,
-                Throwable t)
+            public void onFailure(Call<Void> call, Throwable t)
             {
                 listener.onCallFailure();
                 System.out.println("Failed to complete game");

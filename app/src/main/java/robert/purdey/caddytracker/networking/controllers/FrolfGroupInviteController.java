@@ -7,6 +7,8 @@ import java.util.UUID;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import robert.purdey.caddytracker.domain.IdModel;
+import robert.purdey.caddytracker.domain.encryption.EncryptModel;
 import robert.purdey.caddytracker.domain.frolfgroups.FrolfGroupInviteFilterModel;
 import robert.purdey.caddytracker.networking.contracts.calls.IFrolfGroupInviteCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupInviteController;
@@ -29,24 +31,22 @@ public class FrolfGroupInviteController
     public MutableLiveData<List<FrolfGroupInviteModel>> getAll()
     {
         final MutableLiveData<List<FrolfGroupInviteModel>> data  = new MutableLiveData<>();
-        Call<List<FrolfGroupInviteModel>> caller = getApiCall().getAll(getAuthorizationHeader());
 
-        caller.enqueue(new Callback<List<FrolfGroupInviteModel>>() {
+        Call<EncryptModel> caller = getApiCall().getAll(getAuthorizationHeader());
+
+        caller.enqueue(new Callback<EncryptModel>() {
             @Override
-            public void onResponse(
-                Call<List<FrolfGroupInviteModel>> call,
-                Response<List<FrolfGroupInviteModel>> response)
+            public void onResponse(Call<EncryptModel> call, Response<EncryptModel> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    data.setValue(response.body());
+                    List<FrolfGroupInviteModel> invites = decryptModel(response.body(), (Class<List<FrolfGroupInviteModel>>)(Object)List.class);
+                    data.setValue(invites);
                 }
             }
 
             @Override
-            public void onFailure(
-                Call<List<FrolfGroupInviteModel>> call,
-                Throwable t)
+            public void onFailure(Call<EncryptModel> call, Throwable t)
             {
                 System.out.println("Failed to retrieve group invites because you are a loser and have none!");
             }
@@ -59,24 +59,23 @@ public class FrolfGroupInviteController
     public MutableLiveData<List<FrolfGroupInviteModel>> getWithFilter(FrolfGroupInviteFilterModel filter)
     {
         final MutableLiveData<List<FrolfGroupInviteModel>> data  = new MutableLiveData<>();
-        Call<List<FrolfGroupInviteModel>> caller = getApiCall().getWithFilter(getAuthorizationHeader(), filter);
 
-        caller.enqueue(new Callback<List<FrolfGroupInviteModel>>() {
+        EncryptModel encryptModel = encryptModel(filter);
+        Call<EncryptModel> caller = getApiCall().getWithFilter(getAuthorizationHeader(), encryptModel);
+
+        caller.enqueue(new Callback<EncryptModel>() {
             @Override
-            public void onResponse(
-                Call<List<FrolfGroupInviteModel>> call,
-                Response<List<FrolfGroupInviteModel>> response)
+            public void onResponse(Call<EncryptModel> call, Response<EncryptModel> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    data.setValue(response.body());
+                    List<FrolfGroupInviteModel> invites = decryptModel(response.body(), (Class<List<FrolfGroupInviteModel>>)(Object)List.class);
+                    data.setValue(invites);
                 }
             }
 
             @Override
-            public void onFailure(
-                Call<List<FrolfGroupInviteModel>> call,
-                Throwable t)
+            public void onFailure(Call<EncryptModel> call, Throwable t)
             {
                 System.out.println("Failed to retrieve group invites because you are a loser and have none!");
             }
@@ -89,13 +88,13 @@ public class FrolfGroupInviteController
     @Override
     public void accept(UUID inviteId, IApiResponseListener responseListener)
     {
-        Call<Void> caller = getApiCall().accept(getAuthorizationHeader(), inviteId);
+        IdModel idModel             = new IdModel(inviteId);
+        EncryptModel encryptModel   = encryptModel(idModel);
+        Call<Void> caller           = getApiCall().accept(getAuthorizationHeader(), encryptModel);
 
         caller.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(
-                Call<Void> call,
-                Response<Void> response)
+            public void onResponse(Call<Void> call, Response<Void> response)
             {
                 if ( response.isSuccessful() )
                 {
@@ -108,9 +107,7 @@ public class FrolfGroupInviteController
             }
 
             @Override
-            public void onFailure(
-                Call<Void> call,
-                Throwable t)
+            public void onFailure(Call<Void> call, Throwable t)
             {
                 responseListener.onCallFailure();
             }
@@ -121,13 +118,13 @@ public class FrolfGroupInviteController
     @Override
     public void remove(UUID inviteId, IApiResponseListener responseListener)
     {
-        Call<Void> caller = getApiCall().remove(getAuthorizationHeader(), inviteId);
+        IdModel idModel             = new IdModel(inviteId);
+        EncryptModel encryptModel   = encryptModel(idModel);
+        Call<Void> caller           = getApiCall().remove(getAuthorizationHeader(), encryptModel);
 
         caller.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(
-                Call<Void> call,
-                Response<Void> response)
+            public void onResponse(Call<Void> call, Response<Void> response)
             {
                 if ( response.isSuccessful() )
                 {
@@ -140,9 +137,7 @@ public class FrolfGroupInviteController
             }
 
             @Override
-            public void onFailure(
-                Call<Void> call,
-                Throwable t)
+            public void onFailure(Call<Void> call, Throwable t)
             {
                 responseListener.onCallFailure();
             }
@@ -152,13 +147,12 @@ public class FrolfGroupInviteController
     @Override
     public void send(InviteCreationModel creationModel)
     {
-        Call<Void> caller = getApiCall().send(getAuthorizationHeader(), creationModel);
+        EncryptModel encryptModel = encryptModel(creationModel);
+        Call<Void> caller         = getApiCall().send(getAuthorizationHeader(), encryptModel);
 
         caller.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(
-                Call<Void> call,
-                Response<Void> response)
+            public void onResponse(Call<Void> call, Response<Void> response)
             {
                 if ( response.isSuccessful() )
                 {
@@ -171,9 +165,7 @@ public class FrolfGroupInviteController
             }
 
             @Override
-            public void onFailure(
-                Call<Void> call,
-                Throwable t)
+            public void onFailure(Call<Void> call, Throwable t)
             {
                 // todo: what do i do???
             }

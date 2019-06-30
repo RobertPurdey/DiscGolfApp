@@ -141,7 +141,8 @@ public class AppUserController
         AppUserUpdateModel updateModel,
         IApiResponseListener listener)
     {
-        Call<Void> updateAccountCall = getApiCall().updateAccount(updateModel);
+        EncryptModel encryptModel     = encryptModel(updateModel);
+        Call<Void> updateAccountCall  = getApiCall().updateAccount(encryptModel);
 
         updateAccountCall.enqueue(new Callback<Void>() {
             @Override
@@ -172,7 +173,8 @@ public class AppUserController
         PublicKeyModel keyModel = new PublicKeyModel();
         keyModel.setXmlRsaPublicKey( ConvertRsaPublicKeyToXml(rsaPublicKey) );
 
-        Call<Void> updateAccountCall = getApiCall().setNewPublicKey(keyModel);
+        EncryptModel encryptModel     = encryptModel(keyModel);
+        Call<Void> updateAccountCall  = getApiCall().setNewPublicKey(encryptModel);
 
         updateAccountCall.enqueue(new Callback<Void>() {
             @Override

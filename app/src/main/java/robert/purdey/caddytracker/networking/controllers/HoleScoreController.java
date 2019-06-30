@@ -8,6 +8,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import robert.purdey.caddytracker.domain.encryption.EncryptModel;
 import robert.purdey.caddytracker.domain.holescores.HoleScoreFilterModel;
 import robert.purdey.caddytracker.networking.contracts.calls.IHoleScoreCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IHoleScoreController;
@@ -28,25 +29,24 @@ public class HoleScoreController
     public MutableLiveData<List<HoleScoreModel>> getWithFilter(HoleScoreFilterModel filter)
     {
         final MutableLiveData<List<HoleScoreModel>> data = new MutableLiveData<>();
-        Call<List<HoleScoreModel>> caller = getApiCall().getWithFilter(getAuthorizationHeader(), filter);
 
-        caller.enqueue(new Callback<List<HoleScoreModel>>() {
+        EncryptModel encryptModel  = encryptModel(filter);
+        Call<EncryptModel> caller  = getApiCall().getWithFilter(getAuthorizationHeader(), encryptModel);
+
+        caller.enqueue(new Callback<EncryptModel>() {
             @Override
-            public void onResponse(
-                Call<List<HoleScoreModel>> call,
-                Response<List<HoleScoreModel>> response)
+            public void onResponse(Call<EncryptModel> call, Response<EncryptModel> response)
             {
                 if ( response.isSuccessful() )
                 {
-                    data.setValue(response.body());
+                    List<HoleScoreModel> holeScores = decryptModel(response.body(), (Class<List<HoleScoreModel>>)(Object)List.class);
+                    data.setValue(holeScores);
                     data.getValue().sort(Comparator.comparing(HoleScoreModel::getPlayerHandle));
                 }
             }
 
             @Override
-            public void onFailure(
-                Call<List<HoleScoreModel>> call,
-                Throwable t)
+            public void onFailure(Call<EncryptModel> call, Throwable t)
             {
                 System.out.println("Failed to retrieve hole scores because you are a loser and have none!");
             }

@@ -6,6 +6,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import robert.purdey.caddytracker.domain.encryption.EncryptModel;
 import robert.purdey.caddytracker.domain.holescores.HoleScoreFilterModel;
 import robert.purdey.caddytracker.ui.models.HoleScoreModel;
 
@@ -18,7 +19,7 @@ public interface IHoleScoreCall
     //    @Header("Authorization") String auth);
 
     @POST("api/holescores/filter")
-    Call<List<HoleScoreModel>> getWithFilter(
+    Call<EncryptModel> getWithFilter(
         @Header("Authorization") String auth,
-        @Body HoleScoreFilterModel filter);
+        @Body EncryptModel filter);
 }
