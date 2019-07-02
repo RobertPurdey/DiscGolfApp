@@ -6,28 +6,17 @@ import java.util.Map;
 
 public class LoginModel
 {
-    private String username;
+    public String username;
 
-    private String password;
+    public String password;
 
     @SerializedName("grant_type")
-    private String grantType;
+    public String grantType;
 
     public LoginModel(String username, String password)
     {
         this.username   = username;
         this.password   = password;
         this.grantType  = "password";
-    }
-
-    public Map<String, String> getRequestFields()
-    {
-        HashMap<String, String> fields = new HashMap<>();
-
-        fields.put("username", username);
-        fields.put("password", password);
-        fields.put("grant_type", grantType);
-
-        return fields;
     }
 }

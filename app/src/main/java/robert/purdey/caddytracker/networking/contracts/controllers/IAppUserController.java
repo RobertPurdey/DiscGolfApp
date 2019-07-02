@@ -8,13 +8,14 @@ import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.AppUserCreationModel;
 import robert.purdey.caddytracker.ui.models.AppUserModel;
 import robert.purdey.caddytracker.ui.models.AppUserUpdateModel;
+import robert.purdey.caddytracker.ui.models.LoginModel;
 import robert.purdey.caddytracker.ui.models.TokenModel;
 
 public interface IAppUserController
 {
     MutableLiveData<TokenModel> login(
         IApiResponseListener listener,
-        Map<String, String> tokenFieldMap);
+        LoginModel loginAttempt);
 
     MutableLiveData<AppUserModel> getCurrentUserInfo(
         IApiResponseListener listener);

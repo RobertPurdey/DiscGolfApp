@@ -52,7 +52,7 @@ public class LoginViewModel extends ViewModel
 
         receivedToken = appUserController.login(
             loginListener,
-            loginAttempt.getRequestFields());
+            loginAttempt);
     }
 
     public void storeCurrentUserInfo(IApiResponseListener listener)

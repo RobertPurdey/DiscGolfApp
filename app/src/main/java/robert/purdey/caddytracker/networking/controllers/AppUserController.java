@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.RSAPrivateKeySpec;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,12 +18,14 @@ import robert.purdey.caddytracker.networking.contracts.controllers.IAppUserContr
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
 import robert.purdey.caddytracker.security.encryption.AesManager;
 import robert.purdey.caddytracker.security.encryption.RsaManager;
+import robert.purdey.caddytracker.security.encryption.ServerRsaPublicKeyInfo;
 import robert.purdey.caddytracker.ui.FrolfApp;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.AppUserCreationModel;
 import robert.purdey.caddytracker.ui.models.AppUserModel;
 import robert.purdey.caddytracker.ui.models.AppUserUpdateModel;
 import robert.purdey.caddytracker.ui.models.Keys.PublicKeyModel;
+import robert.purdey.caddytracker.ui.models.LoginModel;
 import robert.purdey.caddytracker.ui.models.TokenModel;
 
 
@@ -36,13 +39,36 @@ public class AppUserController
         super(apiCallService, IAppUserCall.class);
     }
 
-    // todo: return proper token
+    private Map<String, String> getOAuthRequestFields(LoginModel loginRequest)
+    {
+        HashMap<String, String> fields = new HashMap<>();
+
+        try
+        {
+            RsaManager rsaManager = new RsaManager();
+
+            byte[] loginName = rsaManager.encrypt(ServerRsaPublicKeyInfo.GetRsaPublicKeySpec(), loginRequest.username);
+            byte[] password  = rsaManager.encrypt(ServerRsaPublicKeyInfo.GetRsaPublicKeySpec(), loginRequest.password);
+
+            String loginBase64    = Base64.getEncoder().encodeToString(loginName);
+            String passwordBase64 = Base64.getEncoder().encodeToString(password);
+
+            fields.put("username", loginBase64);
+            fields.put("password", passwordBase64);
+            fields.put("grant_type", loginRequest.grantType);
+        }
+        catch (Exception ex) { }
+
+        return fields;
+    }
+
     public MutableLiveData<TokenModel> login(
         IApiResponseListener listener,
-        Map<String, String> tokenFieldMap)
+        LoginModel loginAttempt)
     {
         final MutableLiveData<TokenModel> data = new MutableLiveData<>();
-        Call<TokenModel> tokenCall = getApiCall().login(tokenFieldMap);
+
+        Call<TokenModel> tokenCall = getApiCall().login(getOAuthRequestFields(loginAttempt));
 
         tokenCall.enqueue(new Callback<TokenModel>() {
             @Override
