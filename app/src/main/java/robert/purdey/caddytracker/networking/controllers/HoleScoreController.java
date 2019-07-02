@@ -2,6 +2,7 @@ package robert.purdey.caddytracker.networking.controllers;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class HoleScoreController
             {
                 if ( response.isSuccessful() )
                 {
-                    List<HoleScoreModel> holeScores = decryptModel(response.body(), (Class<List<HoleScoreModel>>)(Object)List.class);
+                    List<HoleScoreModel> holeScores = Arrays.asList(decryptModel(response.body(), HoleScoreModel[].class));
                     data.setValue(holeScores);
                     data.getValue().sort(Comparator.comparing(HoleScoreModel::getPlayerHandle));
                 }

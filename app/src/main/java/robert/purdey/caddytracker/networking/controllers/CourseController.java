@@ -2,6 +2,7 @@ package robert.purdey.caddytracker.networking.controllers;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,7 +41,7 @@ public class CourseController extends ApiController<ICourseCall>
                 if ( response.isSuccessful() )
                 {
 
-                    List<CourseModel> courses = decryptModel(response.body(), (Class<List<CourseModel>>)(Object)List.class);
+                    List<CourseModel> courses = Arrays.asList(decryptModel(response.body(), CourseModel[].class));
                     data.setValue(courses);
                 }
             }
@@ -98,7 +99,7 @@ public class CourseController extends ApiController<ICourseCall>
             {
                 if ( response.isSuccessful() )
                 {
-                    List<CourseModel> courses = decryptModel(response.body(), (Class<List<CourseModel>>)(Object)List.class);
+                    List<CourseModel> courses = Arrays.asList(decryptModel(response.body(), CourseModel[].class));
                     data.setValue(courses);
                 }
             }

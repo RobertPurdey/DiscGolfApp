@@ -2,6 +2,7 @@ package robert.purdey.caddytracker.networking.controllers;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,7 +44,7 @@ public class GameController extends ApiController<IGameCall>
             {
                 if ( response.isSuccessful() )
                 {
-                    List<GameModel> games = decryptModel(response.body(), (Class<List<GameModel>>)(Object)List.class);
+                    List<GameModel> games = Arrays.asList(decryptModel(response.body(), GameModel[].class));
                     data.setValue(games);
                 }
             }
@@ -72,7 +73,7 @@ public class GameController extends ApiController<IGameCall>
             {
                 if ( response.isSuccessful() )
                 {
-                    List<GameModel> games = decryptModel(response.body(), (Class<List<GameModel>>)(Object)List.class);
+                    List<GameModel> games = Arrays.asList(decryptModel(response.body(), GameModel[].class));
                     data.setValue(games);
                 }
             }

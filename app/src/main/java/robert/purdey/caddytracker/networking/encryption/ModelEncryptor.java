@@ -1,10 +1,16 @@
 package robert.purdey.caddytracker.networking.encryption;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.security.spec.RSAPrivateKeySpec;
 import java.util.Base64;
+import java.util.Date;
+
+import retrofit2.converter.gson.GsonConverterFactory;
 import robert.purdey.caddytracker.domain.encryption.EncryptModel;
 import robert.purdey.caddytracker.networking.contracts.encryption.IModelEncryptor;
+import robert.purdey.caddytracker.networking.json.DateDeserializer;
 import robert.purdey.caddytracker.security.contracts.IAesManager;
 import robert.purdey.caddytracker.security.contracts.IRsaManager;
 import robert.purdey.caddytracker.security.encryption.ServerRsaPublicKeyInfo;
@@ -63,6 +69,7 @@ public class ModelEncryptor implements IModelEncryptor
         }
         catch (Exception ex) { }
 
-        return new Gson().fromJson(decryptedJson, tClass);
+        Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateDeserializer()).create();
+        return gson.fromJson(decryptedJson, tClass);
     }
 }

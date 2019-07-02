@@ -90,6 +90,7 @@ public class NewGameActivity extends AppCompatActivity
             SetSelectionDescription("Select players");
 
             this.getMembersListFragment().Load( newGameViewModel.getGroupId() );
+            this.getMembersListFragment().setShowSelection(true);
 
             getSupportFragmentManager().beginTransaction()
                 .hide( this.getCourseListFragment()  )

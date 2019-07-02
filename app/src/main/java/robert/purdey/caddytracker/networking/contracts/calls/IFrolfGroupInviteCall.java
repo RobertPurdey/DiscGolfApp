@@ -26,7 +26,7 @@ public interface IFrolfGroupInviteCall
         @Header("Authorization") String auth,
         @Body EncryptModel filter);
 
-    @GET("api/frolfgroupinvites/accept")
+    @POST("api/frolfgroupinvites/accept")
     Call<Void> accept(
         @Header("Authorization") String auth,
         @Body EncryptModel inviteId);

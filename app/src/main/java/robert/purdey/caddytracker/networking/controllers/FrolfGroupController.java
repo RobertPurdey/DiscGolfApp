@@ -2,6 +2,7 @@ package robert.purdey.caddytracker.networking.controllers;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,7 +43,7 @@ public class FrolfGroupController
             {
                 if ( response.isSuccessful() )
                 {
-                    List<FrolfGroupModel> frolfGroups = decryptModel(response.body(), (Class<List<FrolfGroupModel>>)(Object)List.class);
+                    List<FrolfGroupModel> frolfGroups = Arrays.asList(decryptModel(response.body(), FrolfGroupModel[].class));
                     data.setValue(frolfGroups);
                 }
             }
@@ -151,7 +152,7 @@ public class FrolfGroupController
             {
                 if ( response.isSuccessful() )
                 {
-                    List<PlayerModel> groupMembers = decryptModel(response.body(), (Class<List<PlayerModel>>)(Object)List.class);
+                    List<PlayerModel> groupMembers = Arrays.asList(decryptModel(response.body(), PlayerModel[].class));
                     data.setValue(groupMembers);
                 }
             }

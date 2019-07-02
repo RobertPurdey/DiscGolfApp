@@ -88,6 +88,8 @@ public class AppUserController
                 if ( response.isSuccessful() )
                 {
                     AppUserModel model = decryptModel(response.body(), AppUserModel.class);
+                    FrolfApp.getUserSession().storeCurrentUserId(model.getIdKey());
+
                     data.setValue(model);
 
                     listener.onResponseSuccessful();
