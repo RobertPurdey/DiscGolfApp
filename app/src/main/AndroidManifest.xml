@@ -30,12 +30,15 @@
         <activity android:name=".ui.activities.MainMenuActivity" /> <!-- Games Menu -->
         <activity
             android:name=".ui.activities.GamesMenuActivity"
+            android:label="Games"
             android:parentActivityName=".ui.activities.MainMenuActivity" /> <!-- Watch Game Request -->
         <activity
             android:name=".ui.activities.WatchGameRequestActivity"
+            android:label="Watch Game"
             android:parentActivityName=".ui.activities.GamesMenuActivity" /> <!-- Create New Game -->
         <activity
             android:name=".ui.activities.NewGameActivity"
+            android:label="Create Game"
             android:parentActivityName=".ui.activities.GamesMenuActivity" /> <!-- Resume Game -->
         <activity
             android:name=".ui.activities.ResumeGameActivity"

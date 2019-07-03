@@ -6,11 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.databinding.ActivityAccountBinding;
+import robert.purdey.caddytracker.ui.helpers.Toaster;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.viewmodels.AccountViewModel;
 
@@ -39,13 +41,13 @@ public class AccountActivity extends AppCompatActivity
             @Override
             public void onResponseSuccessful()
             {
-                // todo:
+
             }
 
             @Override
             public void onResponseFailed()
             {
-                // todo:
+
             }
 
             @Override
@@ -57,6 +59,22 @@ public class AccountActivity extends AppCompatActivity
             accountViewModel.setAccountInfo(appUserModel);
             unfocusFriendCodeText();
         });
+    }
+
+    private void updateAccountSuccessToast()
+    {
+        Toaster.quickSuccessToast(
+            AccountActivity.this,
+            R.string.update_account_success_msg,
+            Toast.LENGTH_SHORT);
+    }
+
+    private void updateAccountFailureToast()
+    {
+        Toaster.quickFailureToast(
+            AccountActivity.this,
+            R.string.update_account_failure_msg,
+            Toast.LENGTH_SHORT);
     }
 
     private void unfocusFriendCodeText()
@@ -77,13 +95,13 @@ public class AccountActivity extends AppCompatActivity
             @Override
             public void onResponseSuccessful()
             {
-                // todo
+                updateAccountSuccessToast();
             }
 
             @Override
             public void onResponseFailed()
             {
-                // todo
+                updateAccountFailureToast();
             }
 
             @Override

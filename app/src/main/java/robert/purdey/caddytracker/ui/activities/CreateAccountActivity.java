@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.databinding.ActivityCreateAccountBinding;
 import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
+import robert.purdey.caddytracker.ui.helpers.Toaster;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.viewmodels.CreateAccountViewModel;
 
@@ -50,25 +51,38 @@ public class CreateAccountActivity extends AppCompatActivity
             @Override
             public void onResponseSuccessful()
             {
+                createAccountSuccessToast();
                 ActivityStarter.startLoginAcitvity(CreateAccountActivity.this);
             }
 
             @Override
             public void onResponseFailed()
             {
-                Toast.makeText(
-                    CreateAccountActivity.this,
-                    "Failed to login. The username and/or password may be incorrect.", Toast.LENGTH_LONG);
+                createAccountFailureToast();
             }
 
             @Override
             public void onCallFailure()
             {
-                Toast.makeText(
-                    CreateAccountActivity.this,
-                    "Failed to login. The username and/or password may be incorrect.", Toast.LENGTH_LONG);
+                createAccountFailureToast();
             }
         });
+    }
+
+    private void createAccountSuccessToast()
+    {
+        Toaster.quickSuccessToast(
+            CreateAccountActivity.this,
+            R.string.create_account_success_msg,
+            Toast.LENGTH_SHORT);
+    }
+
+    private void createAccountFailureToast()
+    {
+        Toaster.quickFailureToast(
+            CreateAccountActivity.this,
+            R.string.create_account_failure_msg,
+            Toast.LENGTH_SHORT);
     }
 
     private void createCreateAccountViewModel()

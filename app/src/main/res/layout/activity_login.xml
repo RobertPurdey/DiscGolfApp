@@ -18,76 +18,59 @@
         android:background="@color/background_gray"
         tools:context=".ui.activities.LoginActivity">
 
-        <LinearLayout
+        <!-- Username text input -->
+        <EditText
+            android:id="@+id/etxt_username"
+            android:inputType="text"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/white"
+            android:hint="@string/username"
+            android:paddingLeft="10dp"
+            android:maxLines="1"
+            android:text="@={loginViewModel.username}"/>
 
-            <!-- Username text input -->
-            <EditText
-                android:id="@+id/etxt_username"
-                android:inputType="text"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:background="@android:color/white"
-                android:hint="@string/username"
-                android:paddingLeft="10dp"
-                android:maxLines="1"
-                android:text="@={loginViewModel.username}"/>
+        <!-- Password text input -->
+        <EditText
+            android:id="@+id/etxt_password"
+            android:inputType="textPassword"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/etxt_username"
+            android:layout_margin="5dp"
+            android:background="@android:color/white"
+            android:hint="@string/password"
+            android:paddingLeft="10dp"
+            android:maxLines="1"
+            android:text="@={loginViewModel.password}"/>
 
-            <!-- Password text input -->
-            <EditText
-                android:id="@+id/etxt_password"
-                android:inputType="textPassword"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/etxt_username"
-                android:layout_margin="5dp"
-                android:background="@android:color/white"
-                android:hint="@string/password"
-                android:paddingLeft="10dp"
-                android:maxLines="1"
-                android:text="@={loginViewModel.password}"/>
+        <!-- Login button -->
+        <Button
+            android:id="@+id/new_game"
+            android:textColor="@color/white"
+            android:background="@color/button_green"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/etxt_password"
+            android:layout_margin="5dp"
+            android:text="@string/login"
+            android:onClick="onLoginUser"/>
 
-            <!-- Login button -->
-            <Button
-                android:id="@+id/new_game"
-                android:textColor="@color/white"
-                android:background="@color/button_green"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/etxt_password"
-                android:layout_margin="5dp"
-                android:text="@string/login"
-                android:onClick="onLoginUser"/>
-
-            <!-- Create Account button -->
-            <Button
-                android:id="@+id/bttn_activity_login"
-                android:textColor="@color/white"
-                android:background="@color/button_green"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/new_game"
-                android:layout_margin="5dp"
-                android:text="@string/create_account"
-                android:onClick="onCreateAccount"/>
-
-
-            <!-- Login button -->
-            <Button
-                android:id="@+id/aaaaa"
-                android:textColor="@color/white"
-                android:background="@color/button_green"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/bttn_activity_login"
-                android:layout_margin="5dp"
-                android:text="test encrypt"
-                android:onClick="onTestEncrypt"/>
-        </LinearLayout>
+        <!-- Create Account button -->
+        <Button
+            android:id="@+id/bttn_activity_login"
+            android:textColor="@color/white"
+            android:background="@color/button_green"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/new_game"
+            android:layout_margin="5dp"
+            android:text="@string/create_account"
+            android:onClick="onCreateAccount"/>
 
     </RelativeLayout>
 

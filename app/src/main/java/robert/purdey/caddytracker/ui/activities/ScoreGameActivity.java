@@ -6,6 +6,7 @@ import robert.purdey.caddytracker.databinding.ActivityScoreGameBinding;
 import robert.purdey.caddytracker.ui.FrolfApp;
 import robert.purdey.caddytracker.ui.fragments.GameHoleScoresFragment;
 import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
+import robert.purdey.caddytracker.ui.helpers.Toaster;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.GameModel;
 import robert.purdey.caddytracker.ui.models.GameResultModel;
@@ -14,11 +15,13 @@ import robert.purdey.caddytracker.ui.viewmodels.ScoreGameActivityViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -85,7 +88,7 @@ public class ScoreGameActivity extends AppCompatActivity
 
         if ( isLastHole(nextHole - 1) )
         {
-            completeGame();
+            confirmCompleteGame();
         }
         else
         {
@@ -104,6 +107,16 @@ public class ScoreGameActivity extends AppCompatActivity
         ActivityStarter.startScoreCardActivity(
             ScoreGameActivity.this,
             scoreGameActiveViewModel.getGameId());
+    }
+
+    private void confirmCompleteGame() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder
+            .setMessage(R.string.complete_game_confirm)
+            .setPositiveButton(R.string.yes, (dialog, id) -> completeGame())
+            .setNegativeButton(R.string.no,  (dialog, id) -> dialog.cancel() )
+            .show();
     }
 
     private void completeGame()
@@ -125,19 +138,20 @@ public class ScoreGameActivity extends AppCompatActivity
                             @Override
                             public void onResponseSuccessful()
                             {
+                                completeGameSuccessToast();
                                 startScoreCardActivity();
                             }
 
                             @Override
                             public void onResponseFailed()
                             {
-                                // todo: toast message
+                                completeGameFailureToast();
                             }
 
                             @Override
                             public void onCallFailure()
                             {
-                                // todo: toast message
+                                completeGameFailureToast();
                             }
                         });
                     }
@@ -156,6 +170,22 @@ public class ScoreGameActivity extends AppCompatActivity
                 });
             }
         }
+    }
+
+    private void completeGameSuccessToast()
+    {
+        Toaster.quickSuccessToast(
+            ScoreGameActivity.this,
+            R.string.game_complete_success_msg,
+            Toast.LENGTH_SHORT);
+    }
+
+    private void completeGameFailureToast()
+    {
+        Toaster.quickFailureToast(
+            ScoreGameActivity.this,
+            R.string.game_complete_failure_msg,
+            Toast.LENGTH_SHORT);
     }
 
     private void saveCurrentHoles(int nextHole)

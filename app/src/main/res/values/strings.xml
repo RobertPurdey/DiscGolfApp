@@ -67,6 +67,42 @@
     <string name="minus_symbol">-</string>
     <string name="tee">Tee</string>
     <string name="adjust_par">Adjust Par</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!-- Confirm Messages -->
+    <string name="remove_player_confirm">Are you sure you want to remove this player? The player\'s group data cannot be recovered.</string>
+    <string name="complete_game_confirm">Are you sure you want to complete this game? Once completed the game cannot be modified.</string>
+
+    <!-- Toast Messages -->
+    <string name="login_failed_msg">Failed to login. The username and/or password may be incorrect.</string>
+
+    <string name="group_member_removed_success_msg">Group member removed.</string>
+    <string name="group_member_removed_failure_msg">Group member unable to be removed.</string>
+
+    <string name="group_left_success_msg">Group left.</string>
+    <string name="group_left_failure_msg">Failed to leave group.</string>
+
+    <string name="invite_sent_success_msg">Invite sent.</string>
+    <string name="invite_sent_failure_msg">Invite failed to send.</string>
+
+    <string name="invite_accepted_success_msg">Invite accepted.</string>
+    <string name="invite_accepted_failure_msg">Invite failed to be accepted.</string>
+
+    <string name="invite_decline_success_msg">Invite declined.</string>
+    <string name="invite_decline_failure_msg">Invite failed to be declined.</string>
+
+    <string name="game_created_success_msg">Game created.</string>
+    <string name="game_created_failure_msg">Game failed to be created.</string>
+
+    <string name="create_account_success_msg">Account created.</string>
+    <string name="create_account_failure_msg">Account failed to be created.</string>
+
+    <string name="update_account_success_msg">Account updated.</string>
+    <string name="update_account_failure_msg">Account failed to update.</string>
+
+    <string name="game_complete_success_msg">Game completed.</string>
+    <string name="game_complete_failure_msg">Game failed to complete.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -62,7 +62,7 @@ public class MainMenuActivity extends AppCompatActivity
      */
     public void onClickHelp(View view)
     {
-        ActivityStarter.startHelpActivity(this);
+
     }
 
     /**

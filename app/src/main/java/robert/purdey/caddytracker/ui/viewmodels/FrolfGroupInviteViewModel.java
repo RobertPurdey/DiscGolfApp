@@ -44,58 +44,14 @@ public class FrolfGroupInviteViewModel extends ViewModel
         return frolfGroupInvites;
     }
 
-    public void acceptGroupInvite(UUID inviteId, IRefreshListener listener)
+    public void acceptGroupInvite(UUID inviteId, IApiResponseListener listener)
     {
-        frolfGroupInviteController.accept(inviteId, new IApiResponseListener()
-        {
-            @Override
-            public void onResponseSuccessful()
-            {
-                resetInviteData();
-                listener.onRefresh();
-            }
-
-            @Override
-            public void onResponseFailed()
-            {
-                // todo: implement this?
-                // perhaps a toast message
-            }
-
-            @Override
-            public void onCallFailure()
-            {
-                // todo: implement this?
-                // perhaps a toast message
-            }
-        });
+        frolfGroupInviteController.accept(inviteId, listener);
     }
 
-    public void declineGroupInvite(UUID inviteId, IRefreshListener listener)
+    public void declineGroupInvite(UUID inviteId, IApiResponseListener listener)
     {
-        frolfGroupInviteController.remove(inviteId, new IApiResponseListener()
-        {
-            @Override
-            public void onResponseSuccessful()
-            {
-                resetInviteData();
-                listener.onRefresh();
-            }
-
-            @Override
-            public void onResponseFailed()
-            {
-                // todo: implement this?
-                // perhaps a toast message
-            }
-
-            @Override
-            public void onCallFailure()
-            {
-                // todo: implement this?
-                // perhaps a toast message
-            }
-        });
+        frolfGroupInviteController.remove(inviteId, listener);
     }
 
     private void loadFrolfGroupInvites()
@@ -103,7 +59,7 @@ public class FrolfGroupInviteViewModel extends ViewModel
         frolfGroupInvites = frolfGroupInviteController.getWithFilter(filterModel);
     }
 
-    private void resetInviteData()
+    public void resetInviteData()
     {
         frolfGroupInvites = null;
         getFrolfGroupInvites();

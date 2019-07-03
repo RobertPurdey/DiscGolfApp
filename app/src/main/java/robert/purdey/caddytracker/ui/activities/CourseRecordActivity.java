@@ -13,6 +13,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,8 @@ public class CourseRecordActivity extends AppCompatActivity
             courseRecordViewModel.getCourse(rId).observe(this, courseModel -> {
                 courseRecordViewModel.setCourseRecord(courseModel);
                 LoadHoles(courseModel.getHoles());
+
+                setHoleAdjustmentVisibility(View.INVISIBLE);
             });
         }
         // new record
@@ -65,7 +68,28 @@ public class CourseRecordActivity extends AppCompatActivity
 
             courseRecordViewModel.setCourseRecord(newModel);
             LoadHoles(newModel.getHoles());
+
+            setHoleAdjustmentVisibility(View.VISIBLE);
         }
+    }
+
+    private void setHoleAdjustmentVisibility(int viewVisibility)
+    {
+        Button addHole      = getAddHoleButton();
+        Button removeHole   = getRemoveHoleButton();
+
+        addHole.setVisibility(viewVisibility);
+        removeHole.setVisibility(viewVisibility);
+    }
+
+    private Button getAddHoleButton()
+    {
+        return (Button)findViewById(R.id.bttn_course_record_add_hole);
+    }
+
+    private Button getRemoveHoleButton()
+    {
+        return (Button)findViewById(R.id.bttn_course_record_remove_hole);
     }
 
     private CourseModel CreateNewCourseModel(UUID frolfGroupId)
@@ -119,6 +143,7 @@ public class CourseRecordActivity extends AppCompatActivity
             courseRecordViewModel.insert(courseHoles).observe(this, courseModel -> {
                 courseRecordViewModel.setCourseRecord(courseModel);
                 LoadHoles(courseModel.Holes);
+                setHoleAdjustmentVisibility(View.INVISIBLE);
             });
         }
         else

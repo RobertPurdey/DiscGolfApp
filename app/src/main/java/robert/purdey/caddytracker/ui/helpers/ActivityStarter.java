@@ -127,7 +127,7 @@ public class ActivityStarter
      */
     public static void startHelpActivity(Context context)
     {
-        startActivity(context, WatchGameActivity.class);
+
     }
 
     /**

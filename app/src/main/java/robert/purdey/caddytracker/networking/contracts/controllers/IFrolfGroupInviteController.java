@@ -15,5 +15,5 @@ public interface IFrolfGroupInviteController
     MutableLiveData<List<FrolfGroupInviteModel>> getWithFilter(FrolfGroupInviteFilterModel filter);
     void accept(UUID inviteId, IApiResponseListener responseListener);
     void remove(UUID inviteId, IApiResponseListener responseListener);
-    void send(InviteCreationModel creationModel);
+    void send(InviteCreationModel creationModel, IApiResponseListener responseListener);
 }

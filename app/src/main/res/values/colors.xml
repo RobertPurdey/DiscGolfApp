@@ -11,6 +11,8 @@
     <color name="button_red">#d44949</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="error_red">#FF8484</color>
+    <color name="success_green">#84FF86</color>
 
     <!-- Table coloring -->
     <!-- Material Design TableView Colors -->

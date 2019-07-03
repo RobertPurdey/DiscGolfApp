@@ -86,7 +86,6 @@ public class FrolfGroupInviteController
         return data;
     }
 
-    // todo: should use a result model to return details about call?
     @Override
     public void accept(UUID inviteId, IApiResponseListener responseListener)
     {
@@ -116,7 +115,6 @@ public class FrolfGroupInviteController
         });
     }
 
-    // todo: should use a result model to return details about call?
     @Override
     public void remove(UUID inviteId, IApiResponseListener responseListener)
     {
@@ -147,7 +145,7 @@ public class FrolfGroupInviteController
     }
 
     @Override
-    public void send(InviteCreationModel creationModel)
+    public void send(InviteCreationModel creationModel, IApiResponseListener responseListener)
     {
         EncryptModel encryptModel = encryptModel(creationModel);
         Call<Void> caller         = getApiCall().send(getAuthorizationHeader(), encryptModel);
@@ -158,18 +156,18 @@ public class FrolfGroupInviteController
             {
                 if ( response.isSuccessful() )
                 {
-                    // todo: what do i do???
+                    responseListener.onResponseSuccessful();
                 }
                 else
                 {
-                    // todo: what do i do???
+                    responseListener.onResponseFailed();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t)
             {
-                // todo: what do i do???
+                responseListener.onCallFailure();
             }
         });
     }

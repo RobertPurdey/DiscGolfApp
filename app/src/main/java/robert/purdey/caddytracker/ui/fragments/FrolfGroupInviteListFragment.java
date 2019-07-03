@@ -11,9 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import java.util.UUID;
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.adapters.FrolfGroupInviteListAdapter;
+import robert.purdey.caddytracker.ui.helpers.Toaster;
+import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.listeners.IInviteActionClickListener;
 import robert.purdey.caddytracker.ui.viewmodels.FrolfGroupInviteViewModel;
 
@@ -47,7 +51,7 @@ public class FrolfGroupInviteListFragment extends Fragment implements IInviteAct
 
         frolfGroupInviteViewModel = ViewModelProviders.of(this).get(FrolfGroupInviteViewModel.class);
 
-        GetInvites();
+        getInvites();
 
         return rootView;
     }
@@ -55,16 +59,91 @@ public class FrolfGroupInviteListFragment extends Fragment implements IInviteAct
     @Override
     public void onClickAccept(UUID inviteId)
     {
-        frolfGroupInviteViewModel.acceptGroupInvite(inviteId, this::GetInvites);
+        frolfGroupInviteViewModel.acceptGroupInvite(inviteId, new IApiResponseListener()
+        {
+            @Override
+            public void onResponseSuccessful()
+            {
+                inviteAcceptSuccess();
+                frolfGroupInviteViewModel.resetInviteData();
+                getInvites();
+            }
+
+            @Override
+            public void onResponseFailed()
+            {
+                inviteAcceptFailure();
+            }
+
+            @Override
+            public void onCallFailure()
+            {
+
+            }
+        });
     }
 
     @Override
     public void onClickDecline(UUID inviteId)
     {
-        frolfGroupInviteViewModel.declineGroupInvite(inviteId, this::GetInvites);
+        frolfGroupInviteViewModel.declineGroupInvite(inviteId, new IApiResponseListener()
+        {
+            @Override
+            public void onResponseSuccessful()
+            {
+                inviteDeclineSuccess();
+                frolfGroupInviteViewModel.resetInviteData();
+                getInvites();
+            }
+
+            @Override
+            public void onResponseFailed()
+            {
+                inviteDeclineFailure();
+            }
+
+            @Override
+            public void onCallFailure()
+            {
+
+            }
+        });
     }
 
-    public void GetInvites()
+    private void inviteAcceptSuccess()
+    {
+        Toaster.quickSuccessToast(
+            getContext(),
+            R.string.invite_accepted_success_msg,
+            Toast.LENGTH_SHORT);
+    }
+
+
+    private void inviteAcceptFailure()
+    {
+        Toaster.quickFailureToast(
+            getContext(),
+            R.string.invite_accepted_failure_msg,
+            Toast.LENGTH_SHORT);
+    }
+
+    private void inviteDeclineSuccess()
+    {
+        Toaster.quickSuccessToast(
+            getContext(),
+            R.string.invite_decline_success_msg,
+            Toast.LENGTH_SHORT);
+    }
+
+    private void inviteDeclineFailure()
+    {
+        Toaster.quickFailureToast(
+            getContext(),
+            R.string.invite_decline_failure_msg,
+            Toast.LENGTH_SHORT);
+    }
+
+    private void getInvites()
     {
         frolfGroupInviteViewModel.getFrolfGroupInvites().observe(
             this,

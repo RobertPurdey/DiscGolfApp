@@ -61,14 +61,14 @@ public class FrolfGroupRecordViewModel extends ViewModel
         return frolfGroup;
     }
 
-    public void sendGroupInvite()
+    public void sendGroupInvite(IApiResponseListener listener)
     {
         InviteCreationModel creationModel = new InviteCreationModel();
 
         creationModel.setGroupId( UUID.fromString( groupId.getValue() ) );
         creationModel.setFriendCode( friendCode.getValue() );
 
-        frolfGroupInviteController.send(creationModel);
+        frolfGroupInviteController.send(creationModel, listener);
     }
 
     public LiveData<FrolfGroupModel> insert()

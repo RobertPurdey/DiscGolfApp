@@ -24,43 +24,73 @@
             android:gravity="top"
             android:orientation="vertical">
 
+            <!-- Login name label -->
+            <TextView
+                android:id="@+id/txtv_activity_account_loginname_label"
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:textSize="16dp"
+                android:text="@string/login_name"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/white"/>
+
             <!-- Username text input -->
             <EditText
                 android:id="@+id/etxt_activity_account_loginname"
-                android:inputType="text"
+                android:inputType="text|textNoSuggestions"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
                 android:background="@android:color/white"
-                android:hint="@string/login_name"
                 android:paddingLeft="10dp"
                 android:maxLines="1"
                 android:text="@={accountViewModel.loginName}"/>
 
+            <!-- Handle name label -->
+            <TextView
+                android:id="@+id/txtv_activity_account_handle_label"
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:textSize="16dp"
+                android:text="@string/handle"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/white"/>
+
             <!-- Handle text input -->
             <EditText
                 android:id="@+id/etxt_activity_account_handle"
-                android:inputType="text"
+                android:inputType="text|textNoSuggestions"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
                 android:background="@android:color/white"
-                android:hint="@string/handle"
                 android:paddingLeft="10dp"
                 android:maxLines="1"
                 android:text="@={accountViewModel.handle}"/>
 
-            <!-- friendCode text input -->
+            <!-- friend code label -->
+            <TextView
+                android:id="@+id/txtv_activity_account_friend_code_label"
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:textSize="16dp"
+                android:text="@string/friend_code"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/white"/>
+
+            <!-- friend code text input -->
             <EditText
                 android:id="@+id/etxt_activity_account_friend_code"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
                 android:background="@android:color/white"
-                android:hint="@string/friend_code"
                 android:paddingLeft="10dp"
                 android:maxLines="1"
                 android:clickable="false"
+                android:inputType="textNoSuggestions"
                 android:text="@={accountViewModel.friendCode}" />
 
             <!-- Save account button -->

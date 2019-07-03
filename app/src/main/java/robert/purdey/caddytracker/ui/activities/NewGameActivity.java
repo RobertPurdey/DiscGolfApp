@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.UUID;
 
@@ -18,6 +19,7 @@ import robert.purdey.caddytracker.ui.fragments.CourseListFragment;
 import robert.purdey.caddytracker.ui.fragments.FrolfGroupListFragment;
 import robert.purdey.caddytracker.ui.fragments.FrolfGroupMemberListFragment;
 import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
+import robert.purdey.caddytracker.ui.helpers.Toaster;
 import robert.purdey.caddytracker.ui.viewmodels.NewGameViewModel;
 
 public class NewGameActivity extends AppCompatActivity
@@ -77,10 +79,20 @@ public class NewGameActivity extends AppCompatActivity
      */
     public void addGame(View view)
     {
-        newGameViewModel.CreateGame().observe(this, gameModel ->
-            ActivityStarter.startScoreGameActivity(this, gameModel.getIdKey())
-        );
+        newGameViewModel.CreateGame().observe(this, gameModel -> {
+            newGameCreatedSuccessToast();
+            ActivityStarter.startScoreGameActivity(this, gameModel.getIdKey());
+        });
     }
+
+    private void newGameCreatedSuccessToast()
+    {
+        Toaster.quickSuccessToast(
+            NewGameActivity.this,
+            R.string.game_created_success_msg,
+            Toast.LENGTH_LONG);
+    }
+
 
     private void onCourseSelected(UUID id)
     {

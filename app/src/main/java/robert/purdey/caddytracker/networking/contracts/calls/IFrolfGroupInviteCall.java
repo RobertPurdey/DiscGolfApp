@@ -31,7 +31,7 @@ public interface IFrolfGroupInviteCall
         @Header("Authorization") String auth,
         @Body EncryptModel inviteId);
 
-    @DELETE("api/frolfgroupinvites/delete")
+    @POST("api/frolfgroupinvites/delete")
     Call<Void> remove(
         @Header("Authorization") String auth,
         @Body EncryptModel inviteId);

@@ -41,7 +41,7 @@ public class NewGameViewModel extends ViewModel
     {
         creationModel.getValue().setName(gameName.getValue());
 
-        return frolfGroupController.createGame( creationModel.getValue());
+        return frolfGroupController.createGame(creationModel.getValue());
     }
 
     public void setCourse(UUID id)

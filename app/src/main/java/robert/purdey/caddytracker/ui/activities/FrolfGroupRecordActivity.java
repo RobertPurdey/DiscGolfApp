@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.UUID;
 
@@ -15,6 +16,7 @@ import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.databinding.ActivityFrolfGroupRecordBinding;
 import robert.purdey.caddytracker.ui.fragments.FrolfGroupMemberListFragment;
 import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
+import robert.purdey.caddytracker.ui.helpers.Toaster;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.viewmodels.FrolfGroupRecordViewModel;
 import robert.purdey.caddytracker.utilities.Strings;
@@ -107,7 +109,26 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
     public void onSendInvite(View view)
     {
         // todo: use IApiResponseListener to inform when its sent
-        frolfGroupRecordViewModel.sendGroupInvite();
+        frolfGroupRecordViewModel.sendGroupInvite(new IApiResponseListener()
+        {
+            @Override
+            public void onResponseSuccessful()
+            {
+                inviteSentSuccessToast();
+            }
+
+            @Override
+            public void onResponseFailed()
+            {
+                inviteSentFailureToast();
+            }
+
+            @Override
+            public void onCallFailure()
+            {
+
+            }
+        });
     }
 
     public void onLeaveGroup(View view)
@@ -119,13 +140,14 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
                 @Override
                 public void onResponseSuccessful()
                 {
+                    leaveGroupSuccessToast();
                     goToManageFrolfGroupsActivity();
                 }
 
                 @Override
                 public void onResponseFailed()
                 {
-                    // todo toast message
+                    leaveGroupFailureToast();
                 }
 
                 @Override
@@ -146,29 +168,78 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
             {
                 // Reload members
                 LoadMembers(FrolfGroupId);
+                removeMemberSuccessToast();
             }
 
             @Override
             public void onResponseFailed()
             {
-                // todo:
+                removeMemberFailureToast();
             }
 
             @Override
             public void onCallFailure()
             {
-                // todo:
+                // todo
             }
         });
+    }
+
+    private void inviteSentSuccessToast()
+    {
+        Toaster.quickSuccessToast(
+            FrolfGroupRecordActivity.this,
+            R.string.invite_sent_success_msg,
+            Toast.LENGTH_SHORT);
+    }
+
+    private void inviteSentFailureToast()
+    {
+        Toaster.quickFailureToast(
+            FrolfGroupRecordActivity.this,
+            R.string.invite_sent_failure_msg,
+            Toast.LENGTH_SHORT);
+    }
+
+    private void removeMemberSuccessToast()
+    {
+        Toaster.quickSuccessToast(
+            FrolfGroupRecordActivity.this,
+            R.string.group_member_removed_success_msg,
+            Toast.LENGTH_SHORT);
+    }
+
+    private void removeMemberFailureToast()
+    {
+        Toaster.quickFailureToast(
+            FrolfGroupRecordActivity.this,
+            R.string.group_member_removed_failure_msg,
+            Toast.LENGTH_SHORT);
+    }
+
+    private void leaveGroupSuccessToast()
+    {
+        Toaster.quickSuccessToast(
+            FrolfGroupRecordActivity.this,
+            R.string.group_left_success_msg,
+            Toast.LENGTH_SHORT);
+    }
+
+    private void leaveGroupFailureToast()
+    {
+        Toaster.quickFailureToast(
+            FrolfGroupRecordActivity.this,
+            R.string.group_left_failure_msg,
+            Toast.LENGTH_SHORT);
     }
 
     private void confirmRemovePlayer(UUID playerId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder
-            .setMessage("Are you sure you want to remove this player? The player's group data cannot be recovered.")
-            .setPositiveButton("Yes", (dialog, id) -> removePlayer(playerId))
-            .setNegativeButton("No",  (dialog, id) -> dialog.cancel() )
+            .setMessage(R.string.remove_player_confirm)
+            .setPositiveButton(R.string.yes, (dialog, id) -> removePlayer(playerId))
+            .setNegativeButton(R.string.no,  (dialog, id) -> dialog.cancel() )
             .show();
     }
 

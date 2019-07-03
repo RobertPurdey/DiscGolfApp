@@ -14,26 +14,26 @@ import robert.purdey.caddytracker.ui.models.InviteCreationModel;
 
 public class InviteFriendViewModel  extends ViewModel
 {
-    public MutableLiveData<String> friendCode;
-    private IFrolfGroupInviteController frolfGroupInviteController;
+   // public MutableLiveData<String> friendCode;
+    //private IFrolfGroupInviteController frolfGroupInviteController;
 
     public InviteFriendViewModel()
     {
         // todo: inject the following when possible
-        ApiCallService apiCallService = new ApiCallService(
-            new RetrofitConfig(),
-            new HttpClientConfig()
-        );
+      //  ApiCallService apiCallService = new ApiCallService(
+      //      new RetrofitConfig(),
+      //      new HttpClientConfig()
+      //  );
 
-        frolfGroupInviteController = new FrolfGroupInviteController(apiCallService);
+       // frolfGroupInviteController = new FrolfGroupInviteController(apiCallService);
     }
 
     public void sendInvite(UUID groupId)
     {
-        InviteCreationModel creationModel = new InviteCreationModel();
-        creationModel.setGroupId( groupId);
-        creationModel.setFriendCode( friendCode.getValue() );
+       /// InviteCreationModel creationModel = new InviteCreationModel();
+       // creationModel.setGroupId( groupId);
+       // creationModel.setFriendCode( friendCode.getValue() );
 
-        frolfGroupInviteController.send(creationModel);
+        //frolfGroupInviteController.send(creationModel);
     }
 }
