@@ -3,6 +3,7 @@ package robert.purdey.caddytracker.ui.activities;
 import robert.purdey.caddytracker.R;
 
 import robert.purdey.caddytracker.databinding.ActivityScoreGameBinding;
+import robert.purdey.caddytracker.networking.watch.AnnouncerClient;
 import robert.purdey.caddytracker.ui.FrolfApp;
 import robert.purdey.caddytracker.ui.fragments.GameHoleScoresFragment;
 import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
@@ -36,8 +37,9 @@ import java.util.UUID;
 public class ScoreGameActivity extends AppCompatActivity
 {
     public static final String RECORD_ID = "RECORD_ID";
+
     private ScoreGameActivityViewModel scoreGameActiveViewModel;
-    Announcer announce;
+    private AnnouncerClient announcer;
 
     public ScoreGameActivity()
     {
@@ -70,7 +72,7 @@ public class ScoreGameActivity extends AppCompatActivity
                 courseName.setText(gameModel.getCourseName());
                 LoadHoleScores(gameModel.getIdKey(), 1);
 
-                announce = new Announcer(gameModel.getIdKey());
+                announcer = new AnnouncerClient(gameModel.getIdKey());
             });
         }
     }
@@ -234,7 +236,7 @@ public class ScoreGameActivity extends AppCompatActivity
         // get game update, send
         scoreGameActiveViewModel.getGameResults(scoreGameActiveViewModel.Game.getValue().getIdKey()).observe(
             this,
-            gameResultModel -> announce.SendGameUpdate(gameResultModel));
+            gameResultModel -> announcer.SendGameUpdate(gameResultModel));
     }
 
     private void loadNextHole(int nextHole)
@@ -259,150 +261,6 @@ public class ScoreGameActivity extends AppCompatActivity
     {
         return (GameHoleScoresFragment)
             getSupportFragmentManager().findFragmentById(R.id.frag_mng_game_hole_scores_fragment);
-    }
-
-    // todo Move somewhere better
-    class Announcer
-    {
-        // todo: read from file
-        private String serverIpAddress = "192.168.1.101";
-        private UUID gameId;
-
-        public String results="";
-
-        String s;
-        Socket socket;
-        BufferedReader in;
-        BufferedWriter out;
-
-        public Announcer(UUID gameId)
-        {
-            Thread cThread  = new Thread(new ScoreGameActivity.Announcer.MakeConnection());
-            this.gameId     = gameId;
-
-            cThread.start();
-        }
-
-        public void SendGameUpdate(GameResultModel gameUpdate)
-        {
-            // convert to JSON
-            Gson gson               = new Gson();
-            String updateStr        = gson.toJson(gameUpdate);
-
-            // todo: dont let this be called if not established
-            Thread cThread  = new Thread(new ScoreGameActivity.Announcer.GameUpdate(updateStr));
-            cThread.start();
-        }
-
-        private void packageGameUpdate(GameModel model)
-        {
-
-        }
-
-        public void SendGameUpdate(String gameUpdate)
-        {
-            // todo: dont let this be called if not established
-            Thread cThread  = new Thread(new ScoreGameActivity.Announcer.GameUpdate(gameUpdate));
-            cThread.start();
-        }
-
-
-        private class GameUpdate implements Runnable
-        {
-            private String gameUpdate = "";
-
-            public GameUpdate(String newGameUpdate)
-            {
-                gameUpdate = newGameUpdate;
-            }
-
-            @Override
-            public void run()
-            {
-                try
-                {
-                    int updateSize         = gameUpdate.length();
-                    String updateSizeMsg   = String.format("%07d" , updateSize);
-
-                    // send update size
-                    out.write(updateSizeMsg);
-                    out.flush();
-
-                    // send update
-                    out.write(gameUpdate);
-                    out.flush();
-
-                    Log.d("GameUpdate", "C: Update sent...");
-                }
-                catch (Exception ex)
-                {
-                    Log.d("GameUpdate", "C: Update not sent...");
-                }
-            }
-        }
-
-        private class MakeConnection implements Runnable
-        {
-            @Override
-            public void run()
-            {
-                try
-                {
-                    InetAddress serverAddr = InetAddress.getByName(serverIpAddress);
-
-                    s       = null;
-                    socket  = new Socket(serverAddr, 45000);
-                    in      = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                    out     = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-
-                    Log.d("Announcer", "C: Connected to broadcast server :) ...");
-                }
-                catch (Exception ex)
-                {
-                    Log.d("Announcer", "C: Failure to connect to broadcast server :( ...");
-                }
-
-                EstablishConnection();
-            }
-
-            private void EstablishConnection()
-            {
-                try
-                {
-                    // Sending token size + token
-                    String token            = FrolfApp.getUserSession().getToken();
-                    byte[] tokenByte        = token.getBytes();
-                    int tokenSize           = tokenByte.length;
-                    String tokenSizeMsg     = String.format("%04d" , tokenSize);
-
-                    // send token size
-                    out.write(tokenSizeMsg);
-                    out.flush();
-
-                    // send token
-                    out.write(token);
-                    out.flush();
-
-                    // Sending command spectate command is always 10 chars (10 bytes)
-                    out.write("--ANNOUNCE");
-                    out.flush();
-
-                    // Sending game guid as string (36 bytes)
-                    out.write(gameId.toString());
-                    out.flush();
-
-                    // Sending user guid as string (36 bytes)
-                    out.write(FrolfApp.getUserSession().getCurrentUserId().toString());
-                    out.flush();
-
-                    Log.d("Announcer", "C: Connection established :) ...");
-                }
-                catch (Exception ex)
-                {
-                    Log.d("Announcer", "C: Failure to establish connection :( ...");
-                }
-            }
-        }
     }
 }
 
