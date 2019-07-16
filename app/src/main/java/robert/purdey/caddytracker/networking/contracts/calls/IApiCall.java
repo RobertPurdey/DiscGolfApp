@@ -1,7 +1,8 @@
 package robert.purdey.caddytracker.networking.contracts.calls;
 
+import robert.purdey.caddytracker.networking.configuration.ServerConfiguration;
+
 public interface IApiCall
 {
-    //todo: use configuration file?
-    String BASE_URL = "http://192.168.1.86:53740/";
+    String BASE_URL = ServerConfiguration.API_ROUTE;
 }

@@ -3,7 +3,6 @@ package robert.purdey.caddytracker.networking.watch;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSerializer;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,6 +14,7 @@ import java.util.UUID;
 
 import robert.purdey.caddytracker.domain.clients.ClientRequestModel;
 import robert.purdey.caddytracker.domain.encryption.EncryptModel;
+import robert.purdey.caddytracker.networking.configuration.ServerConfiguration;
 import robert.purdey.caddytracker.networking.encryption.ModelEncryptor;
 import robert.purdey.caddytracker.security.encryption.AesManager;
 import robert.purdey.caddytracker.security.encryption.RsaManager;
@@ -25,7 +25,7 @@ public class AnnouncerClient
 {
     private ModelEncryptor encryptor;
     private Gson gson = new Gson();
-    private String serverIpAddress = "192.168.1.86";
+    private String serverIpAddress;
     private UUID gameId;
 
     public String results="";
@@ -37,6 +37,8 @@ public class AnnouncerClient
 
     public AnnouncerClient(UUID gameId)
     {
+        serverIpAddress = ServerConfiguration.BROADCASTER_IP;
+
         Thread cThread  = new Thread(new AnnouncerClient.MakeConnection());
         this.gameId     = gameId;
 

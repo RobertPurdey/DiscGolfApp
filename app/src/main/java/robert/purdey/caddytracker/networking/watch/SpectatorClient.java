@@ -13,6 +13,7 @@ import java.net.Socket;
 import java.util.UUID;
 import robert.purdey.caddytracker.domain.clients.ClientRequestModel;
 import robert.purdey.caddytracker.domain.encryption.EncryptModel;
+import robert.purdey.caddytracker.networking.configuration.ServerConfiguration;
 import robert.purdey.caddytracker.networking.encryption.ModelEncryptor;
 import robert.purdey.caddytracker.security.encryption.AesManager;
 import robert.purdey.caddytracker.security.encryption.RsaManager;
@@ -24,7 +25,7 @@ public class SpectatorClient
 {
     private ModelEncryptor encryptor;
     private Gson gson = new Gson();
-    private String serverIpAddress = "192.168.1.86";
+    private String serverIpAddress;
     private UUID gameId;
     private IGameUpdateCallback gameCallback;
 
@@ -37,6 +38,8 @@ public class SpectatorClient
 
     public SpectatorClient(UUID gameId, IGameUpdateCallback gameCallback)
     {
+        serverIpAddress   = ServerConfiguration.BROADCASTER_IP;
+
         this.gameId       = gameId;
         this.gameCallback = gameCallback;
 

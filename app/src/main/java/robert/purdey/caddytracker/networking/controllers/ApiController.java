@@ -38,8 +38,8 @@ public abstract class ApiController<TApiCall> implements IApiController<TApiCall
     private HttpClientArg createHttpClientArg()
     {
         return new HttpClientArg(
-            10,
-            10,
+            30,
+            30,
             IApiCall.BASE_URL,
             CreateAuthenticator() );
     }
