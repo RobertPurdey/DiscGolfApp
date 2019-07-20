@@ -1,6 +1,7 @@
 package robert.purdey.caddytracker.ui.activities;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -110,6 +111,17 @@ public class AccountActivity extends AppCompatActivity
                 // todo
             }
         });
+    }
+
+    public void onShareFriendCode(View view)
+    {
+        Intent shareIntent = new Intent();
+
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, accountViewModel.friendCode.getValue());
+        shareIntent.setType("text/plain");
+
+        startActivity(shareIntent);
     }
 
 }

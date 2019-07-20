@@ -69,6 +69,7 @@
     <string name="adjust_par">Adjust Par</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="share">Share</string>
 
     <!-- Confirm Messages -->
     <string name="remove_player_confirm">Are you sure you want to remove this player? The player\'s group data cannot be recovered.</string>

@@ -55,6 +55,10 @@ public class ScoreCardFragment extends Fragment
         List<ScoreColumnHeaderModel> columnHeaders  = new ArrayList<>();
         List<List<ScoreCellModel>> playerResults    = new ArrayList<>();
 
+        // order results by best score before displaying
+        List<PlayerGameResultModel> playerResultModels = result.getPlayerResults();
+        Collections.sort(playerResultModels, Comparator.comparingInt(PlayerGameResultModel::getTotalScore));
+
         // create columns
         columnHeaders.add(new ScoreColumnHeaderModel("Score"));
 
@@ -70,7 +74,7 @@ public class ScoreCardFragment extends Fragment
         // create row
         rowHeaders.add(new ScoreRowHeaderModel("PAR"));
 
-        rowHeaders.addAll(result.getPlayerResults()
+        rowHeaders.addAll(playerResultModels
             .stream()
             .map(res -> new ScoreRowHeaderModel(res.getPlayerName()))
             .collect(Collectors.toList()));
@@ -79,11 +83,7 @@ public class ScoreCardFragment extends Fragment
         // to Par cells
         playerResults.add(ToParCells(result));
 
-        // order results by best score before displaying
-        List<PlayerGameResultModel> models = result.getPlayerResults();
-        Collections.sort(models, Comparator.comparingInt(PlayerGameResultModel::getTotalScore));
-
-        for (PlayerGameResultModel model : models)
+        for (PlayerGameResultModel model : playerResultModels)
         {
             playerResults.add(ToScoreCellModels(model));
         }
