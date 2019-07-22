@@ -2,10 +2,12 @@ package robert.purdey.caddytracker.ui.fragments;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+
 import com.evrencoskun.tableview.TableView;
 import java.util.ArrayList;
 import java.util.Collections;

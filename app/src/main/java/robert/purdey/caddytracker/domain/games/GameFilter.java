@@ -1,6 +1,6 @@
 package robert.purdey.caddytracker.domain.games;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 public class GameFilter
 {

@@ -1,17 +1,16 @@
 package robert.purdey.caddytracker.ui.activities;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+
 import java.util.UUID;
 
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.fragments.ScoreCardFragment;
 import robert.purdey.caddytracker.ui.models.GameResultModel;
-import robert.purdey.caddytracker.ui.models.scorecard.PlayerGameResultModel;
 import robert.purdey.caddytracker.ui.viewmodels.ScoreCardViewModel;
 
 public class ScoreCardActivity extends AppCompatActivity

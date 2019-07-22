@@ -1,16 +1,13 @@
 package robert.purdey.caddytracker.ui.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import java.util.UUID;
+import androidx.appcompat.app.AppCompatActivity;
 
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.fragments.FrolfGroupListFragment;
-import robert.purdey.caddytracker.ui.fragments.FrolfGroupMemberListFragment;
 import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
-import robert.purdey.caddytracker.ui.listeners.IItemClickListener;
 
 public class ManageFrolfGroupsActivity extends AppCompatActivity
 {

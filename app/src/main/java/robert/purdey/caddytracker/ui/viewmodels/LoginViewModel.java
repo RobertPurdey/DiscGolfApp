@@ -1,15 +1,11 @@
 package robert.purdey.caddytracker.ui.viewmodels;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
-import java.math.BigInteger;
 import java.security.KeyPair;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
-import java.security.spec.RSAPrivateKeySpec;
-import java.security.spec.RSAPublicKeySpec;
-import java.util.Base64;
 
 import robert.purdey.caddytracker.domain.storage.contracts.IUserSessionManager;
 import robert.purdey.caddytracker.networking.HttpClientConfig;

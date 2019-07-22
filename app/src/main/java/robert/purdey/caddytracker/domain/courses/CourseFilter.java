@@ -1,6 +1,7 @@
 package robert.purdey.caddytracker.domain.courses;
 
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import java.util.UUID;
 

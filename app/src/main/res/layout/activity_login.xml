@@ -20,7 +20,7 @@
 
         <!-- Username text input -->
         <EditText
-            android:id="@+id/etxt_username"
+            android:id="@+id/etxt_activity_login_username"
             android:inputType="text"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
@@ -36,11 +36,11 @@
 
         <!-- Password text input -->
         <EditText
-            android:id="@+id/etxt_password"
+            android:id="@+id/etxt_activity_login_password"
             android:inputType="textPassword"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
-            android:layout_below="@+id/etxt_username"
+            android:layout_below="@+id/etxt_activity_login_username"
             android:layout_margin="5dp"
             android:background="@android:color/white"
             android:hint="@string/password"
@@ -50,24 +50,24 @@
 
         <!-- Login button -->
         <Button
-            android:id="@+id/new_game"
+            android:id="@+id/bttn_activity_login_login"
             android:textColor="@color/white"
             android:background="@color/button_green"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
-            android:layout_below="@+id/etxt_password"
+            android:layout_below="@+id/etxt_activity_login_password"
             android:layout_margin="5dp"
             android:text="@string/login"
             android:onClick="onLoginUser"/>
 
         <!-- Create Account button -->
         <Button
-            android:id="@+id/bttn_activity_login"
+            android:id="@+id/bttn_activity_login_create_account"
             android:textColor="@color/white"
             android:background="@color/button_green"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
-            android:layout_below="@+id/new_game"
+            android:layout_below="@+id/bttn_activity_login_login"
             android:layout_margin="5dp"
             android:text="@string/create_account"
             android:onClick="onCreateAccount"/>

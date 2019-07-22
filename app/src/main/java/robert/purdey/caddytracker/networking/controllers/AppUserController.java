@@ -1,10 +1,8 @@
 package robert.purdey.caddytracker.networking.controllers;
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 
-import java.nio.charset.StandardCharsets;
 import java.security.interfaces.RSAPublicKey;
-import java.security.spec.RSAPrivateKeySpec;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +14,6 @@ import robert.purdey.caddytracker.domain.storage.UserSessionManager;
 import robert.purdey.caddytracker.networking.contracts.calls.IAppUserCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.IAppUserController;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
-import robert.purdey.caddytracker.security.encryption.AesManager;
 import robert.purdey.caddytracker.security.encryption.RsaManager;
 import robert.purdey.caddytracker.security.encryption.ServerRsaPublicKeyInfo;
 import robert.purdey.caddytracker.ui.FrolfApp;

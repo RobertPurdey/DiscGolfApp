@@ -1,8 +1,10 @@
 package robert.purdey.caddytracker.ui.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.UUID;
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.networking.watch.SpectatorClient;

@@ -1,7 +1,9 @@
 package robert.purdey.caddytracker.ui.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import robert.purdey.caddytracker.R;
 
 public class ManageInvitesActivity extends AppCompatActivity

@@ -7,13 +7,14 @@ import robert.purdey.caddytracker.ui.models.CourseModel;
 import robert.purdey.caddytracker.ui.models.holes.HoleModel;
 import robert.purdey.caddytracker.ui.viewmodels.courses.CourseRecordViewModel;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import java.util.ArrayList;
 import java.util.List;

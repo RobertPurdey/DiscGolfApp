@@ -6,9 +6,10 @@ import robert.purdey.caddytracker.ui.fragments.CourseListFragment;
 import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.UUID;
 

@@ -1,6 +1,6 @@
 package robert.purdey.caddytracker.networking.controllers;
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +16,6 @@ import robert.purdey.caddytracker.networking.contracts.calls.ICourseCall;
 import robert.purdey.caddytracker.networking.contracts.controllers.ICourseController;
 import robert.purdey.caddytracker.networking.contracts.services.IApiCallService;
 import robert.purdey.caddytracker.ui.models.CourseModel;
-import robert.purdey.caddytracker.ui.models.FrolfGroupInviteModel;
 
 public class CourseController extends ApiController<ICourseCall>
     implements ICourseController

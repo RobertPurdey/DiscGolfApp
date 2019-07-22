@@ -20,7 +20,7 @@
 
         <!-- Group ID -->
         <TextView
-            android:id="@+id/txtv_group_id"
+            android:id="@+id/txtv_activity_frolf_group_record_group_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -28,7 +28,7 @@
 
         <!-- Username text input -->
         <EditText
-            android:id="@+id/etxt_groupName"
+            android:id="@+id/etxt_activity_frolf_group_record_group_name"
             android:inputType="text"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
@@ -40,24 +40,24 @@
 
         <!-- Friend code to add text input -->
         <EditText
-            android:id="@+id/etxt_friendCode"
+            android:id="@+id/etxt_activity_frolf_group_record_friend_code"
             android:inputType="text"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
-            android:layout_below="@+id/etxt_groupName"
+            android:layout_below="@+id/etxt_activity_frolf_group_record_group_name"
             android:background="@android:color/white"
             android:hint="@string/friend_code"
             android:text="@={frolfGroupRecordViewModel.friendCode}"/>
 
         <!-- Add friend bttn -->
         <Button
-            android:id="@+id/bttn_add_friend"
+            android:id="@+id/bttn_activity_frolf_group_record_add_friend"
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
-            android:layout_below="@+id/etxt_groupName"
-            android:layout_toRightOf="@+id/etxt_friendCode"
+            android:layout_below="@+id/etxt_activity_frolf_group_record_group_name"
+            android:layout_toRightOf="@+id/etxt_activity_frolf_group_record_friend_code"
             android:text="@string/add_friend"
             android:background="@color/button_green"
             android:textColor="@color/white"
@@ -69,7 +69,7 @@
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
-            android:layout_below="@+id/etxt_friendCode"
+            android:layout_below="@+id/etxt_activity_frolf_group_record_friend_code"
             android:text="@string/leave_group"
             android:background="@color/button_green"
             android:textColor="@color/white"
@@ -81,7 +81,7 @@
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
-            android:layout_below="@+id/etxt_friendCode"
+            android:layout_below="@+id/etxt_activity_frolf_group_record_friend_code"
             android:layout_toRightOf="@+id/bttn_frolf_group_record_leave_group"
             android:text="@string/courses"
             android:background="@color/button_green"
@@ -100,7 +100,7 @@
 
         <!-- Create frolf group button -->
         <Button
-            android:id="@+id/bttn_create_frolf_group"
+            android:id="@+id/bttn_activity_frolf_group_record_create_frolf_group"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"

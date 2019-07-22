@@ -1,6 +1,6 @@
 package robert.purdey.caddytracker.networking.controllers;
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.Arrays;
 import java.util.Comparator;

@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     tools:context="robert.purdey.caddytracker.ui.fragments.FrolfGroupListFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/frolfGroupRecycleView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvw_frolf_group_recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"

@@ -1,10 +1,9 @@
 package robert.purdey.caddytracker.domain.storage.contracts;
 
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import java.math.BigInteger;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.RSAPublicKeySpec;
 import java.util.UUID;

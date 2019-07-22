@@ -1,8 +1,9 @@
 package robert.purdey.caddytracker.ui.viewmodels;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,7 +13,6 @@ import robert.purdey.caddytracker.networking.RetrofitConfig;
 import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupController;
 import robert.purdey.caddytracker.networking.controllers.FrolfGroupController;
 import robert.purdey.caddytracker.networking.services.ApiCallService;
-import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.GameCreationModel;
 import robert.purdey.caddytracker.ui.models.GameModel;
 

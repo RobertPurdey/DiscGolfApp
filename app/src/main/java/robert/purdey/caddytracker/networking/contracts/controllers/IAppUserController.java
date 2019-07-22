@@ -1,9 +1,7 @@
 package robert.purdey.caddytracker.networking.contracts.controllers;
 
-import android.arch.lifecycle.MutableLiveData;
-
+import androidx.lifecycle.MutableLiveData;
 import java.security.interfaces.RSAPublicKey;
-import java.util.Map;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.AppUserCreationModel;
 import robert.purdey.caddytracker.ui.models.AppUserModel;

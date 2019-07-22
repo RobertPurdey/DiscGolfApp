@@ -24,7 +24,7 @@
 
     <!-- Manage Groups navigation button -->
     <Button
-        android:id="@+id/manage_groups"
+        android:id="@+id/bttn_activity_main_menu_manage_groups"
         android:textColor="@color/white"
         android:background="@color/button_green"
         android:layout_width="match_parent"
@@ -36,24 +36,24 @@
 
     <!-- Manage Invites navigation button -->
     <Button
-        android:id="@+id/manage_invites"
+        android:id="@+id/bttn_activity_main_menu_manage_invites"
         android:textColor="@color/white"
         android:background="@color/button_green"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/manage_groups"
+        android:layout_below="@+id/bttn_activity_main_menu_manage_groups"
         android:text="@string/invites"
         android:layout_marginBottom="20dp"
         android:onClick="onClickManageInvites"/>
 
     <!-- Account navigation button -->
     <Button
-        android:id="@+id/account"
+        android:id="@+id/bttn_activity_main_menu_account"
         android:textColor="@color/white"
         android:background="@color/button_green"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/manage_invites"
+        android:layout_below="@+id/bttn_activity_main_menu_manage_invites"
         android:text="@string/account"
         android:layout_marginBottom="20dp"
         android:onClick="onClickAccount"/>
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:background="@color/button_green"
-        android:layout_below="@+id/account"
+        android:layout_below="@+id/bttn_activity_main_menu_account"
         android:text="@string/help_app"
         android:layout_marginBottom="20dp"
         android:onClick="onClickHelp"/>

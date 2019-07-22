@@ -1,7 +1,8 @@
 package robert.purdey.caddytracker.ui.viewmodels;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import robert.purdey.caddytracker.networking.HttpClientConfig;
 import robert.purdey.caddytracker.networking.RetrofitConfig;

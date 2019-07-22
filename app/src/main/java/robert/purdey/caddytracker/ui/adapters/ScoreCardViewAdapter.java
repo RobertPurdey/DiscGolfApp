@@ -1,15 +1,12 @@
 package robert.purdey.caddytracker.ui.adapters;
 
 import android.content.Context;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.evrencoskun.tableview.adapter.AbstractTableAdapter;
 import com.evrencoskun.tableview.adapter.recyclerview.holder.AbstractViewHolder;
-
-import java.util.Map;
 
 import robert.purdey.caddytracker.ui.models.scorecard.ScoreCellModel;
 import robert.purdey.caddytracker.ui.models.scorecard.ScoreColumnHeaderModel;

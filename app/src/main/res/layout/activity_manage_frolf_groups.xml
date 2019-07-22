@@ -22,7 +22,7 @@
 
     <!-- Add Frolf Group navigation button -->
     <Button
-        android:id="@+id/bttn_new_frolf_group"
+        android:id="@+id/bttn_activity_manage_frolf_groups_new_frolf_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

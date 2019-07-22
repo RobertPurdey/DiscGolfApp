@@ -3,9 +3,10 @@ package robert.purdey.caddytracker.ui.activities;
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class GamesMenuActivity extends AppCompatActivity
 {

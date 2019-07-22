@@ -1,9 +1,5 @@
 package robert.purdey.caddytracker.ui.activities;
 
-import android.app.Activity;
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.databinding.ActivityCreateAccountBinding;
 import robert.purdey.caddytracker.ui.helpers.ActivityStarter;
@@ -14,6 +10,10 @@ import robert.purdey.caddytracker.ui.viewmodels.CreateAccountViewModel;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 public class CreateAccountActivity extends AppCompatActivity
 {

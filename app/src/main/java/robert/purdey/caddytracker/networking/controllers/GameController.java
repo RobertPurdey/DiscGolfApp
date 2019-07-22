@@ -1,6 +1,6 @@
 package robert.purdey.caddytracker.networking.controllers;
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +19,6 @@ import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.GameHoleUpdateModel;
 import robert.purdey.caddytracker.ui.models.GameModel;
 import robert.purdey.caddytracker.ui.models.GameResultModel;
-import robert.purdey.caddytracker.ui.models.scorecard.PlayerGameResultModel;
 
 
 public class GameController extends ApiController<IGameCall>
