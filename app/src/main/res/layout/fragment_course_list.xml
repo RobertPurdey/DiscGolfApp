@@ -5,7 +5,7 @@
     tools:context="robert.purdey.caddytracker.ui.fragments.CourseListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/courseListRecycleView"
+        android:id="@+id/rcvw_fragment_course_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"

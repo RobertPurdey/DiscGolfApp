@@ -19,7 +19,7 @@
 
         <!-- Course name -->
         <TextView
-            android:id="@+id/txtv_activity_score_course_name"
+            android:id="@+id/txtv_activity_score_game_course_name"
             android:text=""
             android:layout_width="250dp"
             android:layout_height="20dp"
@@ -32,7 +32,7 @@
             android:text="@string/hole"
             android:layout_width="35dp"
             android:layout_height="20dp"
-            android:layout_below="@+id/txtv_activity_score_course_name"
+            android:layout_below="@+id/txtv_activity_score_game_course_name"
             android:textSize="13dp"
             android:textColor="@color/white"/>
 
@@ -42,7 +42,7 @@
             android:text="@={scoreGameActivViewModel.CurrentHoleLbl}"
             android:layout_width="25dp"
             android:layout_height="20dp"
-            android:layout_below="@+id/txtv_activity_score_course_name"
+            android:layout_below="@+id/txtv_activity_score_game_course_name"
             android:textColor="@color/white"
             android:textSize="13dp"
             android:layout_toRightOf="@id/txtv_activity_score_game_hole_lbl"/>
@@ -54,7 +54,7 @@
             android:text="@string/par"
             android:layout_width="30dp"
             android:layout_height="20dp"
-            android:layout_below="@+id/txtv_activity_score_course_name"
+            android:layout_below="@+id/txtv_activity_score_game_course_name"
             android:textSize="13dp"
             android:layout_toRightOf="@id/txtv_activity_score_game_current_hole"
             android:textColor="@color/white"/>
@@ -65,7 +65,7 @@
             android:text="@={scoreGameActivViewModel.ParLbl}"
             android:layout_width="30dp"
             android:layout_height="20dp"
-            android:layout_below="@+id/txtv_activity_score_course_name"
+            android:layout_below="@+id/txtv_activity_score_game_course_name"
             android:textColor="@color/white"
             android:textSize="13dp"
             android:layout_toRightOf="@id/txtv_activity_score_game_par_lbl"/>
@@ -75,7 +75,7 @@
             android:id="@+id/bttn_score_game_activity_prev_hole"
             android:layout_width="40dp"
             android:layout_height="30dp"
-            android:layout_below="@+id/txtv_activity_score_course_name"
+            android:layout_below="@+id/txtv_activity_score_game_course_name"
             android:textColor="@color/white"
             android:background="@color/button_green2"
             android:text="&lt;"
@@ -91,7 +91,7 @@
             android:id="@+id/bttn_score_game_activity_next_hole"
             android:layout_width="40dp"
             android:layout_height="30dp"
-            android:layout_below="@+id/txtv_activity_score_course_name"
+            android:layout_below="@+id/txtv_activity_score_game_course_name"
             android:textColor="@color/white"
             android:background="@color/button_green2"
             android:text="&gt;"

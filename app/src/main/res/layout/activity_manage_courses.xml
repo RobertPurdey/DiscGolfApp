@@ -22,7 +22,7 @@
 
     <!-- Add Course navigation button -->
     <Button
-        android:id="@+id/bttn_manage_courses_new_course"
+        android:id="@+id/bttn_activity_manage_courses_new_course"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

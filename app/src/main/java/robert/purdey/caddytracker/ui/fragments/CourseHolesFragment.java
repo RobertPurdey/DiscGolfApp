@@ -33,7 +33,7 @@ public class CourseHolesFragment extends Fragment
         View rootView = inflater.inflate(R.layout.fragment_course_holes, container, false);
 
         Context activityContext                   = getActivity();
-        RecyclerView recyclerView                 = rootView.findViewById(R.id.courseHolesRecycleView);
+        RecyclerView recyclerView                 = rootView.findViewById(R.id.rcvw_fragment_course_course_holes);
         courseHolesAdapter                        = new CourseHolesAdapter(activityContext);
         LinearLayoutManager layoutManger          = new LinearLayoutManager(activityContext);
 

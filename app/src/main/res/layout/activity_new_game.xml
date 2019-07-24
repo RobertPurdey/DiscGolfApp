@@ -19,7 +19,7 @@
         tools:context="robert.purdey.caddytracker.ui.activities.NewGameActivity">
 
         <EditText
-            android:id="@+id/etxt_create_game_name"
+            android:id="@+id/etxt_activity_new_game_game_name"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@android:color/white"
@@ -36,7 +36,7 @@
             android:layout_marginTop="10dp"
             android:layout_height="20dp"
             android:textSize="16dp"
-            android:layout_below="@+id/etxt_create_game_name"
+            android:layout_below="@+id/etxt_activity_new_game_game_name"
             android:text="Select course"
             android:layout_marginBottom="10dp"
             android:textColor="@color/white"/>
@@ -66,14 +66,14 @@
 
             <!-- Choose players -->
             <fragment
-                android:name="robert.purdey.caddytracker.ui.fragments.FrolfGroupListFragment"
+                android:name="robert.purdey.caddytracker.ui.fragments.FrolfGroupMemberListFragment"
                 android:id="@+id/create_new_game_choose_players"
                 android:layout_weight="2"
                 android:layout_width="match_parent"
                 android:layout_height="400dp" />
         </FrameLayout>
         <Button
-            android:id="@+id/bttn_create_new_game"
+            android:id="@+id/bttn_activity_new_game_create_new_game"
             android:text="@string/start_game"
             android:background="@color/button_green"
             android:textColor="@color/white"

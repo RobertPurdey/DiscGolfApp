@@ -8,7 +8,7 @@
 
     <RelativeLayout
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_main_menu"
+        android:id="@+id/activity_course_record"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/activity_vertical_margin"
@@ -36,7 +36,7 @@
 
         <!-- Course name text input -->
         <EditText
-            android:id="@+id/etxt_course_record_course_name"
+            android:id="@+id/etxt_activity_course_record_course_name"
             android:inputType="text"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
@@ -50,7 +50,7 @@
             android:id="@+id/bttn_course_record_add_hole"
             android:layout_width="40dp"
             android:layout_height="30dp"
-            android:layout_below="@+id/etxt_course_record_course_name"
+            android:layout_below="@+id/etxt_activity_course_record_course_name"
             android:textColor="@color/white"
             android:background="@color/button_green"
             android:text="@string/plus_symbol"
@@ -67,7 +67,7 @@
             android:id="@+id/bttn_course_record_remove_hole"
             android:layout_width="40dp"
             android:layout_height="30dp"
-            android:layout_below="@+id/etxt_course_record_course_name"
+            android:layout_below="@+id/etxt_activity_course_record_course_name"
             android:textColor="@color/white"
             android:background="@color/button_green"
             android:text="@string/minus_symbol"

@@ -42,7 +42,7 @@
 
     <!-- Accept button -->
     <Button
-        android:id="@+id/bttn_accept_invite"
+        android:id="@+id/bttn_row_item_frolf_group_invite_accept_invite"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:textColor="@color/white"
@@ -50,14 +50,14 @@
         android:text="A"
         android:textSize="15dp"
         android:textAlignment="center"
-        android:layout_toLeftOf="@+id/bttn_decline_invite"
+        android:layout_toLeftOf="@+id/bttn_row_item_frolf_group_invite_decline_invite"
         android:layout_centerInParent="true"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="35dp"/>
 
     <!-- Decline button -->
     <Button
-        android:id="@+id/bttn_decline_invite"
+        android:id="@+id/bttn_row_item_frolf_group_invite_decline_invite"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:textColor="@color/white"

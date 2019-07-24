@@ -12,7 +12,7 @@
 
     <!-- New Game navigation button -->
     <Button
-        android:id="@+id/new_game"
+        android:id="@+id/bttn_activity_games_menu_new_game"
         android:textColor="@color/white"
         android:background="@color/button_green"
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="20dp"
         android:text="@string/new_game"
-        android:onClick="onClickNewGame"/>
+        android:onClick="onClickNewGame" />
 
     <!-- Resume Game navigation button -->
     <Button
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_marginBottom="20dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/new_game"
+        android:layout_below="@+id/bttn_activity_games_menu_new_game"
         android:text="@string/resume_game"
         android:onClick="onClickResumeGame" />
 

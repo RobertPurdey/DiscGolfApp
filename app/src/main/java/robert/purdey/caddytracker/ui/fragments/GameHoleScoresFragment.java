@@ -35,7 +35,7 @@ public class GameHoleScoresFragment extends Fragment
         View rootView = inflater.inflate(R.layout.fragment_game_hole_scores, container, false);
 
         Context activityContext                   = getActivity();
-        RecyclerView recyclerView                 = rootView.findViewById(R.id.gameHoleScoresRecycleView);
+        RecyclerView recyclerView                 = rootView.findViewById(R.id.rcvw_fragment_game_hole_scores);
         gameHoleScoreAdapter                      = new GameHoleScoresAdapter(activityContext);
         LinearLayoutManager layoutManger          = new LinearLayoutManager(activityContext);
 

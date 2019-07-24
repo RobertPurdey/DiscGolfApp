@@ -37,7 +37,7 @@ public class CourseListFragment extends Fragment implements IItemClickListener
         View rootView = inflater.inflate(R.layout.fragment_course_list, container, false);
 
         Context activityContext                    = getActivity();
-        RecyclerView recyclerView                  = rootView.findViewById(R.id.courseListRecycleView);
+        RecyclerView recyclerView                  = rootView.findViewById(R.id.rcvw_fragment_course_list);
         courseListAdapter                          = new CourseListAdapter(activityContext, this);
         LinearLayoutManager layoutManger           = new LinearLayoutManager(activityContext);
 

@@ -8,6 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import robert.purdey.caddytracker.ViewAssertions.RecyclerViewItemCountAssertion;
 import robert.purdey.caddytracker.ui.activities.LoginActivity;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -16,10 +17,42 @@ import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static robert.purdey.caddytracker.EsspressoHelper.clickNestedViewWithId;
 import static robert.purdey.caddytracker.EsspressoHelper.getText;
+import static robert.purdey.caddytracker.UserActions.CourseRecordScreen.clickAddHole;
+import static robert.purdey.caddytracker.UserActions.CourseRecordScreen.clickRemoveHole;
+import static robert.purdey.caddytracker.UserActions.CourseRecordScreen.clickSaveCourse;
+import static robert.purdey.caddytracker.UserActions.CourseRecordScreen.countHoles;
+import static robert.purdey.caddytracker.UserActions.CourseRecordScreen.matchCourseName;
+import static robert.purdey.caddytracker.UserActions.CourseRecordScreen.setCourseName;
+import static robert.purdey.caddytracker.UserActions.CreateGameScreen.goToStartGame;
+import static robert.purdey.caddytracker.UserActions.CreateGameScreen.matchGameName;
+import static robert.purdey.caddytracker.UserActions.CreateGameScreen.matchSelectionText;
+import static robert.purdey.caddytracker.UserActions.CreateGameScreen.selectCourse;
+import static robert.purdey.caddytracker.UserActions.CreateGameScreen.selectGroup;
+import static robert.purdey.caddytracker.UserActions.CreateGameScreen.selectPlayer;
+import static robert.purdey.caddytracker.UserActions.CreateGameScreen.setGameName;
+import static robert.purdey.caddytracker.UserActions.FrolfGroupRecordScreen.clickCourses;
+import static robert.purdey.caddytracker.UserActions.FrolfGroupRecordScreen.clickSaveGroup;
+import static robert.purdey.caddytracker.UserActions.FrolfGroupRecordScreen.matchGroupName;
+import static robert.purdey.caddytracker.UserActions.FrolfGroupRecordScreen.setGroupName;
+import static robert.purdey.caddytracker.UserActions.FrolfGroupRecordScreen.validateFrolfGroupRecord;
+import static robert.purdey.caddytracker.UserActions.MainMenuScreen.goToManageGameScreen;
+import static robert.purdey.caddytracker.UserActions.ManageCourseScreen.clickNewCourse;
+import static robert.purdey.caddytracker.UserActions.ManageCourseScreen.countCourses;
+import static robert.purdey.caddytracker.UserActions.ManageCourseScreen.goToCourse;
+import static robert.purdey.caddytracker.UserActions.ManageGameScreen.goToNewGame;
+import static robert.purdey.caddytracker.UserActions.ManageGroupScreen.countGroups;
+import static robert.purdey.caddytracker.UserActions.ManageGroupScreen.goToFrolfGroup;
+import static robert.purdey.caddytracker.UserActions.ManageGroupScreen.goToNewGroupCreation;
+import static robert.purdey.caddytracker.UserActions.ScoreGameScreen.goToNextHole;
+import static robert.purdey.caddytracker.UserActions.ScoreGameScreen.matchGameCourseName;
+import static robert.purdey.caddytracker.UserActions.ScoreGameScreen.matchHoleLbl;
+import static robert.purdey.caddytracker.UserActions.ScoreGameScreen.matchHoleTee;
+import static robert.purdey.caddytracker.UserActions.ScoreGameScreen.matchPar;
+import static robert.purdey.caddytracker.UserActions.ScoreGameScreen.matchParLbl;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -43,78 +76,148 @@ public class SmokeTest
     private String crConfPassword  = "adventure";
     private String crFriendCode    = "";
 
+    // Expectations
+    private int expGroupCount  = 1;
+    private int expMemberCount = 2;
+
+    // Positions
+    private int pos0 = 0;
+
     // Frolf group info
-    private String frolfGroupName = "Creations of A. A. Milne";
+    private String frolfGroupNameA = "Creations of A. A. Milne";
+    private String frolfGroupNameB = "Emotions";
+
+    // Course info
+    private String courseNameA      = "The Sandy Pit";
+    private String courseNameB      = "A Nice Place for Picnics";
+    private int defaultHoleCount    = 9;
+    private int expHoleCount        = 3;
+    private int expCourseCount      = 1;
+
+
+    // Game info
+    private String gameNameA         = "Pooh's Cup";
+    private String selectGroupTxt    = "Select group";
+    private String selectCourseTxt   = "Select course";
+    private String selectPlayersTxt  = "Select players";
 
     @Test
     public void smokeTest()
     {
-        // Winnie the Pooh account creation
-        //goToCreateAccount();
-        //safeSleep(1000);
-        //wpCreateAccount();
-        //safeSleep(8000);
+        // Winnie the Pooh creates his account
+        goToCreateAccount();                                                    safeSleep(1000);
+        wpCreateAccount();                                                      safeSleep(4000);
 
-        // Christopher Robins account creation
-        //goToCreateAccount();
-        //safeSleep(1000);
-        //crCreateAccount();
-        //safeSleep(8000);
+        // Christopher Robins creates his account
+        goToCreateAccount();                                                    safeSleep(1000);
+        crCreateAccount();                                                      safeSleep(4000);
 
-        // Christopher Robins login
-        //crLogin();
-        //safeSleep(6000);
+        // Christopher Robins logs in, his friend code is copied. Returns to the login screen.
+        crLogin();                                                              safeSleep(5000);
+        goToAccountInfo();                                                      safeSleep(1000);
+        crValidateAccountInfo();                                                safeSleep(1000);
+        pressBack();                                                            safeSleep(1000);
+        pressBack();                                                            safeSleep(1000);
 
-        // Copy Christopher Robins friend code and go back to login screen
-        //goToAccountInfo();
-        //safeSleep(1000);
-        //crValidateAccountInfo();
-        //safeSleep(1000);
-        //pressBack();
-        //safeSleep(1000);
-        //pressBack();
-        //safeSleep(1000);
+        // Winnie the Pooh logs in, creates a new frolf group, A. A. Milne, and
+        // invites Christopher Robins to it. Returns to the login screen.
+        wpLogin();                                                              safeSleep(5000);
+        goToGroupManager();                                                     safeSleep(1000);
+        goToNewGroupCreation();                                                 safeSleep(1000);
+        createFrolfGroup();                                                     safeSleep(3000);
+        pressBack();                                                            safeSleep(1000);
+        pressBack();                                                            safeSleep(1000);
+        pressBack();                                                            safeSleep(1000);
+        goToGroupManager();                                                     safeSleep(1000);
+        goToFrolfGroup(0);                                                      safeSleep(2000);
+        sendCrInvite();                                                         safeSleep(3000);
+        pressBack();                                                            safeSleep(2000);
+        pressBack();                                                            safeSleep(2000);
+        pressBack();                                                            safeSleep(2000);
+        pressBack();                                                            safeSleep(2000);
 
-        // Winnie the Pooh login
-        //wpLogin();
-        //safeSleep(6000);
+        // Christopher Robins login and accepts invite. Returns to the login screen.
+        crLogin();                                                              safeSleep(5000);
+        goToInvites();                                                          safeSleep(1000);
+        acceptInviteFromWp();                                                   safeSleep(3000);
+        pressBack();                                                            safeSleep(1000);
+        pressBack();                                                            safeSleep(1000);
 
-        // Create Creations of A. A. Milne group and back to groups list
-        //goToGroupManager();
-        //safeSleep(1000);
-        //goToNewGroupCreation();
-        //safeSleep(1000);
-        //createFrolfGroup();
-        //safeSleep(3000);
-        //pressBack();
+        // Winni the Pooh logs in, goes to the created frolf group
+        wpLogin();                                                              safeSleep(5000);
+        goToGroupManager();                                                     safeSleep(2000);
+        countGroups(expGroupCount);                                             safeSleep(1000);
+        goToFrolfGroup(pos0);                                                   safeSleep(3000);
+        validateFrolfGroupRecord(frolfGroupNameA, expMemberCount);              safeSleep(1000);
 
-        // Send Group Invite and go back to login
-        //goToFrolfGroup(0);
-        //safeSleep(1000);
-        //sendCrInvite();
-        //safeSleep(3000);
-        //pressBack();
-        //safeSleep(1000);
-        //pressBack();
-        //safeSleep(1000);
-        //pressBack();
-        //safeSleep(1000);
-        //pressBack();
-        //safeSleep(1000);
+        // Change group name and save
+        setGroupName(frolfGroupNameB);                                          safeSleep(1000);
+        clickSaveGroup();                                                       safeSleep(3000);
+        matchGroupName(frolfGroupNameB);                                        safeSleep(200);
 
-        // Christopher Robins login
-        crLogin();
-        safeSleep(5000);
+        // Create course
+        clickCourses();                                                         safeSleep(3000);
+        clickNewCourse();                                                       safeSleep(1000);
+        setCourseName(courseNameA);                                             safeSleep(200);
+        countHoles(defaultHoleCount);                                           safeSleep(200);
+        clickAddHole();                                                         safeSleep(200);
+        countHoles(defaultHoleCount + 1);                                       safeSleep(200);
+        clickRemoveHole();                                                      safeSleep(200);
+        clickRemoveHole();                                                      safeSleep(200);
+        clickRemoveHole();                                                      safeSleep(200);
+        clickRemoveHole();                                                      safeSleep(200);
+        clickRemoveHole();                                                      safeSleep(200);
+        clickRemoveHole();                                                      safeSleep(200);
+        clickRemoveHole();                                                      safeSleep(200);
+        clickRemoveHole();                                                      safeSleep(200);
+        countHoles(defaultHoleCount - 7);                                       safeSleep(200);
+        clickSaveCourse();                                                      safeSleep(2000);
+        matchCourseName(courseNameA);                                           safeSleep(1000);
+        pressBack();                                                            safeSleep(1000);
+        pressBack();                                                            safeSleep(1000);
+        pressBack();                                                            safeSleep(1000);
 
-        // Go to invites
-        goToInvites();
-        safeSleep(1000);
+        // Check course can be found
+        clickCourses();                                                         safeSleep(1000);
+        countCourses(expCourseCount);                                           safeSleep(1000);
+        goToCourse(pos0);                                                       safeSleep(3000);
+        matchCourseName(courseNameA);                                           safeSleep(1000);
+        countHoles(defaultHoleCount - 7);                                       safeSleep(1000);
+        setCourseName(courseNameB);                                             safeSleep(1000);
+        clickSaveCourse();                                                      safeSleep(3000);
+        matchCourseName(courseNameB);                                           safeSleep(1000);
+        pressBack();                                                            safeSleep(1000);
+        pressBack();                                                            safeSleep(1000);
+        pressBack();                                                            safeSleep(1000);
+        pressBack();                                                            safeSleep(1000);
+        pressBack();                                                            safeSleep(1000);
+
+        // Create game and score holes (don't complete)
+        goToManageGameScreen();                                                 safeSleep(1000);
+        goToNewGame();                                                          safeSleep(3000);
+        setGameName(gameNameA);                                                 safeSleep(1000);
+        matchGameName(gameNameA);                                               safeSleep(1000);
+        matchSelectionText(selectGroupTxt);                                     safeSleep(1000);
+        selectGroup(pos0);                                                      safeSleep(1000);
+        matchSelectionText(selectCourseTxt);                                    safeSleep(1000);
+        selectCourse(pos0);                                                     safeSleep(1000);
+        matchSelectionText(selectPlayersTxt);                                   safeSleep(1000);
+        selectPlayer(pos0);                                                     safeSleep(1000);
+        goToStartGame();                                                        safeSleep(5000);
+
+        // Validate game score screen
+        matchGameCourseName(courseNameB);                                       safeSleep(1000);
+        matchHoleLbl();                                                         safeSleep(1000);
+        matchHoleTee("1");                                                      safeSleep(1000);
+        matchParLbl();                                                          safeSleep(1000);
+        matchPar();                                                             safeSleep(1000);
+        goToNextHole();                                                         safeSleep(2000);
     }
 
     private void safeSleep(int duration)
     {
         try { Thread.sleep(duration); }
-        catch (Exception ex){ }
+        catch (Exception ex) { }
     }
 
     private void goToCreateAccount()
@@ -192,7 +295,6 @@ public class SmokeTest
 
         // send create account request
         onView( withId(R.id.bttn_activity_create_account_create) )
-            .perform( clearText() )
             .perform( click() );
     }
 
@@ -220,18 +322,11 @@ public class SmokeTest
             .perform( click() );
     }
 
-    private void goToNewGroupCreation()
-    {
-        // click new group button
-        onView( withId(R.id.bttn_activity_manage_frolf_groups_new_frolf_group) )
-            .perform( click() );
-    }
-
     private void createFrolfGroup()
     {
         // enter frolf group name
         onView( withId(R.id.etxt_activity_frolf_group_record_group_name) )
-            .perform( typeText(frolfGroupName) );
+            .perform( typeText(frolfGroupNameA) );
 
         // click create group button
         onView( withId(R.id.bttn_activity_frolf_group_record_create_frolf_group) )
@@ -278,9 +373,14 @@ public class SmokeTest
             .perform( click() );
     }
 
-    private void goToFrolfGroup(int pos)
+    private void acceptInviteFromWp()
     {
-        onView( withId(R.id.rcvw_frolf_group_recycle_view) )
-            .perform( actionOnItemAtPosition(pos, click() ) );
+        onView( withId(R.id.rcvw_fragment_frolf_group_invites) )
+            .perform( clickNestedViewWithId(R.id.bttn_row_item_frolf_group_invite_accept_invite) );
+
+        safeSleep(200);
+
+        onView( withId(R.id.rcvw_fragment_frolf_group_invites) )
+            .check( new RecyclerViewItemCountAssertion(0) );
     }
 }

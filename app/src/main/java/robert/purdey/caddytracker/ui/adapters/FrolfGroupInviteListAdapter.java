@@ -93,8 +93,8 @@ public class FrolfGroupInviteListAdapter extends RecyclerView.Adapter<FrolfGroup
             txtvFrolfGroupInviteId   = itemView.findViewById(R.id.txtv_frolf_group_invite_id);
             txtvGroupName            = itemView.findViewById(R.id.txtv_invite_group_name);
             txtvInviterHandle        = itemView.findViewById(R.id.txtv_inviter_handle);
-            bttnAccept               = itemView.findViewById(R.id.bttn_accept_invite);
-            bttnDecline              = itemView.findViewById(R.id.bttn_decline_invite);
+            bttnAccept               = itemView.findViewById(R.id.bttn_row_item_frolf_group_invite_accept_invite);
+            bttnDecline              = itemView.findViewById(R.id.bttn_row_item_frolf_group_invite_decline_invite);
 
             // Only set buttons if a listener was provided
             if ( clickListener != null )

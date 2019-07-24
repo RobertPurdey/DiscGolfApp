@@ -40,7 +40,7 @@ public class FrolfGroupMemberListFragment  extends Fragment implements IItemClic
         View rootView = inflater.inflate(R.layout.fragment_frolf_group_member_list, container, false);
 
         Context activityContext                    = getActivity();
-        RecyclerView recyclerView                  = rootView.findViewById(R.id.frolfGroupMembersRecycleView);
+        RecyclerView recyclerView                  = rootView.findViewById(R.id.rcvw_fragment_frolf_group_members);
         playerAdapter                              = new PlayerListAdapter(activityContext, this);
         LinearLayoutManager layoutManger           = new LinearLayoutManager(activityContext);
 

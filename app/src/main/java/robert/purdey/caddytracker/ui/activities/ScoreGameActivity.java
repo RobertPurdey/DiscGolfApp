@@ -58,7 +58,7 @@ public class ScoreGameActivity extends AppCompatActivity
         if ( !recordId.equals("") )
         {
             scoreGameActiveViewModel.getGame(UUID.fromString(recordId)).observe(this, gameModel -> {
-                TextView courseName = findViewById(R.id.txtv_activity_score_course_name);
+                TextView courseName = findViewById(R.id.txtv_activity_score_game_course_name);
                 courseName.setText(gameModel.getCourseName());
                 LoadHoleScores(gameModel.getIdKey(), 1);
 

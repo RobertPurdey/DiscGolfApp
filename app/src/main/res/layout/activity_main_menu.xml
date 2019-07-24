@@ -12,7 +12,7 @@
 
     <!-- Games menu navigation button -->
     <Button
-        android:id="@+id/games_menu"
+        android:id="@+id/bttn_activity_main_menu_games_menu"
         android:textColor="@color/white"
         android:background="@color/button_green"
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
         android:background="@color/button_green"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/games_menu"
+        android:layout_below="@+id/bttn_activity_main_menu_games_menu"
         android:text="@string/groups"
         android:layout_marginBottom="20dp"
         android:onClick="onClickManageFrolfGroups"/>

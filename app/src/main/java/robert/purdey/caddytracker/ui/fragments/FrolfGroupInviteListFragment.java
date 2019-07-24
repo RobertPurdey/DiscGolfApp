@@ -37,7 +37,7 @@ public class FrolfGroupInviteListFragment extends Fragment implements IInviteAct
         View rootView = inflater.inflate(R.layout.fragment_frolf_group_invite_list, container, false);
 
         Context activityContext            = getActivity();
-        RecyclerView recyclerView          = rootView.findViewById(R.id.frolfGroupInviteRecycleView);
+        RecyclerView recyclerView          = rootView.findViewById(R.id.rcvw_fragment_frolf_group_invites);
         groupInviteAdapter                 = new FrolfGroupInviteListAdapter(activityContext, this);
         LinearLayoutManager layoutManger   = new LinearLayoutManager(activityContext);
 

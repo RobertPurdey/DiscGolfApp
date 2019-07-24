@@ -66,7 +66,7 @@ public class NewGameActivity extends AppCompatActivity
 
             SetSelectionDescription("Select group");
 
-            Button startNewGame = (Button) findViewById(R.id.bttn_create_new_game);
+            Button startNewGame = (Button) findViewById(R.id.bttn_activity_new_game_create_new_game);
             startNewGame.setClickable(false);
         }
     }
@@ -111,7 +111,7 @@ public class NewGameActivity extends AppCompatActivity
                 .show( this.getMembersListFragment() )
                 .commit();
 
-            Button startNewGame = (Button) findViewById(R.id.bttn_create_new_game);
+            Button startNewGame = findViewById(R.id.bttn_activity_new_game_create_new_game);
             startNewGame.setClickable(true);
         }
     }
