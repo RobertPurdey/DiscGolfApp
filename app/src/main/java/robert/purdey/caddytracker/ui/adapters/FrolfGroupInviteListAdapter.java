@@ -90,9 +90,9 @@ public class FrolfGroupInviteListAdapter extends RecyclerView.Adapter<FrolfGroup
         {
             super(itemView);
 
-            txtvFrolfGroupInviteId   = itemView.findViewById(R.id.txtv_frolf_group_invite_id);
-            txtvGroupName            = itemView.findViewById(R.id.txtv_invite_group_name);
-            txtvInviterHandle        = itemView.findViewById(R.id.txtv_inviter_handle);
+            txtvFrolfGroupInviteId   = itemView.findViewById(R.id.txtv_row_item_frolf_group_invite_id);
+            txtvGroupName            = itemView.findViewById(R.id.txtv_row_item_frolf_group_invite_group_name);
+            txtvInviterHandle        = itemView.findViewById(R.id.txtv_row_item_frolf_group_inviter_handle);
             bttnAccept               = itemView.findViewById(R.id.bttn_row_item_frolf_group_invite_accept_invite);
             bttnDecline              = itemView.findViewById(R.id.bttn_row_item_frolf_group_invite_decline_invite);
 

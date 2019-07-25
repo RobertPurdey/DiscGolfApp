@@ -4,6 +4,7 @@ import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ViewAssertions.RecyclerViewItemCountAssertion;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -14,14 +15,13 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class FrolfGroupRecordScreen
 {
 
-    /**
-     * Validates the following about a group:
-     *  - group name matches
-     *  - count of users in the group
-     *
-     * @param expectedGroupName
-     * @param expectedMemberCount
-     */
+    public static void createFrolfGroup(String groupName)
+    {
+        setGroupName(groupName);
+        pressBack();
+        clickSaveGroup();
+    }
+
     public static void validateFrolfGroupRecord(String expectedGroupName, int expectedMemberCount)
     {
         matchGroupName(expectedGroupName);
@@ -57,5 +57,24 @@ public class FrolfGroupRecordScreen
     {
         onView( withId(R.id.bttn_frolf_group_record_manage_courses) )
             .perform( click() );
+    }
+
+    public static void setFriendCode(String friendCode)
+    {
+        onView( withId(R.id.etxt_activity_frolf_group_record_friend_code) )
+            .perform( clearText() )
+            .perform( typeText(friendCode) );
+    }
+
+    public static void clickSendInvite()
+    {
+        onView( withId(R.id.bttn_activity_frolf_group_record_add_friend) )
+            .perform( click() );
+    }
+
+    public static void sendInvite(String friendCode)
+    {
+        setFriendCode(friendCode);
+        clickSendInvite();
     }
 }

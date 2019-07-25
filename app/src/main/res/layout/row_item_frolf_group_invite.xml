@@ -5,14 +5,14 @@
 
     <!-- Group invite ID -->
     <TextView
-        android:id="@+id/txtv_frolf_group_invite_id"
+        android:id="@+id/txtv_row_item_frolf_group_invite_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"/>
 
     <!-- Group Name -->
     <TextView
-        android:id="@+id/txtv_invite_group_name"
+        android:id="@+id/txtv_row_item_frolf_group_invite_group_name"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:text="Name"
@@ -21,23 +21,23 @@
 
     <!-- Inviter label -->
     <TextView
-        android:id="@+id/txtv_inviter_label"
+        android:id="@+id/txtv_row_item_frolf_group_invite_inviter_label"
         android:layout_width="75dp"
         android:layout_height="18dp"
         android:text="@string/invited_by"
         android:textSize="15dp"
-        android:layout_below="@+id/txtv_invite_group_name"
+        android:layout_below="@+id/txtv_row_item_frolf_group_invite_group_name"
         android:gravity="center_vertical"/>
 
     <!-- Inviter name -->
     <TextView
-        android:id="@+id/txtv_inviter_handle"
+        android:id="@+id/txtv_row_item_frolf_group_inviter_handle"
         android:layout_width="75dp"
         android:layout_height="18dp"
         android:text="Player Name"
         android:textSize="15dp"
-        android:layout_below="@+id/txtv_invite_group_name"
-        android:layout_toRightOf="@+id/txtv_inviter_label"
+        android:layout_below="@+id/txtv_row_item_frolf_group_invite_group_name"
+        android:layout_toRightOf="@+id/txtv_row_item_frolf_group_invite_inviter_label"
         android:gravity="center_vertical"/>
 
     <!-- Accept button -->

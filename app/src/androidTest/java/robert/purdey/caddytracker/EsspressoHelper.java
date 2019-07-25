@@ -3,8 +3,11 @@ package robert.purdey.caddytracker;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
+import androidx.test.espresso.matcher.BoundedMatcher;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -38,6 +41,26 @@ public class EsspressoHelper
         });
 
         return stringHolder[0];
+    }
+
+    public static Matcher<View> atPositionOnView(
+        final int position,
+        final Matcher<View> itemMatcher,
+        @NonNull final int targetViewId) {
+
+        return new BoundedMatcher<View, RecyclerView>(RecyclerView.class) {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("has view id " + itemMatcher + " at position " + position);
+            }
+
+            @Override
+            public boolean matchesSafely(final RecyclerView recyclerView) {
+                RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForAdapterPosition(position);
+                View targetView = viewHolder.itemView.findViewById(targetViewId);
+                return itemMatcher.matches(targetView);
+            }
+        };
     }
 
     public static ViewAction clickNestedViewWithId(final int id) {
