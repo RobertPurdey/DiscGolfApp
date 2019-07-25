@@ -157,7 +157,7 @@ public class SmokeTest
         goToInvites();                                                          safeSleep(1000);
         matchInviteInviterName(pos0, wpHandle);                                 safeSleep(200);
         matchInviteGroupName(pos0, frolfGroupNameA);                            safeSleep(200);
-        acceptInvite();                                                         safeSleep(1000);
+        acceptInvite(pos0);                                                     safeSleep(1000);
         countInvites(0);                                                        safeSleep(200);
         pressBack();                                                            safeSleep(1000);
         pressBack();                                                            safeSleep(1000);
