@@ -95,12 +95,12 @@ public class GameHoleScoresAdapter extends RecyclerView.Adapter<GameHoleScoresAd
         {
             super(itemView);
 
-            txtvHoleScoreId          = itemView.findViewById(R.id.txtv_row_game_hole_score_hole_score_id);
-            txtvPlayerName           = itemView.findViewById(R.id.txtv_row_game_hole_score_player_name);
-            txtvScore                = itemView.findViewById(R.id.txtv_row_game_hole_score_score);
-            txtvStrokes              = itemView.findViewById(R.id.txtv_row_game_hole_score_strokes);
-            bttnIncrease             = itemView.findViewById(R.id.bttn_row_game_hole_score_increase);
-            bttnDecrease             = itemView.findViewById(R.id.bttn_row_game_hole_score_decrease);
+            txtvHoleScoreId          = itemView.findViewById(R.id.txtv_row_item_game_hole_score_hole_score_id);
+            txtvPlayerName           = itemView.findViewById(R.id.txtv_row_item_game_hole_score_player_name);
+            txtvScore                = itemView.findViewById(R.id.txtv_row_item_game_hole_score_score);
+            txtvStrokes              = itemView.findViewById(R.id.txtv_row_item_game_hole_score_strokes);
+            bttnIncrease             = itemView.findViewById(R.id.bttn_row_item_game_hole_score_strokes_increase);
+            bttnDecrease             = itemView.findViewById(R.id.bttn_row_item_game_hole_score_strokes_decrease);
 
             setIncreaseOnClick();
             setDecreaseOnClick();

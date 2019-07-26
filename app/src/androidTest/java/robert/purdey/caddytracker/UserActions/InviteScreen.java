@@ -21,6 +21,12 @@ public class InviteScreen
             .perform(actionOnItemAtPosition(pos, clickNestedViewWithId(R.id.bttn_row_item_frolf_group_invite_accept_invite) ) );
     }
 
+    public static void declineInvite(final int pos)
+    {
+        onView( withId(R.id.rcvw_fragment_frolf_group_invites) )
+            .perform(actionOnItemAtPosition(pos, clickNestedViewWithId(R.id.bttn_row_item_frolf_group_invite_decline_invite) ) );
+    }
+
     public static void countInvites(final int expectedCount)
     {
         onView( withId(R.id.rcvw_fragment_frolf_group_invites) )

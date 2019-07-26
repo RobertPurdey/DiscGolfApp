@@ -13,4 +13,10 @@ public class ManageGameScreen
         onView( withId(R.id.bttn_activity_games_menu_new_game) )
             .perform( click() );
     }
+
+    public static void goToResumeGame()
+    {
+        onView( withId(R.id.bttn_activity_games_menu_resume_game) )
+            .perform( click() );
+    }
 }

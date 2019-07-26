@@ -1,18 +1,18 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="65dp">
+    android:layout_height="85dp">
 
     <!-- Game id -->
     <TextView
-        android:id="@+id/txtv_row_game_id"
+        android:id="@+id/txtv_row_item_game_id"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:visibility="gone"/>
 
     <!-- Game name -->
     <TextView
-        android:id="@+id/txtv_row_game_name"
+        android:id="@+id/txtv_row_item_game_name"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:text=""
@@ -23,27 +23,59 @@
         android:ellipsize="end"
         android:gravity="center_vertical"/>
 
-    <!-- Course name -->
+    <!-- Course label -->
     <TextView
-        android:id="@+id/txtv_row_game_course_name"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_below="@+id/txtv_row_game_name"
-        android:text=""
+        android:id="@+id/txtv_row_item_game_course_name_lbl"
+        android:layout_width="60dp"
+        android:layout_height="18dp"
+        android:text="@string/course_colon"
         android:textSize="12dp"
         android:paddingLeft="10dp"
+        android:layout_below="@+id/txtv_row_item_game_name"
         android:gravity="bottom"/>
 
+    <!-- Course name -->
+    <TextView
+        android:id="@+id/txtv_row_item_game_course_name"
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
+        android:layout_toRightOf="@+id/txtv_row_item_game_course_name_lbl"
+        android:layout_below="@+id/txtv_row_item_game_name"
+        android:text=""
+        android:textSize="12dp"
+        android:gravity="bottom"/>
+
+    <!-- Group label -->
+    <TextView
+        android:id="@+id/txtv_row_item_game_group_name_lbl"
+        android:layout_width="60dp"
+        android:layout_height="18dp"
+        android:text="@string/group_colon"
+        android:textSize="12dp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/txtv_row_item_game_course_name_lbl"
+        android:gravity="bottom"/>
+
+    <!-- Group name -->
+    <TextView
+        android:id="@+id/txtv_row_item_game_group_name"
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
+        android:layout_toRightOf="@+id/txtv_row_item_game_group_name_lbl"
+        android:layout_below="@+id/txtv_row_item_game_course_name"
+        android:text=""
+        android:textSize="12dp"
+        android:gravity="bottom"/>
 
     <!-- Created Date -->
     <TextView
-        android:id="@+id/txtv_row_game_created_date"
+        android:id="@+id/txtv_row_item_game_created_date"
         android:layout_width="110dp"
         android:layout_height="20dp"
         android:text=""
         android:textSize="12dp"
         android:paddingLeft="10dp"
         android:gravity="bottom"
-        android:layout_below="@+id/txtv_row_game_course_name"/>
+        android:layout_below="@+id/txtv_row_item_game_group_name"/>
 
 </RelativeLayout>

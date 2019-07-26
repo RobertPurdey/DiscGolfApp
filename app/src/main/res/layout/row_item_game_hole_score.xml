@@ -5,14 +5,14 @@
 
     <!-- Hole score ID -->
     <TextView
-        android:id="@+id/txtv_row_game_hole_score_hole_score_id"
+        android:id="@+id/txtv_row_item_game_hole_score_hole_score_id"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"/>
 
     <!-- Player name -->
     <TextView
-        android:id="@+id/txtv_row_game_hole_score_player_name"
+        android:id="@+id/txtv_row_item_game_hole_score_player_name"
         android:layout_width="110dp"
         android:layout_height="30dp"
         android:text="Name"
@@ -23,28 +23,28 @@
 
     <!-- Strokes -->
     <TextView
-        android:id="@+id/txtv_row_game_hole_score_strokes"
+        android:id="@+id/txtv_row_item_game_hole_score_strokes"
         android:layout_width="45dp"
         android:layout_height="30dp"
         android:text="0"
         android:textSize="15dp"
-        android:layout_toLeftOf="@+id/txtv_row_game_hole_score_score"
+        android:layout_toLeftOf="@+id/txtv_row_item_game_hole_score_score"
         android:gravity="center_vertical"/>
 
     <!-- Score -->
     <TextView
-        android:id="@+id/txtv_row_game_hole_score_score"
+        android:id="@+id/txtv_row_item_game_hole_score_score"
         android:layout_marginLeft="10dp"
         android:layout_width="35dp"
         android:layout_height="30dp"
         android:text="0"
         android:textSize="15dp"
-        android:layout_toLeftOf="@+id/bttn_row_game_hole_score_increase"
+        android:layout_toLeftOf="@+id/bttn_row_item_game_hole_score_strokes_increase"
         android:gravity="center_vertical"/>
 
     <!-- Increase button -->
     <Button
-        android:id="@+id/bttn_row_game_hole_score_increase"
+        android:id="@+id/bttn_row_item_game_hole_score_strokes_increase"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:textColor="@color/white"
@@ -52,14 +52,14 @@
         android:text="+"
         android:textSize="15dp"
         android:textAlignment="center"
-        android:layout_toLeftOf="@+id/bttn_row_game_hole_score_decrease"
+        android:layout_toLeftOf="@+id/bttn_row_item_game_hole_score_strokes_decrease"
         android:layout_centerInParent="true"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="35dp"/>
 
     <!-- Decrease button -->
     <Button
-        android:id="@+id/bttn_row_game_hole_score_decrease"
+        android:id="@+id/bttn_row_item_game_hole_score_strokes_decrease"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:textColor="@color/white"

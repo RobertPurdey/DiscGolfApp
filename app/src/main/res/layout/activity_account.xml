@@ -69,6 +69,17 @@
                 android:maxLines="1"
                 android:text="@={accountViewModel.handle}"/>
 
+            <!-- Save account button -->
+            <Button
+                android:id="@+id/bttn_activity_account_save"
+                android:textColor="@color/white"
+                android:background="@color/button_green"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:text="@string/save"
+                android:onClick="onSave"/>
+
             <!-- friend code label -->
             <TextView
                 android:id="@+id/txtv_activity_account_friend_code_label"
@@ -76,15 +87,15 @@
                 android:layout_height="20dp"
                 android:textSize="16dp"
                 android:text="@string/friend_code"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="45dp"
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/white"/>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="top"
-            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="top"
+                android:orientation="horizontal">
 
                 <!-- friend code text input -->
                 <EditText
@@ -112,17 +123,6 @@
                     android:text="@string/share" />
 
             </LinearLayout>
-
-            <!-- Save account button -->
-            <Button
-                android:id="@+id/bttn_activity_account_save"
-                android:textColor="@color/white"
-                android:background="@color/button_green"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:text="@string/save"
-                android:onClick="onSave"/>
 
         </LinearLayout>
 

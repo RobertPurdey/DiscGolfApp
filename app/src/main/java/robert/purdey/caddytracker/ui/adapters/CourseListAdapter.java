@@ -92,10 +92,10 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
         {
             super(itemView);
 
-            txtvCourseId     = itemView.findViewById(R.id.txtv_row_course_id);
-            txtvCourseName   = itemView.findViewById(R.id.txtv_row_course_name);
-            txtvCoursePar    = itemView.findViewById(R.id.txtv_row_course_par);
-            txtvHoleCount    = itemView.findViewById(R.id.txtv_row_hole_count);
+            txtvCourseId     = itemView.findViewById(R.id.txtv_row_item_course_id);
+            txtvCourseName   = itemView.findViewById(R.id.txtv_row_item_course_name);
+            txtvCoursePar    = itemView.findViewById(R.id.txtv_row_item_course_par);
+            txtvHoleCount    = itemView.findViewById(R.id.txtv_row_item_course_hole_count);
         }
     }
 }

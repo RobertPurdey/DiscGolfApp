@@ -84,8 +84,8 @@ public class FrolfGroupListAdapter extends RecyclerView.Adapter<FrolfGroupListAd
         {
             super(itemView);
 
-            txtvFrolfGroupId   = itemView.findViewById(R.id.txtv_group_id);
-            txtvFrolfGroupName = itemView.findViewById(R.id.txtv_group_name);
+            txtvFrolfGroupId   = itemView.findViewById(R.id.txtv_row_item_frolf_group_id);
+            txtvFrolfGroupName = itemView.findViewById(R.id.txtv_row_item_frolf_group_name);
         }
     }
 }

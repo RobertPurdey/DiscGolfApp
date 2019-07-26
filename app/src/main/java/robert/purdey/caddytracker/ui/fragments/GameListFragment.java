@@ -39,7 +39,7 @@ public class GameListFragment extends Fragment implements IItemClickListener
         View rootView = inflater.inflate(R.layout.fragment_game_list, container, false);
 
         Context activityContext                    = getActivity();
-        RecyclerView recyclerView                  = rootView.findViewById(R.id.gameListRecycleView);
+        RecyclerView recyclerView                  = rootView.findViewById(R.id.rcvw_fragment_game_list);
         gameAdapter                                = new GameListAdapter(activityContext, this);
         LinearLayoutManager layoutManger           = new LinearLayoutManager(activityContext);
 

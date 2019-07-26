@@ -24,7 +24,7 @@
 
     <!-- Resume Game navigation button -->
     <Button
-        android:id="@+id/resume_game"
+        android:id="@+id/bttn_activity_games_menu_resume_game"
         android:textColor="@color/white"
         android:background="@color/button_green"
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_marginBottom="20dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/resume_game"
+        android:layout_below="@+id/bttn_activity_games_menu_resume_game"
         android:text="@string/watch_game"
         android:onClick="onClickWatchGameRequest" />
 

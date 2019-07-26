@@ -48,7 +48,7 @@ public class CourseHolesAdapter extends RecyclerView.Adapter<CourseHolesAdapter.
             holder.txtvHoleId.setText(current.getIdKey().toString());
             holder.txtvCourseId.setText(current.getCourseId().toString());
             holder.txtvTee.setText(Integer.toString(current.getOrder()));
-            holder.txtvPar.setText(Integers.SignInt(current.getPar()));
+            holder.txtvPar.setText(Integer.toString(current.getPar()));
             holder.bttnDecrease.setEnabled(current.getPar() > 1 );
         }
         else
@@ -110,12 +110,12 @@ public class CourseHolesAdapter extends RecyclerView.Adapter<CourseHolesAdapter.
         {
             super(itemView);
 
-            txtvHoleId          = itemView.findViewById(R.id.txtv_row_course_hole_id);
-            txtvCourseId        = itemView.findViewById(R.id.txtv_row_course_hole_course_id);
-            txtvTee             = itemView.findViewById(R.id.txtv_row_course_hole_tee);
-            txtvPar             = itemView.findViewById(R.id.txtv_row_course_hole_par);
-            bttnIncrease        = itemView.findViewById(R.id.bttn_row_course_hole_par_increase);
-            bttnDecrease        = itemView.findViewById(R.id.bttn_row_course_hole_par_decrease);
+            txtvHoleId          = itemView.findViewById(R.id.txtv_row_item_course_hole_id);
+            txtvCourseId        = itemView.findViewById(R.id.txtv_row_item_course_hole_course_id);
+            txtvTee             = itemView.findViewById(R.id.txtv_row_item_course_hole_tee);
+            txtvPar             = itemView.findViewById(R.id.txtv_row_item_course_hole_par);
+            bttnIncrease        = itemView.findViewById(R.id.bttn_row_item_course_hole_par_increase);
+            bttnDecrease        = itemView.findViewById(R.id.bttn_row_item_course_hole_par_decrease);
 
             setIncreaseOnClick();
             setDecreaseOnClick();

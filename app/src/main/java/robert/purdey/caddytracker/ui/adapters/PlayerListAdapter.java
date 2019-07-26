@@ -125,8 +125,8 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
             super(itemView);
 
             playerLayout     = itemView.findViewById(R.id.row_item_frolf_group_member);
-            txtvPlayerId     = itemView.findViewById(R.id.txtv_player_id);
-            txtvPlayerHandle = itemView.findViewById(R.id.txtv_handle);
+            txtvPlayerId     = itemView.findViewById(R.id.txtv_row_item_frolf_group_member_player_id);
+            txtvPlayerHandle = itemView.findViewById(R.id.txtv_row_item_frolf_group_member_handle);
         }
     }
 }

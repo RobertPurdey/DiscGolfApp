@@ -7,14 +7,14 @@
 
     <!-- Player ID -->
     <TextView
-        android:id="@+id/txtv_player_id"
+        android:id="@+id/txtv_row_item_frolf_group_member_player_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"/>
 
     <!-- Handle -->
     <TextView
-        android:id="@+id/txtv_handle"
+        android:id="@+id/txtv_row_item_frolf_group_member_handle"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:text="Handle"

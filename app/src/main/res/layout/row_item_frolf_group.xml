@@ -5,14 +5,14 @@
 
     <!-- Group ID -->
     <TextView
-        android:id="@+id/txtv_group_id"
+        android:id="@+id/txtv_row_item_frolf_group_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"/>
 
     <!-- Name -->
     <TextView
-        android:id="@+id/txtv_group_name"
+        android:id="@+id/txtv_row_item_frolf_group_name"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:text="Name"

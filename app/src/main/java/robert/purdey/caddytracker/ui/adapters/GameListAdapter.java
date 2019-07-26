@@ -53,6 +53,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameVi
             holder.txtvGameId.setText(current.getIdKey().toString());
             holder.txtvGameName.setText(current.getName());
             holder.txtvCourseName.setText(current.getCourseName());
+            holder.txtvGroupName.setText(current.getGroupName());
             holder.txtvCreatedDate.setText(date);
 
             if (clickListener != null)
@@ -67,8 +68,9 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameVi
             // Covers the case of data not being ready yet.
             holder.txtvGameId.setText("");
             holder.txtvCreatedDate.setText("");
-            holder.txtvGameName.setText("Retrieving group data...");
-            holder.txtvCourseName.setText("Retrieving group data...");
+            holder.txtvGameName.setText("Retrieving game data...");
+            holder.txtvCourseName.setText("Retrieving game data...");
+            holder.txtvGroupName.setText("Retrieving game data...");
         }
     }
 
@@ -93,6 +95,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameVi
         private final TextView txtvGameName;
         private final TextView txtvCreatedDate;
         private final TextView txtvCourseName;
+        private final TextView txtvGroupName;
 
         private final SimpleDateFormat dateFormatter;
 
@@ -100,10 +103,11 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameVi
         {
             super(itemView);
 
-            txtvGameId              = itemView.findViewById(R.id.txtv_row_game_id);
-            txtvGameName            = itemView.findViewById(R.id.txtv_row_game_name);
-            txtvCreatedDate         = itemView.findViewById(R.id.txtv_row_game_created_date);
-            txtvCourseName          = itemView.findViewById(R.id.txtv_row_game_course_name);
+            txtvGameId              = itemView.findViewById(R.id.txtv_row_item_game_id);
+            txtvGameName            = itemView.findViewById(R.id.txtv_row_item_game_name);
+            txtvCreatedDate         = itemView.findViewById(R.id.txtv_row_item_game_created_date);
+            txtvCourseName          = itemView.findViewById(R.id.txtv_row_item_game_course_name);
+            txtvGroupName           = itemView.findViewById(R.id.txtv_row_item_game_group_name);
 
             dateFormatter = new SimpleDateFormat();
             // todo: how to make local date (default timezone was not working.. could be an emulator phone setting)

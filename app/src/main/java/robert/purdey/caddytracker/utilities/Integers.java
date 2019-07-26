@@ -7,7 +7,8 @@ public class Integers
 {
     public static String SignInt(int n)
     {
-        String sign = n < 0 ? "-" : "+";
-        return sign + n;
+        return n >= 0
+            ? "+" + n
+            : ""  + n;
     }
 }

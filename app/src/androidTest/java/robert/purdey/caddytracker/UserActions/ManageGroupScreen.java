@@ -5,8 +5,11 @@ import robert.purdey.caddytracker.ViewAssertions.RecyclerViewItemCountAssertion;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static robert.purdey.caddytracker.EsspressoHelper.atPositionOnView;
 
 public class ManageGroupScreen
 {
@@ -26,5 +29,11 @@ public class ManageGroupScreen
     {
         onView( withId(R.id.rcvw_frolf_group_recycle_view) )
             .perform( actionOnItemAtPosition(position, click() ) );
+    }
+
+    public static void matchGroupListName(final int pos, String groupName)
+    {
+        onView( withId(R.id.rcvw_frolf_group_recycle_view) )
+            .check( matches( atPositionOnView(pos, withText(groupName), R.id.txtv_row_item_frolf_group_name) ) );
     }
 }

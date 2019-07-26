@@ -18,6 +18,7 @@ public class GameModel
 
     public String Name;
     public String CourseName;
+    public String GroupName;
 
     public int CoursePar;
     public int CourseHoleCount;
@@ -65,6 +66,16 @@ public class GameModel
     public String getCourseName()
     {
         return CourseName;
+    }
+
+    public String getGroupName()
+    {
+        return GroupName;
+    }
+
+    public void setGroupName(String groupName)
+    {
+        GroupName = groupName;
     }
 
     public GameState getState()

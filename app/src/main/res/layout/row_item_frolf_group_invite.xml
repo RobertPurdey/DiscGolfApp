@@ -32,7 +32,7 @@
     <!-- Inviter name -->
     <TextView
         android:id="@+id/txtv_row_item_frolf_group_inviter_handle"
-        android:layout_width="75dp"
+        android:layout_width="100dp"
         android:layout_height="18dp"
         android:text="Player Name"
         android:textSize="15dp"

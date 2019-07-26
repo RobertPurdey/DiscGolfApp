@@ -11,6 +11,7 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static robert.purdey.caddytracker.EsspressoHelper.atPositionOnView;
 
 public class FrolfGroupRecordScreen
 {
@@ -22,10 +23,15 @@ public class FrolfGroupRecordScreen
         clickSaveGroup();
     }
 
-    public static void validateFrolfGroupRecord(String expectedGroupName, int expectedMemberCount)
+    public static void validateFrolfGroupRecord(
+        String expectedGroupName,
+        String firstHandle,
+        String secondHandle)
     {
         matchGroupName(expectedGroupName);
-        countMembers(expectedMemberCount);
+        countMembers(2);
+        matchMemberHandle(0, firstHandle);
+        matchMemberHandle(1, secondHandle);
     }
 
     public static void matchGroupName(String expectedGroupName)
@@ -76,5 +82,11 @@ public class FrolfGroupRecordScreen
     {
         setFriendCode(friendCode);
         clickSendInvite();
+    }
+
+    public static void matchMemberHandle(final int pos, String expectedHandle)
+    {
+        onView( withId(R.id.rcvw_fragment_frolf_group_members) )
+            .check( matches( atPositionOnView(pos, withText(expectedHandle), R.id.txtv_row_item_frolf_group_member_handle) ) );
     }
 }
