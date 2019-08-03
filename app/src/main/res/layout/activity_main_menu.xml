@@ -58,16 +58,4 @@
         android:layout_marginBottom="20dp"
         android:onClick="onClickAccount"/>
 
-    <!-- Help button -->
-    <Button
-        android:id="@+id/help"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:background="@color/button_green"
-        android:layout_below="@+id/bttn_activity_main_menu_account"
-        android:text="@string/help_app"
-        android:layout_marginBottom="20dp"
-        android:onClick="onClickHelp"/>
-
 </RelativeLayout>

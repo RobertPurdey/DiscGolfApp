@@ -35,6 +35,7 @@
             android:layout_margin="5dp"
             android:background="@android:color/white"
             android:hint="@string/name"
+            android:paddingLeft="10dp"
             android:text="@={frolfGroupRecordViewModel.groupName}"/>
 
 
@@ -48,6 +49,7 @@
             android:layout_below="@+id/etxt_activity_frolf_group_record_group_name"
             android:background="@android:color/white"
             android:hint="@string/friend_code"
+            android:paddingLeft="10dp"
             android:text="@={frolfGroupRecordViewModel.friendCode}"/>
 
         <!-- Add friend bttn -->
@@ -104,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
-            android:text="@string/create"
+            android:text="@string/save"
             android:background="@color/button_green"
             android:textColor="@color/white"
             android:onClick="onCreateFrolfGroup"
