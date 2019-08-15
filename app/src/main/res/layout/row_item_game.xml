@@ -70,7 +70,7 @@
     <!-- Created Date -->
     <TextView
         android:id="@+id/txtv_row_item_game_created_date"
-        android:layout_width="110dp"
+        android:layout_width="match_parent"
         android:layout_height="20dp"
         android:text=""
         android:textSize="12dp"

@@ -130,8 +130,8 @@ public class ScoreGameActivity extends AppCompatActivity
                             @Override
                             public void onResponseSuccessful()
                             {
+                                triggerGameUpdate(true);
                                 completeGameSuccessToast();
-                                startScoreCardActivity();
                             }
 
                             @Override
@@ -195,7 +195,7 @@ public class ScoreGameActivity extends AppCompatActivity
                     public void onResponseSuccessful()
                     {
                         loadNextHole(nextHole);
-                        triggerGameUpdate();
+                        triggerGameUpdate(false);
                     }
 
                     @Override
@@ -218,7 +218,7 @@ public class ScoreGameActivity extends AppCompatActivity
         }
     }
 
-    private void triggerGameUpdate()
+    private void triggerGameUpdate(boolean endGame)
     {
 
         // send new data to socket
@@ -226,7 +226,15 @@ public class ScoreGameActivity extends AppCompatActivity
         // get game update, send
         scoreGameActiveViewModel.getGameResults(scoreGameActiveViewModel.Game.getValue().getIdKey()).observe(
             this,
-            gameResultModel -> announcer.SendGameUpdate(gameResultModel));
+            (gameResultModel) ->
+            {
+                announcer.SendGameUpdate(gameResultModel);
+
+                if (endGame)
+                {
+                    startScoreCardActivity();
+                }
+            });
     }
 
     private void loadNextHole(int nextHole)

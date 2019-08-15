@@ -86,20 +86,20 @@ public class SmokeTest
     public ActivityTestRule<LoginActivity> mainMenuActivityRule = new ActivityTestRule<>(LoginActivity.class);
 
     // User A
-    private String loginNameA    = "111111";
+    private String loginNameA    = "bbryyy";
     private String handleA       = "honey lover";
     private String passwordA     = "compassion";
     private String confPasswordA = "compassion";
 
     // User B
-    private String loginNameB       = "222222";
+    private String loginNameB       = "mmarkkk";
     private String handleB          = "the dreamer";
     private String passwordB        = "adventure";
     private String confPasswordB    = "adventure";
     private String friendCodeB      = "";
 
     // User C
-    private String loginNameC       = "333333";
+    private String loginNameC       = "ttayyy";
     private String handleC          = "slow and steady";
     private String passwordC        = "chiller";
     private String confPasswordC    = "chiller";
@@ -107,7 +107,6 @@ public class SmokeTest
 
     // Expectations
     private int expGroupCount  = 1;
-    private int expMemberCount = 2;
 
     // Positions
     private int pos0 = 0;
@@ -145,7 +144,7 @@ public class SmokeTest
         goToCreateAccount();                                                                safeSleep(1000);
         createAccount(loginNameC, handleC, passwordC, confPasswordC);                       safeSleep(3000);
 
-        // User B logs in, his friend code is copied. Returns to the login screen.
+        // User B logs in, the friend code is copied. Returns to the login screen.
         login(loginNameB, passwordB);                                                       safeSleep(4000);
         goToAccountInfo();                                                                  safeSleep(1000);
         validateAccountInfo(loginNameB, handleB);
@@ -153,7 +152,7 @@ public class SmokeTest
         pressBack();                                                                        safeSleep(500);
         pressBack();                                                                        safeSleep(500);
 
-        // User C logs in, his friend code is copied. Returns to the login screen.
+        // User C logs in, the friend code is copied. Returns to the login screen.
         login(loginNameC, passwordC);                                                       safeSleep(4000);
         goToAccountInfo();                                                                  safeSleep(1000);
         validateAccountInfo(loginNameC, handleC);
@@ -217,7 +216,7 @@ public class SmokeTest
         // Create course
         clickCourses();                                                                     safeSleep(3000);
         clickNewCourse();                                                                   safeSleep(1000);
-        setCourseName(courseNameA);                                                         safeSleep(200);
+        setCourseName(courseNameA);                                                         safeSleep(2000);
         pressBack();                                                                        safeSleep(1000);
 
         // Check default hole tee
@@ -273,7 +272,7 @@ public class SmokeTest
         pressBack();                                                                        safeSleep(1000);
 
         // Validate/check course can be found
-        clickCourses();                                                                     safeSleep(1000);
+        clickCourses();                                                                     safeSleep(2000);
         validateCourseListItem(pos0, courseNameA, "6", "2");
         countCourses(expCourseCount);
         goToCourse(pos0);                                                                   safeSleep(3000);
