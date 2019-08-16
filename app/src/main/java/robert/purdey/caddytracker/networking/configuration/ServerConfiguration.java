@@ -2,8 +2,8 @@ package robert.purdey.caddytracker.networking.configuration;
 
 public final class ServerConfiguration
 {
-    //public static final String API_ROUTE = "https://www.whatsfrolf.com/";
-    public static final String API_ROUTE = "http://192.168.1.67:53740/";
+   // public static final String API_ROUTE = "https://www.whatsfrolf.com/";
+    public static final String API_ROUTE = "https://192.168.1.67:4434/";
     // local api = "http://192.168.1.67:53740/";
     // aws api   = "http://54.241.250.34:80/";
 

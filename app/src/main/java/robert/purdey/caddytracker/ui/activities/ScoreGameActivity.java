@@ -11,6 +11,7 @@ import robert.purdey.caddytracker.ui.helpers.Toaster;
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.viewmodels.ScoreGameActivityViewModel;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -72,6 +73,11 @@ public class ScoreGameActivity extends AppCompatActivity
         GameHoleScoresFragment fragment = getGameHoleScoreFrag();
         scoreGameActiveViewModel.setCurrentHole(holeNumber);
         fragment.Load(gameId, holeNumber);
+    }
+
+    public void onViewCurrentScore(View view)
+    {
+        ActivityStarter.startScoreCardActivity(this, scoreGameActiveViewModel.getGameId());
     }
 
     public void onNextHoleClick(View view)

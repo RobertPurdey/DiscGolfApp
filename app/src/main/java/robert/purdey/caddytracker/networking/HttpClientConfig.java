@@ -31,7 +31,7 @@ public class HttpClientConfig implements IHttpClientConfig
             okHttpClientBuilder.authenticator(apiAuth);
         }
 
-        return okHttpClientBuilder.build();
+        return OkHttpDefault.getOkHttpClientDefaults(okHttpClientBuilder);
     }
 
     // todo: should use a validator?? when  it gets more complex
