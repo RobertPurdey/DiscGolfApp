@@ -40,7 +40,7 @@ public class GameResultsActivity extends AppCompatActivity
     private void setFragmentClick(GameListFragment fragment)
     {
         fragment.SetGameClickListener( (view, id) ->
-            ActivityStarter.startScoreCardActivity(this, id)
+            ActivityStarter.startScoreCardActivity(this, id, false)
         );
     }
 }

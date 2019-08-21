@@ -72,6 +72,12 @@
             android:text="@string/create_account"
             android:onClick="onCreateAccount"/>
 
+        <ImageView
+            android:id="@+id/image_activity_login_logo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/bttn_activity_login_create_account"
+            android:src="@drawable/logo_transparent"/>
     </RelativeLayout>
 
 </layout>

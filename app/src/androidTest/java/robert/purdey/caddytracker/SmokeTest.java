@@ -86,20 +86,20 @@ public class SmokeTest
     public ActivityTestRule<LoginActivity> mainMenuActivityRule = new ActivityTestRule<>(LoginActivity.class);
 
     // User A
-    private String loginNameA    = "bbryyy";
+    private String loginNameA    = "rib";
     private String handleA       = "honey lover";
     private String passwordA     = "compassion";
     private String confPasswordA = "compassion";
 
     // User B
-    private String loginNameB       = "mmarkkk";
+    private String loginNameB       = "bib";
     private String handleB          = "the dreamer";
     private String passwordB        = "adventure";
     private String confPasswordB    = "adventure";
     private String friendCodeB      = "";
 
     // User C
-    private String loginNameC       = "ttayyy";
+    private String loginNameC       = "bob";
     private String handleC          = "slow and steady";
     private String passwordC        = "chiller";
     private String confPasswordC    = "chiller";
@@ -149,16 +149,16 @@ public class SmokeTest
         goToAccountInfo();                                                                  safeSleep(1000);
         validateAccountInfo(loginNameB, handleB);
         friendCodeB = getFriendCode();
-        pressBack();                                                                        safeSleep(500);
-        pressBack();                                                                        safeSleep(500);
+        pressBack();                                                                        safeSleep(1000);
+        pressBack();                                                                        safeSleep(1000);
 
         // User C logs in, the friend code is copied. Returns to the login screen.
         login(loginNameC, passwordC);                                                       safeSleep(4000);
         goToAccountInfo();                                                                  safeSleep(1000);
         validateAccountInfo(loginNameC, handleC);
         friendCodeC = getFriendCode();
-        pressBack();                                                                        safeSleep(500);
-        pressBack();                                                                        safeSleep(500);
+        pressBack();                                                                        safeSleep(1000);
+        pressBack();                                                                        safeSleep(1000);
 
         // User A logs in, creates a new frolf group, A. A. Milne, and
         // invites User B and C. Returns to the login screen.

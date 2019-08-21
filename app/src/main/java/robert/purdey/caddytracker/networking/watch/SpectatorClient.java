@@ -38,7 +38,7 @@ public class SpectatorClient
 
     public SpectatorClient(UUID gameId, IGameUpdateCallback gameCallback)
     {
-        serverIpAddress   = ServerConfiguration.BROADCASTER_IP;
+        serverIpAddress   = "";//ServerConfiguration.BROADCASTER_IP;
 
         this.gameId       = gameId;
         this.gameCallback = gameCallback;

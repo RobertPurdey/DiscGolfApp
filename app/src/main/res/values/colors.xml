@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#159604</color>
+    <color name="colorPrimaryDark">#2d2d2d</color>
     <color name="colorAccent">#FF4081</color>
     <color name="background_gray">#2d2d2d</color>
     <color name="background_lighter_gray">#201d1d</color>
@@ -11,8 +11,8 @@
     <color name="button_red">#d44949</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
-    <color name="error_red">#FF8484</color>
-    <color name="success_green">#84FF86</color>
+    <color name="error_red">#FF3434</color>
+    <color name="success_green">#3EFF49</color>
 
     <!-- Table coloring -->
     <!-- Material Design TableView Colors -->

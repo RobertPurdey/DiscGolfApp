@@ -7,6 +7,7 @@ public class PlayerGameResultModel
     public String PlayerName;
     public int TotalStrokes;
     public int TotalScore;
+    public int Rank;
     public Map<Integer, Integer> Strokes;
     public Map<Integer, Integer> Scores;
 
@@ -38,6 +39,16 @@ public class PlayerGameResultModel
     public void setTotalScore(int totalScore)
     {
         TotalScore = totalScore;
+    }
+
+    public int getRank()
+    {
+        return Rank;
+    }
+
+    public void setRank(int rank)
+    {
+        Rank = rank;
     }
 
     public Map<Integer, Integer> getStrokes()

@@ -59,9 +59,10 @@ public class ScoreCardFragment extends Fragment
 
         // order results by best score before displaying
         List<PlayerGameResultModel> playerResultModels = result.getPlayerResults();
-        Collections.sort(playerResultModels, Comparator.comparingInt(PlayerGameResultModel::getTotalScore));
+        //Collections.sort(playerResultModels, Comparator.comparingInt(PlayerGameResultModel::getTotalScore));
 
         // create columns
+        columnHeaders.add(new ScoreColumnHeaderModel("Rank"));
         columnHeaders.add(new ScoreColumnHeaderModel("Score"));
 
         // create hole columns headers
@@ -75,6 +76,7 @@ public class ScoreCardFragment extends Fragment
 
         // create row
         rowHeaders.add(new ScoreRowHeaderModel("PAR"));
+
 
         rowHeaders.addAll(playerResultModels
             .stream()
@@ -97,6 +99,7 @@ public class ScoreCardFragment extends Fragment
     {
         List<ScoreCellModel> cells = new ArrayList<>();
         cells.add(new ScoreCellModel("-"));
+        cells.add(new ScoreCellModel("-"));
 
         for (int i = 1; i <= model.getHoleCount(); i++)
         {
@@ -112,6 +115,7 @@ public class ScoreCardFragment extends Fragment
     {
         List<ScoreCellModel> cells = new ArrayList<>();
 
+        cells.add(new ScoreCellModel(model.getRank()));
         cells.add(new ScoreCellModel(model.getTotalScore()));
 
         // Scores / strokes

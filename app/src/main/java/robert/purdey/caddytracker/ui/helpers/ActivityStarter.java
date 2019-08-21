@@ -256,8 +256,8 @@ public class ActivityStarter
     {
         // todo: throw error here if no game id? you cant score without finding a game
 
-        Intent intent = new Intent(context, ScoreGameActivity.class);
-        String id     = "";
+        Intent intent    = new Intent(context, ScoreGameActivity.class);
+        String id        = "";
 
         if ( gameId != null )
         {
@@ -268,25 +268,32 @@ public class ActivityStarter
         context.startActivity(intent);
     }
 
-    /** todo: rename to score
-     * Starts Sacore Game Activity loading the game for the id passed in as gameId
+    /**
+     * Starts Score Card Activity loading the game for the id passed in as gameId
      *
      * @param context
      * @param gameId - id of game to score
      */
-    public static void startScoreCardActivity(Context context, UUID gameId)
+    public static void startScoreCardActivity(Context context, UUID gameId, boolean isRefresh)
     {
         // todo: throw error here if no game id? you cant score without finding a game
 
-        Intent intent = new Intent(context, ScoreCardActivity.class);
-        String id     = "";
+        Intent intent    = new Intent(context, ScoreCardActivity.class);
+        String id        = "";
+        String refresh   = "";
 
         if ( gameId != null )
         {
             id = gameId.toString();
         }
 
+        if (isRefresh)
+        {
+            refresh = "refresh";
+        }
+
         intent.putExtra(ScoreCardActivity.RECORD_ID, id);
+        intent.putExtra("IS_REFRESH", refresh);
         context.startActivity(intent);
     }
 

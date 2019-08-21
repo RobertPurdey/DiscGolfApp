@@ -77,7 +77,7 @@ public class ScoreGameActivity extends AppCompatActivity
 
     public void onViewCurrentScore(View view)
     {
-        ActivityStarter.startScoreCardActivity(this, scoreGameActiveViewModel.getGameId());
+        ActivityStarter.startScoreCardActivity(this, scoreGameActiveViewModel.getGameId(), true);
     }
 
     public void onNextHoleClick(View view)
@@ -104,7 +104,8 @@ public class ScoreGameActivity extends AppCompatActivity
     {
         ActivityStarter.startScoreCardActivity(
             ScoreGameActivity.this,
-            scoreGameActiveViewModel.getGameId());
+            scoreGameActiveViewModel.getGameId(),
+            false);
     }
 
     private void confirmCompleteGame() {

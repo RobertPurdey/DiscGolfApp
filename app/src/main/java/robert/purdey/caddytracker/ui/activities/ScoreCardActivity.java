@@ -2,6 +2,8 @@ package robert.purdey.caddytracker.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
@@ -12,10 +14,12 @@ import robert.purdey.caddytracker.R;
 import robert.purdey.caddytracker.ui.fragments.ScoreCardFragment;
 import robert.purdey.caddytracker.ui.models.GameResultModel;
 import robert.purdey.caddytracker.ui.viewmodels.ScoreCardViewModel;
+import robert.purdey.caddytracker.utilities.Strings;
 
 public class ScoreCardActivity extends AppCompatActivity
 {
-    public static final String RECORD_ID = "RECORD_ID";
+    public static final String RECORD_ID  = "RECORD_ID";
+
     private ScoreCardViewModel viewModel;
 
     @Override
@@ -25,9 +29,10 @@ public class ScoreCardActivity extends AppCompatActivity
         setContentView(R.layout.activity_score_card);
 
         // Attempt to get id.
-        Intent intent   = getIntent();
-        String recordId = intent.getStringExtra(ScoreGameActivity.RECORD_ID);
-        viewModel       = ViewModelProviders.of(this).get(ScoreCardViewModel.class);
+        Intent intent    = getIntent();
+        String recordId  = intent.getStringExtra(ScoreGameActivity.RECORD_ID);
+        String isRefresh = intent.getStringExtra("IS_REFRESH");
+        viewModel        = ViewModelProviders.of(this).get(ScoreCardViewModel.class);
 
         // todo: throw error if one isnt given? cant score no game :D
 
@@ -38,10 +43,25 @@ public class ScoreCardActivity extends AppCompatActivity
                 LoadScoreCard(gameResultModel)
             );
         }
+
+        if (!Strings.isNullOrEmpty(isRefresh)  && isRefresh == "refresh" )
+        {
+            Button refreshBttn = findViewById(R.id.bttn_activity_score_card_refresh);
+            refreshBttn.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void onRefresh(View view)
+    {
+        viewModel.getGameResults(viewModel.getGameId()).observe(this, gameResultModel ->
+            LoadScoreCard(gameResultModel)
+        );
     }
 
     private void LoadScoreCard(GameResultModel result)
     {
+
+
         ScoreCardFragment scoreCard = getGameHoleScoreFrag();
         scoreCard.LoadScoreCard(result);
     }

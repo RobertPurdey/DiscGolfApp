@@ -21,10 +21,11 @@ public class LoginActivity extends AppCompatActivity
     // todo: what to do with this??
     private TokenModel receivedLoginTokenModel;
     private LoginViewModel loginViewModel;
+    private boolean isWaiting;
 
     public LoginActivity()
     {
-
+        isWaiting = false;
     }
 
     @Override
@@ -37,6 +38,8 @@ public class LoginActivity extends AppCompatActivity
 
         ActivityLoginBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
+        isWaiting = false;
+
         binding.setLoginViewModel(loginViewModel);
         binding.setLifecycleOwner(this);
     }
@@ -48,64 +51,72 @@ public class LoginActivity extends AppCompatActivity
      */
     public void onLoginUser(View view)
     {
-        loginViewModel.login(new IApiResponseListener()
+        if ( !isWaiting )
         {
-            @Override
-            public void onResponseSuccessful()
+            isWaiting = true;
+
+            loginViewModel.login(new IApiResponseListener()
             {
-                loginViewModel.setRsaKeys(new IApiResponseListener()
+                @Override
+                public void onResponseSuccessful()
                 {
-                    @Override
-                    public void onResponseSuccessful()
+                    loginViewModel.setRsaKeys(new IApiResponseListener()
                     {
-                        loginViewModel.storeCurrentUserInfo(new IApiResponseListener()
+                        @Override
+                        public void onResponseSuccessful()
                         {
-                            @Override
-                            public void onResponseSuccessful()
+                            loginViewModel.storeCurrentUserInfo(new IApiResponseListener()
                             {
-                                ActivityStarter.startMainMenuActivity(LoginActivity.this);
-                            }
+                                @Override
+                                public void onResponseSuccessful()
+                                {
+                                    isWaiting = false;
+                                    ActivityStarter.startMainMenuActivity(LoginActivity.this);
+                                }
 
-                            @Override
-                            public void onResponseFailed()
-                            {
+                                @Override
+                                public void onResponseFailed()
+                                {
+                                    isWaiting = false;
+                                }
 
-                            }
+                                @Override
+                                public void onCallFailure()
+                                {
+                                    isWaiting = false;
+                                }
+                            });
+                        }
 
-                            @Override
-                            public void onCallFailure()
-                            {
+                        @Override
+                        public void onResponseFailed()
+                        {
+                            isWaiting = false;
+                        }
 
-                            }
-                        });
-                    }
+                        @Override
+                        public void onCallFailure()
+                        {
+                            isWaiting =false;
+                        }
+                    });
+                }
 
-                    @Override
-                    public void onResponseFailed()
-                    {
+                @Override
+                public void onResponseFailed()
+                {
+                    loginFailedToastShow();
+                    isWaiting = false;
+                }
 
-                    }
-
-                    @Override
-                    public void onCallFailure()
-                    {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onResponseFailed()
-            {
-                loginFailedToastShow();
-            }
-
-            @Override
-            public void onCallFailure()
-            {
-                loginFailedToastShow();
-            }
-        });
+                @Override
+                public void onCallFailure()
+                {
+                    loginFailedToastShow();
+                    isWaiting = false;
+                }
+            });
+        }
     }
 
     private void loginFailedToastShow()
