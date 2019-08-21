@@ -39,12 +39,15 @@ public class ScoreCardActivity extends AppCompatActivity
         // get record data when set
         if ( !recordId.equals("") )
         {
-            viewModel.getGameResults(UUID.fromString(recordId)).observe(this, gameResultModel ->
+            UUID gameId = UUID.fromString(recordId);
+
+            viewModel.setGameId(gameId);
+            viewModel.getGameResults(gameId).observe(this, gameResultModel ->
                 LoadScoreCard(gameResultModel)
             );
         }
 
-        if (!Strings.isNullOrEmpty(isRefresh)  && isRefresh == "refresh" )
+        if (!Strings.isNullOrEmpty(isRefresh)  && isRefresh.equals("refresh") )
         {
             Button refreshBttn = findViewById(R.id.bttn_activity_score_card_refresh);
             refreshBttn.setVisibility(View.VISIBLE);
@@ -60,8 +63,6 @@ public class ScoreCardActivity extends AppCompatActivity
 
     private void LoadScoreCard(GameResultModel result)
     {
-
-
         ScoreCardFragment scoreCard = getGameHoleScoreFrag();
         scoreCard.LoadScoreCard(result);
     }

@@ -14,10 +14,10 @@
     <!-- Refresh -->
     <Button
         android:id="@+id/bttn_activity_score_card_refresh"
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="30dp"
         android:textColor="@color/white"
-        android:background="@color/button_green2"
+        android:background="@color/button_green"
         android:text="@string/refresh"
         android:textSize="13dp"
         android:visibility="gone"

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#159604</color>
+    <!-- #159604 -->
+    <color name="colorPrimary">#EA9215</color>
     <color name="colorPrimaryDark">#2d2d2d</color>
     <color name="colorAccent">#FF4081</color>
     <color name="background_gray">#2d2d2d</color>
     <color name="background_lighter_gray">#201d1d</color>
-    <color name="button_green">#159604</color>
-    <color name="selection_green">#8065ff5d</color>
+    <color name="button_green">#EA9215</color>
+    <color name="selection_green">#B9FF9B2D</color>
     <color name="button_green2">#50d449</color>
     <color name="button_red">#d44949</color>
     <color name="white">#ffffff</color>
