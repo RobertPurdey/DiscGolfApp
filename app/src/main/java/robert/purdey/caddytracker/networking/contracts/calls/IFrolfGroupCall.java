@@ -33,11 +33,6 @@ public interface IFrolfGroupCall
         @Header("Authorization") String auth,
         @Body EncryptModel groupModel);
 
-    @POST("api/frolfgroups/creategame/")
-    Call<EncryptModel> createGame(
-        @Header("Authorization") String auth,
-        @Body EncryptModel creationModel);
-
     @POST("api/frolfgroups/leave/")
     Call<Void> leaveGroup(
         @Header("Authorization") String auth,

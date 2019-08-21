@@ -76,6 +76,7 @@
     <!-- Confirm Messages -->
     <string name="remove_player_confirm">Are you sure you want to remove this player? The player\'s group data cannot be recovered.</string>
     <string name="complete_game_confirm">Are you sure you want to complete this game? Once completed the game cannot be modified.</string>
+    <string name="leave_group_confirm">Are you sure you want to leave the group? Your group data cannot be recovered.</string>
 
     <!-- Toast Messages -->
     <string name="login_failed_msg">Failed to login. The username and/or password may be incorrect.</string>

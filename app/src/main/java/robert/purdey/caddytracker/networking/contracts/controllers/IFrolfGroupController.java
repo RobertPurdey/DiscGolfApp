@@ -7,8 +7,6 @@ import java.util.UUID;
 
 import robert.purdey.caddytracker.ui.listeners.IApiResponseListener;
 import robert.purdey.caddytracker.ui.models.FrolfGroupModel;
-import robert.purdey.caddytracker.ui.models.GameCreationModel;
-import robert.purdey.caddytracker.ui.models.GameModel;
 import robert.purdey.caddytracker.ui.models.PlayerModel;
 
 public interface IFrolfGroupController
@@ -18,7 +16,6 @@ public interface IFrolfGroupController
     MutableLiveData<List<PlayerModel>> getGroupMembers(UUID groupId);
     MutableLiveData<FrolfGroupModel> insert(FrolfGroupModel model);
     void update(FrolfGroupModel model);
-    MutableLiveData<GameModel> createGame(GameCreationModel model);
     void leaveGroup(UUID groupId, IApiResponseListener listener);
     void removePlayer(UUID groupId, UUID playerId, IApiResponseListener listener);
 }

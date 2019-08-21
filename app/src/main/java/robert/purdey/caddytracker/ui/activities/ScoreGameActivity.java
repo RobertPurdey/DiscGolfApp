@@ -63,7 +63,7 @@ public class ScoreGameActivity extends AppCompatActivity
                 courseName.setText(gameModel.getCourseName());
                 LoadHoleScores(gameModel.getIdKey(), 1);
 
-                announcer = new AnnouncerClient(gameModel.getIdKey());
+                //announcer = new AnnouncerClient(gameModel.getIdKey());
             });
         }
     }
@@ -234,7 +234,7 @@ public class ScoreGameActivity extends AppCompatActivity
             this,
             (gameResultModel) ->
             {
-                announcer.SendGameUpdate(gameResultModel);
+                //announcer.SendGameUpdate(gameResultModel);
 
                 if (endGame)
                 {

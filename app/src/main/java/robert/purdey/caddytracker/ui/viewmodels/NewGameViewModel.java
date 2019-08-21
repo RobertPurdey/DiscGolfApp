@@ -10,8 +10,8 @@ import java.util.UUID;
 
 import robert.purdey.caddytracker.networking.HttpClientConfig;
 import robert.purdey.caddytracker.networking.RetrofitConfig;
-import robert.purdey.caddytracker.networking.contracts.controllers.IFrolfGroupController;
-import robert.purdey.caddytracker.networking.controllers.FrolfGroupController;
+import robert.purdey.caddytracker.networking.contracts.controllers.IGameController;
+import robert.purdey.caddytracker.networking.controllers.GameController;
 import robert.purdey.caddytracker.networking.services.ApiCallService;
 import robert.purdey.caddytracker.ui.models.GameCreationModel;
 import robert.purdey.caddytracker.ui.models.GameModel;
@@ -19,7 +19,7 @@ import robert.purdey.caddytracker.ui.models.GameModel;
 public class NewGameViewModel extends ViewModel
 {
     private MutableLiveData<GameCreationModel> creationModel;
-    private IFrolfGroupController frolfGroupController;
+    private IGameController gameController;
     public MutableLiveData<String> gameName;
 
     public NewGameViewModel()
@@ -30,7 +30,7 @@ public class NewGameViewModel extends ViewModel
             new HttpClientConfig()
         );
 
-        frolfGroupController = new FrolfGroupController(apiCallService);
+        gameController       = new GameController(apiCallService);
         creationModel        = new MutableLiveData<>();
         gameName             = new MutableLiveData<>();
 
@@ -41,7 +41,7 @@ public class NewGameViewModel extends ViewModel
     {
         creationModel.getValue().setName(gameName.getValue());
 
-        return frolfGroupController.createGame(creationModel.getValue());
+        return gameController.createGame(creationModel.getValue());
     }
 
     public void setCourse(UUID id)

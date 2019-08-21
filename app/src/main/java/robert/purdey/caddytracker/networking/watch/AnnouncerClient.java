@@ -37,7 +37,7 @@ public class AnnouncerClient
 
     public AnnouncerClient(UUID gameId)
     {
-        serverIpAddress = ServerConfiguration.BROADCASTER_IP;
+        serverIpAddress = "";//ServerConfiguration.BROADCASTER_IP;
 
         Thread cThread  = new Thread(new AnnouncerClient.MakeConnection());
         this.gameId     = gameId;

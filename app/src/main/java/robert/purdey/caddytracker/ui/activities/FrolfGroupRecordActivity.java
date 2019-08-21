@@ -35,7 +35,6 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
 
     }
 
-    // todo: takes a model upon opening if its a new model (no id) its create, otherwise its an update (fetch data)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -134,6 +133,21 @@ public class FrolfGroupRecordActivity extends AppCompatActivity
     }
 
     public void onLeaveGroup(View view)
+    {
+        confirmLeaveGroup();
+    }
+
+    private void confirmLeaveGroup() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder
+            .setMessage(R.string.leave_group_confirm)
+            .setPositiveButton(R.string.yes, (dialog, id) -> leaveGroup() )
+            .setNegativeButton(R.string.no,  (dialog, id) -> dialog.cancel() )
+            .show();
+    }
+
+    private void leaveGroup()
     {
         if ( frolfGroupRecordViewModel.groupId.getValue() != null )
         {

@@ -47,4 +47,9 @@ public interface IGameCall
     Call<Void> completeGame(
         @Header("Authorization") String auth,
         @Body EncryptModel id);
+
+    @POST("api/games/creategame/")
+    Call<EncryptModel> createGame(
+        @Header("Authorization") String auth,
+        @Body EncryptModel creationModel);
 }
